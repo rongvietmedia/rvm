@@ -219,6 +219,41 @@ footer .disc{max-width:900px}
 .msg.ok{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.35);color:#c9f2d8}
 .small{font-size:12px;color:var(--dim)}
 
+/* mua / gia hạn / VietQR */
+.seg{display:flex;gap:6px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:5px;margin:0 36px 16px 0}
+.seg button{flex:1;font:inherit;font-weight:700;font-size:14px;color:var(--mut);background:none;border:0;border-radius:10px;padding:10px;cursor:pointer}
+.seg button.on{background:var(--panel2);color:var(--txt);box-shadow:inset 0 0 0 1px var(--line2)}
+.planbar{display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(255,59,48,.08);border:1px solid rgba(255,59,48,.4);border-radius:14px;padding:12px 16px;margin-bottom:16px}
+.planbar .pl{display:flex;align-items:center;gap:10px;font-weight:700}
+.planbar .pl span{color:var(--mut);font-size:13px;font-weight:600}
+.planbar select{font:inherit;font-weight:800;font-size:17px;color:var(--txt);background:transparent;border:0;outline:none;cursor:pointer}
+.planbar select option{background:var(--bg2)}
+.planbar b{font-size:20px;color:var(--acc2)}
+.f .hint{font-weight:500;color:var(--dim)}
+.f input::placeholder{text-transform:none}
+.small.center{text-align:center}
+.qrbox{background:#fff;border-radius:16px;padding:12px;width:max-content;max-width:100%;margin:4px auto 0}
+.qrbox img{width:260px;height:auto;max-width:100%;display:block}
+.amt{text-align:center;font-size:30px;font-weight:800;margin:16px 0 8px;letter-spacing:-.5px}
+.kv{display:grid;margin:6px 0 14px}
+.kv>div{display:flex;align-items:center;gap:10px;padding:12px 2px;border-bottom:1px solid var(--line);font-size:14px}
+.kv span{color:var(--mut);flex:1}
+.kv b{font-family:ui-monospace,Consolas,monospace;font-size:15px;text-align:right;word-break:break-all}
+.kv b.hl{color:var(--acc2);font-size:17px;letter-spacing:1px}
+.kv .cp{font:inherit;font-size:12px;font-weight:700;color:var(--txt);background:var(--panel2);border:1px solid var(--line2);border-radius:8px;padding:4px 9px;cursor:pointer}
+.wait{display:flex;align-items:center;gap:10px;color:#cdd3de;font-size:14px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px}
+.spin{flex:none;width:16px;height:16px;border-radius:50%;border:2px solid var(--line2);border-top-color:var(--acc);animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.done{text-align:center}
+.done .big{font-size:54px;line-height:1}
+.done h3{margin:10px 0 6px}
+.done .kv{text-align:left}
+.done ol.nx{text-align:left;color:#cdd3de;font-size:14px;margin:4px 0 18px 20px;display:grid;gap:6px}
+.paybar{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:70;display:none;align-items:center;gap:12px;background:var(--bg2);border:1px solid rgba(255,59,48,.5);border-radius:14px;padding:10px 12px 10px 16px;box-shadow:0 20px 40px -12px rgba(0,0,0,.8);font-size:14px;max-width:calc(100% - 32px)}
+.paybar.on{display:flex}
+.paybar .x2{background:none;border:0;color:var(--mut);cursor:pointer;font-size:14px}
+@media (max-width:560px){.paybar{left:16px;right:16px;transform:none;flex-wrap:wrap}}
+
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(30px);opacity:0;z-index:120;background:#0f1a14;border:1px solid rgba(34,197,94,.45);color:#c9f2d8;padding:11px 16px;border-radius:12px;font-size:14px;transition:.25s;pointer-events:none}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 

@@ -26,6 +26,7 @@
       <a href="#tinh-nang">Tính năng</a>
       <a href="#bang-gia">Bảng giá</a>
       <a href="#hoi-dap">Hỏi đáp</a>
+      <a href="#" data-open="order" data-mode="renew">Gia hạn</a>
       <a href="doi-tac.html">Đối tác 💰</a>
     </nav>
     <a class="btn btn-p btn-sm cta-top" href="#bang-gia">Mua bản quyền</a>
@@ -171,7 +172,7 @@
       <p class="lead">Không giới hạn số kênh trên máy. Vào nhẹ một tháng, thấy hợp thì đi dài để có giá tốt nhất.</p>
     </div>
     <div class="plans" id="plans"></div>
-    <div class="note reveal"><b>Dùng trên nhiều máy?</b> Bản quyền tính theo từng máy — chọn số máy khi đăng ký, tổng tiền tự nhân lên. Đội từ 5 máy trở lên, nhắn <a data-zalo href="#"><b>Zalo</b></a> để nhận báo giá riêng.</div>
+    <div class="note reveal"><b>Dùng trên nhiều máy?</b> Mỗi tài khoản gắn với 1 máy — tạo thêm tài khoản cho từng máy (mỗi máy một email). Đội từ 5 máy trở lên, nhắn <a data-zalo href="#"><b>Zalo</b></a> để nhận báo giá riêng.</div>
     <div class="note w reveal"><b>Proxy mua riêng.</b> RVM không bán kèm proxy. Trong phần mềm có nút dẫn tới nhà cung cấp và hướng dẫn chọn loại proxy phù hợp (ưu tiên residential/ISP sạch).</div>
   </div>
 </section>
@@ -219,7 +220,8 @@
       <details><summary>Bản quyền tính như thế nào?</summary><p>Mỗi bản quyền gắn với một máy tính. Bạn nhận một tài khoản đăng nhập, phần mềm tự kích hoạt trên máy đó. Cần chuyển sang máy mới, nhắn chúng tôi để được hỗ trợ.</p></details>
       <details><summary>Hết hạn thì dữ liệu kênh có mất không?</summary><p>Không mất. Dữ liệu vẫn nằm trên máy bạn ở dạng mã hoá; gia hạn xong đăng nhập lại là dùng tiếp như cũ. Bạn cũng nên sao lưu định kỳ bằng nút Sao lưu.</p></details>
       <details><summary>Cập nhật phiên bản mới có mất dữ liệu không?</summary><p>Không. Khi có bản mới, RVM tự hiện thông báo; bạn bấm cập nhật, phần mềm tải và cài lại, toàn bộ kênh và cấu hình giữ nguyên.</p></details>
-      <details><summary>Thanh toán và nhận tài khoản thế nào?</summary><p>Bấm "Chọn gói" và để lại tên, số điện thoại. Chúng tôi liên hệ qua Zalo/điện thoại để gửi thông tin thanh toán; thanh toán xong bạn nhận tài khoản đăng nhập và file cài đặt.</p></details>
+      <details><summary>Thanh toán và nhận tài khoản thế nào?</summary><p>Bấm "Chọn gói", điền họ tên, email, số điện thoại và đặt mật khẩu, rồi quét mã VietQR bằng app ngân hàng. Tiền về là tài khoản được kích hoạt tự động trong khoảng 1 phút, kể cả ban đêm. Tên đăng nhập RVM chính là email của bạn.</p></details>
+      <details><summary>Gia hạn thế nào?</summary><p>Bấm "Gia hạn" trên thanh menu, nhập tài khoản và mật khẩu đang dùng, chọn gói rồi quét mã QR. Thời gian còn lại được giữ nguyên và cộng thêm thời gian của gói mới.</p></details>
     </div>
   </div>
 </section>
@@ -265,30 +267,70 @@
 
 <div class="fab"><a class="z" data-zalo href="#" aria-label="Nhắn Zalo">Zalo</a><a class="p" data-tel href="#" aria-label="Gọi hotline">📞</a></div>
 
-<!-- MODAL ĐẶT MUA -->
-<div class="modal" id="order" role="dialog" aria-modal="true" aria-labelledby="order-t">
+<!-- THANH TOÁN ĐANG CHỜ -->
+<div class="paybar" id="paybar"><span>⏳ Bạn có thanh toán đang chờ <b id="paybar-code"></b></span><button class="btn btn-p btn-sm" id="paybar-open" type="button">Xem mã QR</button><button class="x2" id="paybar-x" type="button" aria-label="Ẩn">✕</button></div>
+
+<!-- MODAL MUA / GIA HẠN / THANH TOÁN -->
+<div class="modal" id="order" role="dialog" aria-modal="true" aria-label="Mua bản quyền RVM">
   <div class="dlg">
     <button class="x" data-close aria-label="Đóng">✕</button>
-    <h3 id="order-t">Đăng ký bản quyền RVM</h3>
-    <p class="sub">Để lại thông tin, chúng tôi liên hệ qua Zalo/điện thoại để gửi thông tin thanh toán và tài khoản.</p>
-    <form class="f" id="order-f" novalidate>
-      <input class="hp" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <label>Họ và tên *<input name="name" required maxlength="60" autocomplete="name" placeholder="Nguyễn Văn A"></label>
-      <div class="two-c">
-        <label>Số điện thoại / Zalo *<input name="phone" required inputmode="tel" maxlength="15" autocomplete="tel" placeholder="09xx xxx xxx"></label>
-        <label>Email<input name="email" type="email" maxlength="80" autocomplete="email" placeholder="(không bắt buộc)"></label>
+
+    <div id="st-form">
+      <div class="seg"><button type="button" data-mode="buy" class="on">Mua mới</button><button type="button" data-mode="renew">Gia hạn</button></div>
+      <div class="planbar"><label class="pl"><span>Gói</span><select id="o-plan"></select></label><b id="o-price"></b></div>
+
+      <form class="f" id="buy-f" novalidate>
+        <input class="hp" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <label>Họ tên<input name="name" required maxlength="60" autocomplete="name" placeholder="Nguyễn Văn A"></label>
+        <label>Email <span class="hint">— dùng làm tên đăng nhập RVM</span><input name="email" type="email" required maxlength="80" autocomplete="email" placeholder="ban@gmail.com"></label>
+        <label>Số điện thoại<input name="phone" required inputmode="tel" maxlength="15" autocomplete="tel" placeholder="09xx xxx xxx"></label>
+        <div class="two-c">
+          <label>Mật khẩu<input name="password" type="password" required minlength="6" maxlength="64" autocomplete="new-password"></label>
+          <label>Nhập lại mật khẩu<input name="password2" type="password" required maxlength="64" autocomplete="new-password"></label>
+        </div>
+        <label>Mã giới thiệu<input name="ref" maxlength="12" placeholder="(nếu có)" style="text-transform:uppercase"></label>
+        <div class="msg" id="buy-msg"></div>
+        <button class="btn btn-p btn-block" type="submit">Tạo tài khoản &amp; lấy mã QR</button>
+        <p class="small center">Đã có tài khoản RVM? <a href="#" data-mode="renew" style="color:var(--acc2)"><b>Gia hạn tại đây</b></a> — mỗi tài khoản dùng trên 1 máy.</p>
+      </form>
+
+      <form class="f" id="renew-f" novalidate style="display:none">
+        <label>Tài khoản RVM<input name="account" required maxlength="80" autocomplete="username" placeholder="email hoặc tên tài khoản đang dùng"></label>
+        <label>Mật khẩu<input name="password" type="password" required maxlength="64" autocomplete="current-password"></label>
+        <div class="msg" id="renew-msg"></div>
+        <button class="btn btn-p btn-block" type="submit">Lấy mã QR gia hạn</button>
+        <p class="small center">Thời gian còn lại được giữ nguyên và cộng thêm. Quên mật khẩu? Nhắn <a data-zalo href="#" style="color:var(--acc2)"><b>Zalo</b></a>.</p>
+      </form>
+    </div>
+
+    <div id="st-qr" hidden>
+      <div class="qrbox"><img id="qr-img" alt="Mã VietQR thanh toán" width="260" height="260"></div>
+      <div class="amt" id="qr-amt"></div>
+      <div class="kv">
+        <div><span>Ngân hàng</span><b id="qr-bank"></b></div>
+        <div><span>Số tài khoản</span><b id="qr-acc"></b><button type="button" class="cp" data-cp="qr-acc">Chép</button></div>
+        <div><span>Chủ tài khoản</span><b id="qr-name"></b></div>
+        <div><span>Nội dung CK</span><b id="qr-code" class="hl"></b><button type="button" class="cp" data-cp="qr-code">Chép</button></div>
       </div>
-      <div class="two-c">
-        <label>Gói<select name="plan" id="order-plan"></select></label>
-        <label>Số máy<input name="machines" type="number" min="1" max="50" value="1"></label>
+      <div class="wait"><span class="spin"></span><span>Đang chờ thanh toán — tự động kích hoạt khi nhận được tiền…</span></div>
+      <p class="small center">Chuyển <b>đúng số tiền</b> và <b>đúng nội dung</b> để hệ thống nhận diện tự động. Trang tự kiểm tra mỗi 5 giây; bạn có thể đóng trang — tiền về là tài khoản vẫn được kích hoạt.</p>
+    </div>
+
+    <div id="st-done" hidden class="done">
+      <div class="big">🎉</div>
+      <h3>Đã kích hoạt thành công!</h3>
+      <div class="kv">
+        <div><span>Tài khoản</span><b id="dn-acc"></b></div>
+        <div><span>Hạn dùng đến</span><b id="dn-exp"></b></div>
       </div>
-      <label>Mã giới thiệu<input name="ref" maxlength="12" placeholder="(nếu có)" style="text-transform:uppercase"></label>
-      <label>Ghi chú<textarea name="note" rows="2" maxlength="300" placeholder="Bạn đang làm bao nhiêu kênh, cần hỗ trợ gì…"></textarea></label>
-      <div class="total"><span>Tạm tính</span><b id="order-total">—</b></div>
-      <div class="msg" id="order-msg"></div>
-      <button class="btn btn-p btn-block" type="submit">Gửi đăng ký</button>
-      <p class="small">Thông tin chỉ dùng để liên hệ giao bản quyền, không chia sẻ cho bên thứ ba.</p>
-    </form>
+      <ol class="nx">
+        <li id="dn-step1">Tải và cài RVM cho Windows.</li>
+        <li>Mở RVM, đăng nhập bằng <b>tài khoản</b> ở trên và <b>mật khẩu</b> bạn đã đặt.</li>
+        <li>Máy đăng nhập đầu tiên sẽ được gắn với tài khoản này.</li>
+      </ol>
+      <a class="btn btn-p btn-block" data-download href="#">⬇ Tải RVM cho Windows</a>
+      <p class="small center" style="margin-top:10px">Cần hỗ trợ cài đặt? <a data-zalo href="#" style="color:var(--acc2)"><b>Nhắn Zalo</b></a></p>
+    </div>
   </div>
 </div>
 
@@ -318,37 +360,103 @@
       <button class="btn ${p.best ? 'btn-p' : 'btn-g'} btn-block" data-open="order" data-plan="${p.id}">Chọn gói này</button>
     </div>`).join('');
 
-  // ---- Form đặt mua ----
-  const f = U.$('#order-f'), sel = U.$('#order-plan'), msg = U.$('#order-msg');
-  sel.innerHTML = C.plans.map((p) => `<option value="${p.id}">${U.esc(p.name)} — ${U.money(p.price)}</option>`).join('');
-  function total() {
-    const p = C.plans.find((x) => x.id === sel.value) || base;
-    const m = Math.min(50, Math.max(1, parseInt(f.machines.value, 10) || 1));
-    U.$('#order-total').textContent = U.money(p.price * m);
+  // ---- Mua mới / Gia hạn → VietQR → tự kích hoạt ----
+  const PENDING = 'rvm_pay';
+  const sel = U.$('#o-plan'), bf = U.$('#buy-f'), rf = U.$('#renew-f');
+  const bm = U.$('#buy-msg'), rm = U.$('#renew-msg');
+  sel.innerHTML = C.plans.map((p) => `<option value="${p.id}">${U.esc(p.name)}</option>`).join('');
+  const price = () => { const p = C.plans.find((x) => x.id === sel.value) || base; U.$('#o-price').textContent = U.money(p.price); };
+  sel.addEventListener('input', price);
+
+  let mode = 'buy', timer = null;
+  function setMode(m) {
+    mode = m;
+    U.$$('.seg button').forEach((b) => b.classList.toggle('on', b.dataset.mode === m));
+    bf.style.display = m === 'buy' ? '' : 'none';
+    rf.style.display = m === 'renew' ? '' : 'none';
+    bm.className = rm.className = 'msg';
   }
-  f.addEventListener('input', total);
+  function show(step) { ['form', 'qr', 'done'].forEach((s) => { U.$('#st-' + s).hidden = s !== step; }); }
+  function stopPoll() { clearInterval(timer); timer = null; }
+
+  document.addEventListener('click', (e) => {
+    const m = e.target.closest('[data-mode]');
+    if (m) { e.preventDefault(); setMode(m.dataset.mode); }
+    const cp = e.target.closest('[data-cp]');
+    if (cp) U.copy(U.$('#' + cp.dataset.cp).textContent.replace(/\s/g, ''));
+  });
   document.addEventListener('rvm:open', (e) => {
-    if (e.detail.dataset.open !== 'order') return;
-    if (e.detail.dataset.plan) sel.value = e.detail.dataset.plan;
-    const r = U.getRef(); if (r && !f.ref.value) f.ref.value = r;
-    msg.className = 'msg'; total();
+    const t = e.detail;
+    if (t.dataset.open !== 'order') return;
+    if (t.dataset.plan) sel.value = t.dataset.plan;
+    setMode(t.dataset.mode || 'buy');
+    const r = U.getRef(); if (r && !bf.ref.value) bf.ref.value = r;
+    price(); show('form');
+  });
+  // đóng modal thì ngừng hỏi máy chủ
+  new MutationObserver(() => { if (!U.$('#order').classList.contains('on')) { stopPoll(); refreshBar(); } }).observe(U.$('#order'), { attributes: true, attributeFilter: ['class'] });
+
+  function showQR(p) {
+    U.$('#qr-img').src = `https://img.vietqr.io/image/${encodeURIComponent(p.bankCode)}-${encodeURIComponent(p.acc)}-compact2.png?amount=${p.amount}&addInfo=${encodeURIComponent(p.payCode)}&accountName=${encodeURIComponent(p.accName)}`;
+    U.$('#qr-amt').textContent = U.money(p.amount);
+    U.$('#qr-bank').textContent = p.bank;
+    U.$('#qr-acc').textContent = p.acc;
+    U.$('#qr-name').textContent = p.accName;
+    U.$('#qr-code').textContent = p.payCode;
+    show('qr'); poll(p);
+  }
+  function showDone(p, s) {
+    U.store.del(PENDING); refreshBar(); stopPoll();
+    U.$('#dn-acc').textContent = s.account || p.account;
+    U.$('#dn-exp').textContent = s.expires || '—';
+    U.$('#dn-step1').textContent = p.type === 'Gia hạn' ? 'Mở RVM như bình thường — hạn dùng mới đã được cập nhật.' : 'Tải và cài RVM cho Windows.';
+    show('done');
+  }
+  function poll(p) {
+    stopPoll();
+    const tick = async () => {
+      try { const s = await U.api('payStatus', { code: p.payCode }); if (s.status === 'paid') showDone(p, s); } catch (_) {}
+    };
+    timer = setInterval(tick, 5000); tick();
+  }
+
+  async function start(form, msg, action, data, label) {
+    const btn = form.querySelector('button[type=submit]'); btn.disabled = true; btn.textContent = 'Đang tạo mã QR…';
+    try {
+      const p = await U.api(action, data);
+      U.store.set(PENDING, Object.assign({ ts: Date.now() }, p));
+      form.reset(); showQR(p);
+    } catch (err) {
+      U.showMsg(msg, 'err', err.noApi ? 'Thanh toán online đang bảo trì. ' + U.contactHtml() : U.esc(err.message));
+    } finally { btn.disabled = false; btn.textContent = label; }
+  }
+
+  bf.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const d = Object.fromEntries(new FormData(bf).entries());
+    d.email = d.email.trim().toLowerCase(); d.ref = (d.ref || '').trim().toUpperCase(); d.plan = sel.value;
+    if (d.name.trim().length < 2) return U.showMsg(bm, 'err', 'Vui lòng nhập họ tên.');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email)) return U.showMsg(bm, 'err', 'Email chưa đúng — email sẽ là tên đăng nhập RVM.');
+    if (!/^(\+?84|0)\d{9,10}$/.test(d.phone.replace(/[\s.\-]/g, ''))) return U.showMsg(bm, 'err', 'Số điện thoại chưa đúng.');
+    if (d.password.length < 6) return U.showMsg(bm, 'err', 'Mật khẩu cần ít nhất 6 ký tự.');
+    if (d.password !== d.password2) return U.showMsg(bm, 'err', 'Hai lần nhập mật khẩu chưa khớp.');
+    delete d.password2;
+    start(bf, bm, 'buy', d, 'Tạo tài khoản & lấy mã QR');
+  });
+  rf.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const d = Object.fromEntries(new FormData(rf).entries());
+    if (!d.account.trim() || !d.password) return U.showMsg(rm, 'err', 'Vui lòng nhập tài khoản và mật khẩu.');
+    d.plan = sel.value; d.ref = U.getRef();
+    start(rf, rm, 'renew', d, 'Lấy mã QR gia hạn');
   });
 
-  f.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const d = Object.fromEntries(new FormData(f).entries());
-    d.ref = (d.ref || '').trim().toUpperCase();
-    if (d.name.trim().length < 2) return U.showMsg(msg, 'err', 'Vui lòng nhập họ tên.');
-    if (!/^(\+?84|0)\d{9,10}$/.test(d.phone.replace(/[\s.\-]/g, ''))) return U.showMsg(msg, 'err', 'Số điện thoại chưa đúng.');
-    const btn = f.querySelector('button[type=submit]'); btn.disabled = true; btn.textContent = 'Đang gửi…';
-    try {
-      const j = await U.api('order', d);
-      U.showMsg(msg, 'ok', `✅ Đã nhận đăng ký <b>${U.esc(j.orderId)}</b> — tổng ${U.money(j.amount)}.<br>Chúng tôi sẽ liên hệ qua Zalo/điện thoại sớm nhất. Muốn nhanh hơn? ${U.contactHtml()}`);
-      f.reset(); total();
-    } catch (err) {
-      U.showMsg(msg, 'err', err.noApi ? 'Đăng ký online đang bảo trì. ' + U.contactHtml() : U.esc(err.message) + ' ' + U.contactHtml());
-    } finally { btn.disabled = false; btn.textContent = 'Gửi đăng ký'; }
-  });
+  // Thanh nhắc thanh toán đang chờ (giữ 2 ngày trên trình duyệt này)
+  function pending() { const p = U.store.get(PENDING); if (p && Date.now() - p.ts < 2 * 864e5) return p; U.store.del(PENDING); return null; }
+  function refreshBar() { const p = pending(); U.$('#paybar').classList.toggle('on', !!p && !U.$('#order').classList.contains('on')); if (p) U.$('#paybar-code').textContent = p.payCode; }
+  U.$('#paybar-open').onclick = () => { const p = pending(); if (!p) return; U.openModal('order'); showQR(p); refreshBar(); };
+  U.$('#paybar-x').onclick = () => U.$('#paybar').classList.remove('on');
+  refreshBar();
 
   // ---- Thanh báo mã giới thiệu ----
   // chạy sau captureRef() của site.js (đăng ký listener trước)
