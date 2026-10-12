@@ -6,7 +6,7 @@
 window.RVM = {
   // URL Web App của Apps Script (Triển khai → Ứng dụng web → URL kết thúc bằng /exec).
   // Để trống: form vẫn hiện, nhưng sẽ hướng khách sang Zalo/hotline.
-  api: '',
+  api: 'https://script.google.com/macros/s/AKfycby4EbiwE7p5FcrvvgK7-1DhDTo-Lvb7jmIoufhfJQlDPv8BcWp7h_qZ7uTD63lzMcF6jQ/exec',
 
   hotline: '0918 637 699',
   zalo: 'https://zalo.me/0918637699',
