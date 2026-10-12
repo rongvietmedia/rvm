@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Đối tác RVM — Giới thiệu và nhận hoa hồng</title>
+<meta name="description" content="Trở thành đối tác RVM: nhận link giới thiệu riêng, theo dõi lượt click, đơn hàng và hoa hồng minh bạch trên bảng điều khiển.">
+<meta property="og:title" content="Đối tác RVM — Giới thiệu và nhận hoa hồng">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23ff3b30'/%3E%3Ctext x='32' y='42' font-family='Arial' font-weight='800' font-size='26' fill='white' text-anchor='middle'%3ERVM%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+  .calc{background:var(--panel);border:1px solid var(--line2);border-radius:22px;padding:28px;box-shadow:0 40px 80px -40px rgba(0,0,0,.8)}
+  .calc h3{font-size:18px;margin-bottom:4px}
+  .calc .f{margin-top:16px}
+  .calc input[type=range]{padding:0;accent-color:var(--acc);height:28px;border:0;background:none}
+  .calc .out{margin-top:18px;border-radius:16px;padding:20px;background:linear-gradient(135deg,rgba(255,59,48,.16),rgba(255,106,61,.08));border:1px solid rgba(255,59,48,.35);text-align:center}
+  .calc .out b{display:block;font-size:clamp(30px,5vw,40px);font-weight:800;letter-spacing:-1px}
+  .calc .out small{color:var(--mut)}
+  .tabs{display:flex;gap:6px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:5px;margin-bottom:18px}
+  .tabs button{flex:1;font:inherit;font-weight:700;font-size:14px;color:var(--mut);background:none;border:0;border-radius:10px;padding:11px;cursor:pointer}
+  .tabs button.on{background:var(--panel2);color:var(--txt);box-shadow:inset 0 0 0 1px var(--line2)}
+  .authgrid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+  @media (max-width:900px){.authgrid{grid-template-columns:1fr}}
+  .formcard{background:var(--bg2);border:1px solid var(--line2);border-radius:22px;padding:28px}
+  .rules{list-style:none;display:grid;gap:14px;margin-top:22px}
+  .rules li{display:flex;gap:12px;color:#cdd3de;font-size:15px}
+  .rules li span{flex:none;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:var(--panel2);border:1px solid var(--line2);font-size:15px}
+  /* dashboard */
+  #dash{display:none}
+  .dhead{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+  .dhead h2{font-size:clamp(24px,3vw,32px);font-weight:800}
+  .dhead .code{font-size:13px;color:var(--mut)}
+  .dhead .code b{color:var(--acc2);font-size:15px;letter-spacing:1px}
+  .stats{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+  @media (max-width:1100px){.stats{grid-template-columns:repeat(3,1fr)}}
+  @media (max-width:560px){.stats{grid-template-columns:repeat(2,1fr)}}
+  .st{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px}
+  .st small{color:var(--mut);font-size:12.5px;display:block}
+  .st b{font-size:24px;font-weight:800;letter-spacing:-.5px}
+  .st.hl{border-color:rgba(34,197,94,.45);background:rgba(34,197,94,.07)}
+  .st.hl2{border-color:rgba(255,59,48,.45);background:rgba(255,59,48,.07)}
+  .linkbox{display:grid;grid-template-columns:1fr auto;gap:22px;align-items:center;margin-top:18px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px}
+  @media (max-width:700px){.linkbox{grid-template-columns:1fr}}
+  .linkrow{display:flex;gap:8px;margin-top:10px}
+  .linkrow input{flex:1;min-width:0;font:inherit;font-size:14px;color:var(--txt);background:var(--bg2);border:1px solid var(--line2);border-radius:10px;padding:11px 12px}
+  #qr{background:#fff;padding:10px;border-radius:12px;width:148px;height:148px}
+  #qr img,#qr canvas{width:128px!important;height:128px!important}
+  .tpl{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:12px}
+  .tpl p{color:#cdd3de;font-size:14px;white-space:pre-line;flex:1}
+  .otbl td,.otbl th{font-size:14px;padding:12px 14px}
+  .status{font-size:12px;font-weight:700;border-radius:999px;padding:3px 9px;white-space:nowrap}
+  .s-paid{background:rgba(34,197,94,.12);color:#4ade80}
+  .s-new{background:rgba(59,130,246,.12);color:#93c5fd}
+  .s-cancel{background:rgba(239,68,68,.12);color:#fca5a5}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="index.html"><i>R</i><div>RVM<small>Chương trình đối tác</small></div></a>
+    <nav class="links">
+      <a href="index.html">Sản phẩm</a>
+      <a href="index.html#bang-gia">Bảng giá</a>
+      <a href="#cach-lam">Cách làm</a>
+      <a href="#quy-dinh">Quy định</a>
+      <a href="#dang-nhap">Đăng nhập</a>
+    </nav>
+    <a class="btn btn-p btn-sm cta-top" href="#dang-ky" data-tab="reg">Đăng ký đối tác</a>
+    <button class="menu-btn" aria-label="Mở menu">☰</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero sec">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Chương trình đối tác RVM</span>
+      <h1>Giới thiệu RVM, nhận <span class="grad" data-commission></span> hoa hồng mỗi đơn hàng</h1>
+      <p class="lead">Bạn có cộng đồng làm YouTube, nhóm học viên hay kênh chia sẻ kinh nghiệm? Đăng ký trong 1 phút, nhận link riêng, chia sẻ — và theo dõi từng lượt click, từng đơn, từng đồng hoa hồng trên bảng điều khiển.</p>
+      <div class="ctas">
+        <a class="btn btn-p" href="#dang-ky" data-tab="reg">Đăng ký làm đối tác</a>
+        <a class="btn btn-g" href="#dang-nhap" data-tab="login">Tôi đã là đối tác</a>
+      </div>
+      <div class="chips">
+        <span class="chip">💰 <b data-commission></b> mỗi đơn đã thanh toán</span>
+        <span class="chip">🔗 Ghi nhận <b><span data-refdays></span> ngày</b></span>
+        <span class="chip">📊 Bảng điều khiển minh bạch</span>
+      </div>
+    </div>
+
+    <div class="calc reveal">
+      <h3>Ước tính thu nhập mỗi tháng</h3>
+      <p class="small">Kéo để thử với số khách bạn giới thiệu được.</p>
+      <div class="f">
+        <label>Số khách mua mỗi tháng: <b id="c-n" style="color:var(--txt)">10</b><input type="range" id="c-range" min="1" max="100" value="10"></label>
+        <label>Gói khách thường chọn<select id="c-plan"></select></label>
+      </div>
+      <div class="out"><small>Hoa hồng ước tính</small><b id="c-out">—</b><small id="c-sub"></small></div>
+      <p class="small" style="margin-top:10px">Con số minh hoạ theo bảng giá hiện tại, không phải cam kết thu nhập.</p>
+    </div>
+  </div>
+</section>
+
+<!-- LỢI ÍCH -->
+<section class="sec alt">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow">Vì sao nên làm đối tác RVM</span>
+      <h2 class="title">Sản phẩm dễ giới thiệu, hoa hồng xứng đáng</h2>
+    </div>
+    <div class="grid g4 mt">
+      <div class="card reveal"><div class="ic">💰</div><h3><span data-commission></span> mỗi đơn</h3><p>Mức hoa hồng cao trên giá trị đơn đã thanh toán, nhân theo số máy khách mua.</p></div>
+      <div class="card reveal"><div class="ic g">🎯</div><h3>Khách cần thật</h3><p>Ai làm nhiều kênh YouTube cũng cần tách kênh. Giá vào chỉ từ 150.000đ, dễ chốt.</p></div>
+      <div class="card reveal"><div class="ic b">🔗</div><h3>Link ghi nhận <span data-refdays></span> ngày</h3><p>Khách bấm link của bạn, quay lại mua trong <span data-refdays></span> ngày vẫn tính cho bạn.</p></div>
+      <div class="card reveal"><div class="ic w">📊</div><h3>Minh bạch từng đơn</h3><p>Xem lượt click, đơn đăng ký, đơn đã thanh toán và hoa hồng bất cứ lúc nào.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CÁCH LÀM -->
+<section class="sec" id="cach-lam">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow">Cách làm</span>
+      <h2 class="title">Bốn bước để bắt đầu nhận hoa hồng</h2>
+    </div>
+    <div class="grid g4 mt" style="counter-reset:s">
+      <div class="step reveal"><h3>Đăng ký</h3><p>Điền tên và số điện thoại. Hệ thống cấp ngay mã đối tác và link riêng.</p></div>
+      <div class="step reveal"><h3>Chia sẻ</h3><p>Dùng link, mã QR và mẫu tin nhắn có sẵn để giới thiệu vào nhóm, kênh, bạn bè.</p></div>
+      <div class="step reveal"><h3>Khách mua</h3><p>Khách bấm link rồi đăng ký, hoặc nhập mã của bạn khi đặt mua.</p></div>
+      <div class="step reveal"><h3>Nhận hoa hồng</h3><p>Đơn được thanh toán là hoa hồng hiện lên bảng điều khiển, chờ đối soát chi trả.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ĐĂNG KÝ / ĐĂNG NHẬP -->
+<section class="sec alt" id="dang-ky">
+  <span id="dang-nhap" style="position:absolute;top:0"></span>
+  <div class="wrap">
+    <div class="authgrid" id="auth">
+      <div class="reveal">
+        <span class="eyebrow">Tham gia</span>
+        <h2 class="title">Nhận link giới thiệu của bạn ngay bây giờ</h2>
+        <p class="lead">Miễn phí, không cần mua sản phẩm trước. Đăng ký xong là vào thẳng bảng điều khiển.</p>
+        <ul class="rules">
+          <li><span>🔑</span><div>Đăng nhập bằng <b>mã đối tác + số điện thoại</b> đã đăng ký.</div></li>
+          <li><span>🏦</span><div>Thông tin nhận hoa hồng có thể bổ sung sau qua Zalo.</div></li>
+          <li><span>💬</span><div>Quên mã đối tác? Nhắn <a data-zalo href="#"><b>Zalo <span data-hotline></span></b></a> để được hỗ trợ.</div></li>
+        </ul>
+      </div>
+      <div class="formcard reveal">
+        <div class="tabs"><button data-tab="reg" class="on" type="button">Đăng ký đối tác</button><button data-tab="login" type="button">Đăng nhập</button></div>
+
+        <form class="f" id="reg-f" novalidate>
+          <input class="hp" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <label>Họ và tên *<input name="name" required maxlength="60" autocomplete="name" placeholder="Nguyễn Văn A"></label>
+          <div class="two-c">
+            <label>Số điện thoại *<input name="phone" required inputmode="tel" maxlength="15" autocomplete="tel" placeholder="09xx xxx xxx"></label>
+            <label>Email<input name="email" type="email" maxlength="80" autocomplete="email" placeholder="(không bắt buộc)"></label>
+          </div>
+          <label>Bạn sẽ giới thiệu qua đâu?<input name="channel" maxlength="150" placeholder="VD: nhóm Facebook làm YouTube, kênh TikTok, lớp học…"></label>
+          <label>Thông tin nhận hoa hồng<input name="payout" maxlength="150" placeholder="Ngân hàng – số tài khoản – tên (có thể bổ sung sau)"></label>
+          <label style="display:flex;gap:10px;align-items:flex-start;font-weight:500"><input type="checkbox" name="agree" style="width:auto;margin-top:4px"> <span>Tôi đồng ý với <a href="#quy-dinh" style="color:var(--acc2)">quy định chương trình đối tác</a>.</span></label>
+          <div class="msg" id="reg-msg"></div>
+          <button class="btn btn-p btn-block" type="submit">Đăng ký &amp; nhận link</button>
+        </form>
+
+        <form class="f" id="login-f" novalidate style="display:none">
+          <label>Mã đối tác<input name="code" required maxlength="12" placeholder="VD: LAM7KQ" style="text-transform:uppercase" autocomplete="username"></label>
+          <label>Số điện thoại đã đăng ký<input name="phone" required inputmode="tel" maxlength="15" autocomplete="tel"></label>
+          <div class="msg" id="login-msg"></div>
+          <button class="btn btn-p btn-block" type="submit">Vào bảng điều khiển</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- BẢNG ĐIỀU KHIỂN -->
+    <div id="dash">
+      <div class="dhead">
+        <div><h2>Chào <span id="d-name"></span> 👋</h2><div class="code">Mã đối tác: <b id="d-code"></b> · Hoa hồng <b id="d-rate"></b></div></div>
+        <span style="flex:1"></span>
+        <button class="btn btn-g btn-sm" id="d-refresh" type="button">↻ Làm mới</button>
+        <button class="btn btn-g btn-sm" id="d-logout" type="button">Đăng xuất</button>
+      </div>
+      <div class="stats">
+        <div class="st"><small>Lượt click (30 ngày)</small><b id="s-click30">0</b></div>
+        <div class="st"><small>Tổng lượt click</small><b id="s-click">0</b></div>
+        <div class="st"><small>Đơn đăng ký</small><b id="s-orders">0</b></div>
+        <div class="st"><small>Đơn đã thanh toán</small><b id="s-paid">0</b></div>
+        <div class="st hl2"><small>Hoa hồng đã có</small><b id="s-comm">0đ</b></div>
+        <div class="st hl"><small>Còn chờ chi trả</small><b id="s-pending">0đ</b></div>
+      </div>
+      <p class="small" style="margin-top:8px">Đã nhận: <b id="s-paidout">0đ</b> · <span data-payout-note></span></p>
+
+      <div class="linkbox">
+        <div>
+          <b>Link giới thiệu của bạn</b>
+          <div class="linkrow"><input id="d-link" readonly><button class="btn btn-p btn-sm" id="d-copy" type="button">Sao chép</button></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+            <a class="btn btn-g btn-sm" id="d-fb" target="_blank" rel="noopener" href="#">Chia sẻ Facebook</a>
+            <button class="btn btn-g btn-sm" id="d-copycode" type="button">Sao chép mã</button>
+            <button class="btn btn-g btn-sm" id="d-qrdl" type="button">Tải mã QR</button>
+          </div>
+          <p class="small" style="margin-top:10px">Khách cũng có thể nhập mã <b id="d-code2"></b> ở ô "Mã giới thiệu" khi đăng ký mua.</p>
+        </div>
+        <div id="qr" aria-label="Mã QR link giới thiệu"></div>
+      </div>
+
+      <h3 style="margin:36px 0 14px;font-size:20px">Mẫu tin nhắn để chia sẻ</h3>
+      <div class="grid g3" id="tpls"></div>
+
+      <h3 style="margin:36px 0 14px;font-size:20px">Đơn hàng gần đây</h3>
+      <div class="tblwrap"><table class="tbl otbl"><thead><tr><th>Ngày</th><th>Khách</th><th>Gói</th><th>Giá trị</th><th>Trạng thái</th><th>Hoa hồng</th></tr></thead><tbody id="d-orders"></tbody></table></div>
+    </div>
+  </div>
+</section>
+
+<!-- QUY ĐỊNH -->
+<section class="sec" id="quy-dinh">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow">Quy định</span>
+      <h2 class="title">Rõ ràng từ đầu để hợp tác lâu dài</h2>
+    </div>
+    <div class="faq">
+      <details open><summary>Hoa hồng được tính thế nào?</summary><p><span data-commission></span> trên giá trị mỗi đơn <b>đã thanh toán</b> (giá gói × số máy). Đơn huỷ hoặc hoàn tiền không tính hoa hồng. <span data-payout-note></span></p></details>
+      <details><summary>Khi nào đơn hàng được ghi nhận cho tôi?</summary><p>Khi khách bấm link của bạn rồi đăng ký trong vòng <span data-refdays></span> ngày (trên cùng trình duyệt), hoặc khi khách tự nhập mã đối tác của bạn vào form đăng ký. Nếu khách đã bấm link của một đối tác khác trước đó, đơn thuộc về người giới thiệu đầu tiên.</p></details>
+      <details><summary>Tôi tự mua qua link của mình có được tính không?</summary><p>Không. Đơn có số điện thoại trùng với số đối tác đã đăng ký sẽ không được tính hoa hồng.</p></details>
+      <details><summary>Những điều không được làm khi giới thiệu</summary><p>Không spam tin nhắn, không giả danh RVM hay Google/YouTube, không hứa hẹn sai sự thật như "chống khoá kênh 100%", "chắc chắn không bị quét", "cam kết ra tiền". RVM là công cụ quản lý và tách kênh, không phải lời hứa về kết quả. Vi phạm sẽ bị khoá tài khoản đối tác và huỷ hoa hồng của đơn liên quan.</p></details>
+      <details><summary>Tôi có cần mua RVM trước không?</summary><p>Không bắt buộc. Nhưng dùng thử thực tế sẽ giúp bạn giới thiệu thuyết phục và trung thực hơn.</p></details>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div><b style="color:var(--txt)">RVM</b> — Chương trình đối tác · © <span data-year></span> RVM Login · Liên hệ <a data-zalo href="#">Zalo</a> / <a data-tel href="#"><span data-hotline></span></a></div>
+    <div class="disc">Chương trình có thể được điều chỉnh; thay đổi sẽ được thông báo tới đối tác trước khi áp dụng. Hoa hồng của các đơn đã phát sinh được tính theo quy định tại thời điểm phát sinh.</div>
+  </div>
+</footer>
+
+<div class="fab"><a class="z" data-zalo href="#" aria-label="Nhắn Zalo">Zalo</a><a class="p" data-tel href="#" aria-label="Gọi hotline">📞</a></div>
+
+<script src="assets/config.js"></script>
+<script src="assets/site.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+(function () {
+  const C = window.RVM, U = window.RVMUI;
+  const SESSION = 'rvm_partner';
+
+  // ---- Máy tính hoa hồng ----
+  const cp = U.$('#c-plan'), cr = U.$('#c-range');
+  cp.innerHTML = C.plans.map((p) => `<option value="${p.id}"${p.best ? ' selected' : ''}>${U.esc(p.name)} — ${U.money(p.price)}</option>`).join('');
+  function calc() {
+    const p = C.plans.find((x) => x.id === cp.value), n = +cr.value;
+    U.$('#c-n').textContent = n;
+    U.$('#c-out').textContent = U.money(Math.round(n * p.price * C.commission / 100));
+    U.$('#c-sub').textContent = `${n} khách × ${U.money(p.price)} × ${C.commission}%`;
+  }
+  cp.addEventListener('input', calc); cr.addEventListener('input', calc); calc();
+  U.$$('[data-payout-note]').forEach((el) => { el.textContent = C.payoutNote; });
+
+  // ---- Tabs ----
+  function tab(t) {
+    U.$$('.tabs button').forEach((b) => b.classList.toggle('on', b.dataset.tab === t));
+    U.$('#reg-f').style.display = t === 'reg' ? '' : 'none';
+    U.$('#login-f').style.display = t === 'login' ? '' : 'none';
+  }
+  document.addEventListener('click', (e) => { const b = e.target.closest('[data-tab]'); if (b) tab(b.dataset.tab); });
+  if (location.hash === '#dang-nhap') tab('login');
+
+  const phoneOk = (p) => /^(\+?84|0)\d{9,10}$/.test(String(p).replace(/[\s.\-]/g, ''));
+  const contactErr = (err) => err.noApi ? 'Hệ thống đối tác đang bảo trì. ' + U.contactHtml() : U.esc(err.message);
+
+  // ---- Đăng ký ----
+  const rf = U.$('#reg-f'), rm = U.$('#reg-msg');
+  rf.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const d = Object.fromEntries(new FormData(rf).entries());
+    if (d.name.trim().length < 2) return U.showMsg(rm, 'err', 'Vui lòng nhập họ tên.');
+    if (!phoneOk(d.phone)) return U.showMsg(rm, 'err', 'Số điện thoại chưa đúng.');
+    if (!d.agree) return U.showMsg(rm, 'err', 'Vui lòng đồng ý với quy định chương trình.');
+    const btn = rf.querySelector('button[type=submit]'); btn.disabled = true; btn.textContent = 'Đang tạo tài khoản…';
+    try {
+      const j = await U.api('register', d);
+      U.store.set(SESSION, { code: j.code, phone: d.phone });
+      rf.reset();
+      await openDash({ code: j.code, phone: d.phone }, true);
+    } catch (err) { U.showMsg(rm, 'err', contactErr(err)); }
+    finally { btn.disabled = false; btn.textContent = 'Đăng ký & nhận link'; }
+  });
+
+  // ---- Đăng nhập ----
+  const lf = U.$('#login-f'), lm = U.$('#login-msg');
+  lf.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const s = { code: lf.code.value.trim().toUpperCase(), phone: lf.phone.value.trim() };
+    if (!s.code || !phoneOk(s.phone)) return U.showMsg(lm, 'err', 'Vui lòng nhập đúng mã đối tác và số điện thoại.');
+    const btn = lf.querySelector('button[type=submit]'); btn.disabled = true; btn.textContent = 'Đang kiểm tra…';
+    try { await openDash(s); U.store.set(SESSION, s); }
+    catch (err) { U.showMsg(lm, 'err', contactErr(err)); }
+    finally { btn.disabled = false; btn.textContent = 'Vào bảng điều khiển'; }
+  });
+
+  // ---- Bảng điều khiển ----
+  let qr;
+  const statusCls = (s) => /thanh toán/i.test(s) ? 's-paid' : /huỷ|hủy|hoàn/i.test(s) ? 's-cancel' : 's-new';
+  const refLink = (code) => new URL('./', location.href).href + '?ref=' + encodeURIComponent(code);
+
+  async function openDash(s, fresh, quiet) {
+    const j = await U.api('stats', s);
+    const link = refLink(j.code);
+    U.$('#auth').style.display = 'none';
+    U.$('#dash').style.display = 'block';
+    U.$('#d-name').textContent = j.name;
+    U.$('#d-code').textContent = j.code; U.$('#d-code2').textContent = j.code;
+    U.$('#d-rate').textContent = j.rate + '%';
+    U.$('#s-click30').textContent = j.clicks30.toLocaleString('vi-VN');
+    U.$('#s-click').textContent = j.clicks.toLocaleString('vi-VN');
+    U.$('#s-orders').textContent = j.orders;
+    U.$('#s-paid').textContent = j.paid;
+    U.$('#s-comm').textContent = U.money(j.commission);
+    U.$('#s-pending').textContent = U.money(j.pending);
+    U.$('#s-paidout').textContent = U.money(j.paidOut);
+    U.$('#d-link').value = link;
+    U.$('#d-fb').href = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(link);
+    const box = U.$('#qr'); box.innerHTML = '';
+    if (window.QRCode) qr = new QRCode(box, { text: link, width: 256, height: 256, correctLevel: QRCode.CorrectLevel.M });
+
+    const tpls = [
+      `Anh em nào đang làm nhiều kênh YouTube trên một máy thì tham khảo RVM nhé: mỗi kênh một hồ sơ trình duyệt riêng + một proxy riêng, proxy rớt là tự chặn, không lộ IP thật. Quản lý cả hệ kênh trong một màn hình, giá từ 150k/tháng.\n👉 ${link}`,
+      `Quản lý nhiều kênh YouTube gọn trong 1 màn hình — mỗi kênh 1 môi trường, 1 IP riêng 🔒\nXem chi tiết: ${link}`,
+      `Mình đang dùng RVM để quản lý các kênh YouTube: không còn đăng nhập lẫn lộn, mỗi kênh một proxy cố định, sao lưu được khi đổi máy. Ai cần thì xem ở đây, nhập mã ${j.code} khi đăng ký nhé:\n${link}`
+    ];
+    U.$('#tpls').innerHTML = tpls.map((t, i) => `<div class="tpl"><p>${U.esc(t)}</p><button class="btn btn-g btn-sm" data-tpl="${i}" type="button">Sao chép mẫu ${i + 1}</button></div>`).join('');
+    U.$$('[data-tpl]').forEach((b) => b.onclick = () => U.copy(tpls[+b.dataset.tpl]));
+
+    U.$('#d-orders').innerHTML = j.recent.length ? j.recent.map((o) => `<tr><td>${U.esc(o.date)}</td><td>${U.esc(o.customer)}</td><td>${U.esc(o.plan)}</td><td>${U.money(o.amount)}</td><td><span class="status ${statusCls(o.status)}">${U.esc(o.status)}</span></td><td>${o.commission ? U.money(o.commission) : '—'}</td></tr>`).join('')
+      : '<tr><td colspan="6" style="color:var(--mut);text-align:center;padding:26px">Chưa có đơn nào — hãy chia sẻ link đầu tiên của bạn!</td></tr>';
+
+    if (!quiet) U.$('#dang-ky').scrollIntoView({ behavior: 'smooth' });
+    if (fresh) U.toast('🎉 Chào mừng đối tác mới! Mã của bạn: ' + j.code);
+  }
+
+  U.$('#d-copy').onclick = () => U.copy(U.$('#d-link').value);
+  U.$('#d-copycode').onclick = () => U.copy(U.$('#d-code').textContent);
+  U.$('#d-qrdl').onclick = () => {
+    const c = U.$('#qr canvas'), im = U.$('#qr img');
+    const src = c ? c.toDataURL('image/png') : im && im.src;
+    if (!src) return;
+    const a = document.createElement('a'); a.href = src; a.download = 'RVM-QR-' + U.$('#d-code').textContent + '.png'; a.click();
+  };
+  U.$('#d-refresh').onclick = async () => { const s = U.store.get(SESSION); if (s) { try { await openDash(s, false, true); U.toast('Đã cập nhật số liệu'); } catch (e) { U.toast(e.message); } } };
+  U.$('#d-logout').onclick = () => { U.store.del(SESSION); U.$('#dash').style.display = 'none'; U.$('#auth').style.display = ''; tab('login'); };
+
+  // tự vào lại nếu đã đăng nhập trước đó trên trình duyệt này
+  const saved = U.store.get(SESSION);
+  if (saved && saved.code && C.api) openDash(saved, false, true).catch(() => U.store.del(SESSION));
+})();
+</script>
+</body>
+</html>
