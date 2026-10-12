@@ -313,7 +313,7 @@
         <div><span>Nội dung CK</span><b id="qr-code" class="hl"></b><button type="button" class="cp" data-cp="qr-code">Chép</button></div>
       </div>
       <div class="wait"><span class="spin"></span><span>Đang chờ thanh toán — tự động kích hoạt khi nhận được tiền…</span></div>
-      <p class="small center">Chuyển <b>đúng số tiền</b> và <b>đúng nội dung</b> để hệ thống nhận diện tự động. Trang tự kiểm tra mỗi 5 giây; bạn có thể đóng trang — tiền về là tài khoản vẫn được kích hoạt.</p>
+      <p class="small center">Chuyển <b>đúng số tiền</b> và giữ <b>nguyên nội dung</b> (có chữ SEVQR ở đầu) để hệ thống nhận diện tự động. Trang tự kiểm tra mỗi 5 giây; bạn có thể đóng trang — tiền về là tài khoản vẫn được kích hoạt.</p>
     </div>
 
     <div id="st-done" hidden class="done">
@@ -383,7 +383,7 @@
     const m = e.target.closest('[data-mode]');
     if (m) { e.preventDefault(); setMode(m.dataset.mode); }
     const cp = e.target.closest('[data-cp]');
-    if (cp) U.copy(U.$('#' + cp.dataset.cp).textContent.replace(/\s/g, ''));
+    if (cp) { const t = U.$('#' + cp.dataset.cp).textContent.trim(); U.copy(cp.dataset.cp === 'qr-acc' ? t.replace(/\s/g, '') : t); }
   });
   document.addEventListener('rvm:open', (e) => {
     const t = e.detail;
@@ -397,12 +397,13 @@
   new MutationObserver(() => { if (!U.$('#order').classList.contains('on')) { stopPoll(); refreshBar(); } }).observe(U.$('#order'), { attributes: true, attributeFilter: ['class'] });
 
   function showQR(p) {
-    U.$('#qr-img').src = `https://img.vietqr.io/image/${encodeURIComponent(p.bankCode)}-${encodeURIComponent(p.acc)}-compact2.png?amount=${p.amount}&addInfo=${encodeURIComponent(p.payCode)}&accountName=${encodeURIComponent(p.accName)}`;
+    const content = p.transferContent || ('SEVQR ' + p.payCode); // VietinBank qua SePay: bắt buộc mở đầu bằng SEVQR
+    U.$('#qr-img').src = `https://img.vietqr.io/image/${encodeURIComponent(p.bankCode)}-${encodeURIComponent(p.acc)}-compact2.png?amount=${p.amount}&addInfo=${encodeURIComponent(content)}&accountName=${encodeURIComponent(p.accName)}`;
     U.$('#qr-amt').textContent = U.money(p.amount);
     U.$('#qr-bank').textContent = p.bank;
     U.$('#qr-acc').textContent = p.acc;
     U.$('#qr-name').textContent = p.accName;
-    U.$('#qr-code').textContent = p.payCode;
+    U.$('#qr-code').textContent = content;
     show('qr'); poll(p);
   }
   function showDone(p, s) {
