@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RVM — Quản lý nhiều kênh YouTube trên một máy</title>
-<meta name="description" content="RVM tách mỗi kênh YouTube thành một hồ sơ trình duyệt riêng, gắn proxy cố định, chặn lộ IP thật. Quản lý hàng chục kênh gọn trong một màn hình. Từ 150.000đ/tháng.">
-<meta property="og:title" content="RVM — Mỗi kênh YouTube một môi trường riêng">
-<meta property="og:description" content="Hồ sơ tách biệt + proxy riêng + kill-switch. Quản lý nhiều kênh YouTube trên một máy, gọn và an toàn hơn.">
+<title>RVM — Mỗi kênh YouTube một máy tính riêng (anti-detect)</title>
+<meta name="description" content="RVM gán cho mỗi kênh YouTube một vân tay thiết bị riêng, một proxy cố định (HTTP/SOCKS5/vmess/ss/trojan) và dữ liệu mã hoá. Website nhìn mỗi kênh như một máy khác nhau. Quản lý hàng chục kênh trên một máy. Từ 150.000đ/tháng.">
+<meta property="og:title" content="RVM — Mỗi kênh YouTube một máy tính riêng">
+<meta property="og:description" content="Anti-detect thật: vân tay thiết bị riêng + proxy riêng + kill-switch + tự kiểm 1 chạm. Quản lý nhiều kênh YouTube gọn và an toàn hơn.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#0b0d12">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23ff3b30'/%3E%3Ctext x='32' y='42' font-family='Arial' font-weight='800' font-size='26' fill='white' text-anchor='middle'%3ERVM%3C/text%3E%3C/svg%3E">
@@ -14,6 +14,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
+<style>
+/* Nâng cấp hiển thị — bản v1.1.3 */
+.card.flag{background:linear-gradient(180deg,rgba(255,59,48,.09),var(--panel) 46%);border-color:rgba(255,59,48,.35);box-shadow:0 26px 54px -34px rgba(255,59,48,.5)}
+.card.flag:hover{transform:translateY(-3px)}
+.card.flag .ic{width:54px;height:54px;font-size:26px}
+.hero .chips .chip b{color:var(--acc2)}
+.row .s{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+</style>
 </head>
 <body>
 
@@ -21,6 +29,7 @@
   <div class="wrap">
     <a class="logo" href="#top"><i>R</i><div>RVM<small>Quản lý kênh YouTube</small></div></a>
     <nav class="links">
+      <a href="#diem-moi">Điểm mới</a>
       <a href="#van-de">Vì sao cần</a>
       <a href="#cach-hoat-dong">Cách hoạt động</a>
       <a href="#tinh-nang">Tính năng</a>
@@ -38,17 +47,17 @@
 <section class="hero sec" id="top">
   <div class="wrap">
     <div>
-      <span class="eyebrow">Phần mềm quản lý kênh YouTube · Windows</span>
-      <h1>Chạy nhiều kênh YouTube trên một máy — <span class="grad">mỗi kênh một thế giới riêng</span></h1>
-      <p class="lead">RVM tách từng kênh thành một hồ sơ trình duyệt độc lập, gắn một proxy cố định và tự chặn mạng khi proxy rớt. Không còn đăng nhập lẫn lộn, không lo lộ IP thật — hàng chục kênh gọn trong một màn hình.</p>
+      <span class="eyebrow">Trình duyệt anti-detect · Quản lý kênh YouTube · Windows</span>
+      <h1>Mỗi kênh YouTube là <span class="grad">một máy tính riêng</span> — vân tay, IP &amp; dữ liệu đều tách biệt</h1>
+      <p class="lead">RVM gán cho từng kênh một <b>bộ vân tay thiết bị riêng</b> (trình duyệt, card màn hình, độ phân giải, múi giờ…), một <b>proxy cố định</b> và dữ liệu mã hoá. Website nhìn mỗi kênh như một máy khác nhau — hàng chục kênh gọn trong một màn hình.</p>
       <div class="ctas">
-        <a class="btn btn-p" href="#bang-gia">Xem bảng giá — từ 150.000đ</a>
+        <a class="btn btn-p" href="#bang-gia">Mua bản quyền — từ 150.000đ</a>
         <a class="btn btn-g" data-download href="#"><span>⬇ Tải RVM v<span data-version></span></span></a>
       </div>
       <div class="chips">
-        <span class="chip"><b>1 kênh</b> = 1 hồ sơ + 1 proxy</span>
+        <span class="chip">🧬 <b>Vân tay thiết bị</b> riêng từng kênh</span>
+        <span class="chip">🌐 Proxy <b>vmess / ss / trojan</b></span>
         <span class="chip">🔒 Dữ liệu mã hoá</span>
-        <span class="chip">⚡ Tự động cập nhật</span>
         <span class="chip">🪟 Windows 10/11</span>
       </div>
       <div class="refbar" id="refbar"></div>
@@ -65,62 +74,77 @@
           <div class="n">🧰 Công cụ</div>
           <div class="h">Khác</div>
           <div class="n">⤓ Sao lưu</div>
-          <div class="n">⤒ Khôi phục</div>
           <div class="n">⬆ Cập nhật</div>
           <div class="ver">Phiên bản <span data-version></span></div>
         </div>
         <div class="mn">
           <div class="top"><span class="pill r">+ Tạo kênh</span><span class="pill">Mọi nhóm ▾</span><span class="pill" style="margin-left:auto">Tìm kênh…</span></div>
           <div class="gsep">Kênh Mỹ · 2</div>
-          <div class="row"><div><div class="nm"><span class="dot"></span>US – Review công nghệ</div><div class="s">@ustech · nhóm Mỹ</div></div><div class="s ip">🔒 Proxy Mỹ · live</div><span class="go">Khởi động</span></div>
-          <div class="row"><div><div class="nm"><span class="dot"></span>US – Vlog đời sống</div><div class="s">@usvlog · nhóm Mỹ</div></div><div class="s ip">🔒 Proxy Mỹ · live</div><span class="go">Khởi động</span></div>
-          <div class="gsep">Kênh Việt · 3</div>
-          <div class="row"><div><div class="nm"><span class="dot"></span>Ẩm thực miền Tây</div><div class="s">@amthucmt · nhóm VN</div></div><div class="s ip">🔒 Proxy VN · live</div><span class="go">Khởi động</span></div>
-          <div class="row"><div><div class="nm"><span class="dot off"></span>Kể chuyện đêm khuya</div><div class="s">@kechuyen · nhóm VN</div></div><div class="s ip">🔒 Proxy VN · live</div><span class="go">Khởi động</span></div>
+          <div class="row"><div><div class="nm"><span class="dot"></span>US – Review công nghệ</div><div class="s">🧬 Máy ảo Windows · RTX 3060</div></div><div class="s ip">🔒 Proxy Mỹ · live</div><span class="go">Khởi động</span></div>
+          <div class="row"><div><div class="nm"><span class="dot"></span>US – Vlog đời sống</div><div class="s">🧬 Máy ảo macOS · Apple M2</div></div><div class="s ip">🔒 Proxy Mỹ · live</div><span class="go">Khởi động</span></div>
+          <div class="gsep">Kênh Việt · 2</div>
+          <div class="row"><div><div class="nm"><span class="dot"></span>Ẩm thực miền Tây</div><div class="s">🧬 Máy ảo Windows · AMD RX 6600</div></div><div class="s ip">🔒 Proxy VN · live</div><span class="go">Khởi động</span></div>
+          <div class="row"><div><div class="nm"><span class="dot off"></span>Kể chuyện đêm khuya</div><div class="s">🧬 Máy ảo Windows · Intel UHD</div></div><div class="s ip">🔒 Proxy VN · live</div><span class="go">Khởi động</span></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ĐIỂM MỚI 1.1.3 -->
+<section class="sec alt" id="diem-moi">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow">Có gì mới ở bản v<span data-version></span></span>
+      <h2 class="title">Giờ mỗi profile <span class="grad">thật sự</span> là một máy riêng</h2>
+      <p class="lead">Bản mới nâng RVM thành trình duyệt anti-detect đầy đủ — không chỉ tách cookie &amp; IP, mà còn giả lập cả thiết bị.</p>
+    </div>
+    <div class="grid g3 mt">
+      <div class="card flag reveal"><div class="ic">🧬</div><h3>Vân tay thiết bị riêng</h3><p>Mỗi kênh mang một bộ máy khác nhau — UA, card màn hình (WebGL), số nhân, RAM, màn hình, múi giờ… nhất quán, tiêm an toàn (giữ sandbox Chrome).</p></div>
+      <div class="card flag reveal"><div class="ic b">🌐</div><h3>Proxy đa giao thức</h3><p>Thêm HTTP, SOCKS5 và cả <b>vmess / vless / shadowsocks / trojan</b>. RVM tự lấy múi giờ theo IP để kênh khớp đúng quốc gia của proxy.</p></div>
+      <div class="card flag reveal"><div class="ic g">✅</div><h3>Nút “Tự kiểm” 1 chạm</h3><p>Mở trang kiểm tra cho bạn thấy web nhìn thấy gì: vân tay có “khớp” không, IP có đúng proxy không, có rò WebRTC không — yên tâm trước khi dùng.</p></div>
+    </div>
+  </div>
+</section>
+
 <!-- VẤN ĐỀ -->
-<section class="sec alt" id="van-de">
+<section class="sec" id="van-de">
   <div class="wrap">
     <div class="center reveal">
       <span class="eyebrow">Nếu bạn đang làm nhiều kênh</span>
       <h2 class="title">Bốn chuyện ai làm nhiều kênh cũng từng gặp</h2>
-      <p class="lead">Không phải do nội dung dở — mà vì cả cụm kênh đang dùng chung một trình duyệt, một đường mạng, một mớ mật khẩu.</p>
+      <p class="lead">Không phải do nội dung dở — mà vì cả cụm kênh đang dùng chung một trình duyệt, một thiết bị, một đường mạng, một mớ mật khẩu.</p>
     </div>
     <div class="grid g4 mt">
       <div class="card reveal"><div class="ic">🔀</div><h3>Đăng nhập lẫn lộn</h3><p>Chung một Chrome, cookie các kênh trộn vào nhau. Đăng nhầm video sang kênh khác là chuyện chỉ cần một cú bấm.</p></div>
-      <div class="card reveal"><div class="ic w">🌐</div><h3>Chung một IP</h3><p>Mọi kênh cùng đi qua mạng nhà bạn. Muốn mỗi kênh một đường mạng riêng thì phải loay hoay cài từng tiện ích.</p></div>
-      <div class="card reveal"><div class="ic b">⚠️</div><h3>Proxy rớt là lộ IP thật</h3><p>Nhiều cách gắn proxy sẽ âm thầm "rơi" về mạng thật khi proxy chết — đúng lúc bạn không để ý nhất.</p></div>
+      <div class="card reveal"><div class="ic w">🖥️</div><h3>Cùng một “máy”</h3><p>Mọi kênh lộ cùng một dấu vết thiết bị (trình duyệt, phần cứng). Nền tảng dễ nhìn ra chúng là của một người.</p></div>
+      <div class="card reveal"><div class="ic b">⚠️</div><h3>Proxy rớt là lộ IP thật</h3><p>Nhiều cách gắn proxy sẽ âm thầm “rơi” về mạng thật khi proxy chết — đúng lúc bạn không để ý nhất.</p></div>
       <div class="card reveal"><div class="ic g">🗂️</div><h3>Quản lý rối, mất máy là mất hết</h3><p>Hàng chục kênh, mật khẩu gửi qua tin nhắn, không có bản sao lưu. Hỏng ổ cứng là làm lại từ đầu.</p></div>
     </div>
   </div>
 </section>
 
 <!-- CÁCH HOẠT ĐỘNG -->
-<section class="sec" id="cach-hoat-dong">
+<section class="sec alt" id="cach-hoat-dong">
   <div class="wrap">
     <div class="center reveal">
       <span class="eyebrow">Cách hoạt động</span>
-      <h2 class="title">Ba bước — mỗi kênh có môi trường của riêng nó</h2>
+      <h2 class="title">Ba bước — mỗi kênh có một máy của riêng nó</h2>
       <p class="lead">Làm một lần cho mỗi kênh. Từ đó về sau chỉ cần bấm <b>Khởi động</b>.</p>
     </div>
     <div class="steps mt">
-      <div class="step reveal"><h3>Tạo hồ sơ cho từng kênh</h3><p>Mỗi kênh một hồ sơ trình duyệt tách biệt hoàn toàn: cookie, phiên đăng nhập, lịch sử không dính sang kênh khác.</p></div>
-      <div class="step reveal"><h3>Gắn một proxy riêng, cố định</h3><p>Dán proxy HTTP hoặc SOCKS5, bấm <b>Kiểm tra</b> để chắc proxy sống. Mỗi kênh đi một đường mạng riêng, ổn định.</p></div>
-      <div class="step reveal"><h3>Bấm Khởi động và làm việc</h3><p>Đăng nhập Google một lần duy nhất. Mở nhiều kênh song song, kênh nào ra kênh nấy.</p></div>
+      <div class="step reveal"><h3>Tạo hồ sơ + vân tay riêng</h3><p>Mỗi kênh một hồ sơ trình duyệt tách biệt, kèm một bộ vân tay thiết bị riêng được tạo tự động và cố định — như một máy tính khác.</p></div>
+      <div class="step reveal"><h3>Gắn một proxy cố định</h3><p>Dán proxy HTTP/SOCKS5 hoặc vmess/ss/trojan, bấm <b>Kiểm tra</b> để chắc proxy sống. Mỗi kênh một đường mạng riêng, khớp đúng vùng.</p></div>
+      <div class="step reveal"><h3>Bấm Khởi động &amp; làm việc</h3><p>Đăng nhập Google một lần duy nhất. Mở nhiều kênh song song, kênh nào ra kênh nấy. Muốn chắc, bấm <b>Tự kiểm</b>.</p></div>
     </div>
     <div class="formula reveal">
-      <span>1 kênh</span><em>=</em><span>1 hồ sơ riêng</span><em>+</em><span>1 proxy cố định</span><em>→</em><span class="res">Không đăng nhập chéo · Không lộ IP thật</span>
+      <span>1 kênh</span><em>=</em><span>1 vân tay riêng</span><em>+</em><span>1 proxy cố định</span><em>→</em><span class="res">Website thấy một máy tính khác nhau</span>
     </div>
   </div>
 </section>
 
 <!-- TÍNH NĂNG -->
-<section class="sec alt" id="tinh-nang">
+<section class="sec" id="tinh-nang">
   <div class="wrap">
     <div class="center reveal">
       <span class="eyebrow">Tính năng</span>
@@ -128,20 +152,20 @@
       <p class="lead">Mọi thứ được thiết kế cho người làm YouTube: gọn, rõ, bấm là chạy.</p>
     </div>
     <div class="grid g4 mt">
-      <div class="card reveal"><div class="ic">🧩</div><h3>Hồ sơ cách ly</h3><p>Mỗi kênh một hồ sơ trình duyệt riêng, xoá hồ sơ là sạch dữ liệu kênh đó.</p></div>
-      <div class="card reveal"><div class="ic b">🌍</div><h3>Proxy riêng từng kênh</h3><p>Hỗ trợ HTTP/SOCKS5 có mật khẩu, kiểm tra proxy một chạm, nút mua proxy tích hợp.</p></div>
+      <div class="card reveal"><div class="ic">🧬</div><h3>Vân tay thiết bị riêng</h3><p>Anti-detect: mỗi kênh một bộ máy khác (UA, WebGL, CPU, RAM, màn hình, múi giờ) nhất quán, giữ nguyên sandbox Chrome.</p></div>
+      <div class="card reveal"><div class="ic b">🌍</div><h3>Proxy riêng từng kênh</h3><p>HTTP/SOCKS5 và vmess/vless/ss/trojan. Kiểm tra proxy một chạm, tự khớp múi giờ theo IP, nút mua proxy tích hợp.</p></div>
       <div class="card reveal"><div class="ic w">🛑</div><h3>Kill-switch</h3><p>Proxy chết là chặn mạng ngay, không bao giờ âm thầm chạy bằng IP thật.</p></div>
+      <div class="card reveal"><div class="ic g">✅</div><h3>Tự kiểm 1 chạm</h3><p>Trang kiểm tra cho thấy vân tay, IP qua proxy, rò WebRTC — xác nhận mỗi kênh là một máy riêng.</p></div>
       <div class="card reveal"><div class="ic g">🏷️</div><h3>Nhóm, tag, lọc</h3><p>Gom kênh theo thị trường, chủ đề, email. Tìm kênh trong một giây.</p></div>
+      <div class="card reveal"><div class="ic">🔐</div><h3>Dữ liệu mã hoá</h3><p>Thông tin kênh, proxy, mật khẩu được mã hoá ngay trên máy của bạn.</p></div>
       <div class="card reveal"><div class="ic g">💾</div><h3>Sao lưu có mật khẩu</h3><p>Xuất một file sao lưu, đặt mật khẩu riêng. Đổi máy chỉ cần Khôi phục.</p></div>
-      <div class="card reveal"><div class="ic">🔐</div><h3>Dữ liệu mã hoá</h3><p>Thông tin kênh, proxy được mã hoá AES-256 ngay trên máy của bạn.</p></div>
       <div class="card reveal"><div class="ic b">⚡</div><h3>Tự động cập nhật</h3><p>Có bản mới, RVM tự báo. Bấm một nút để cập nhật, dữ liệu giữ nguyên.</p></div>
-      <div class="card reveal"><div class="ic w">📘</div><h3>Hướng dẫn tận tay</h3><p>Tài liệu PDF từng bước có hình cho người mới, kèm hỗ trợ qua Zalo.</p></div>
     </div>
   </div>
 </section>
 
 <!-- SO SÁNH -->
-<section class="sec">
+<section class="sec alt">
   <div class="wrap">
     <div class="center reveal">
       <span class="eyebrow">So sánh</span>
@@ -152,9 +176,11 @@
         <thead><tr><th>Tiêu chí</th><th>Một Chrome, nhiều tài khoản</th><th>Mỗi kênh một máy tính</th><th class="us">RVM</th></tr></thead>
         <tbody>
           <tr><td>Chi phí</td><td>0đ</td><td class="x">Hàng chục triệu cho phần cứng</td><td class="us">Từ <b>~33.000đ/tháng</b> mỗi máy</td></tr>
+          <tr><td>Vân tay thiết bị riêng (anti-detect)</td><td class="x">✗ Cùng một máy</td><td class="v">✓ Máy khác nhau thật</td><td class="us v">✓ Mỗi profile một vân tay</td></tr>
           <tr><td>Tách cookie, phiên đăng nhập</td><td class="x">✗ Trộn lẫn</td><td class="v">✓</td><td class="us v">✓ Mỗi kênh một hồ sơ</td></tr>
-          <tr><td>IP riêng từng kênh</td><td class="x">✗ Chung IP</td><td>Tuỳ mạng từng máy</td><td class="us v">✓ Proxy cố định từng kênh</td></tr>
+          <tr><td>IP riêng từng kênh</td><td class="x">✗ Chung IP</td><td>Tuỳ mạng từng máy</td><td class="us v">✓ Proxy cố định (vmess/ss/trojan)</td></tr>
           <tr><td>Chống lộ IP khi proxy rớt</td><td class="x">✗</td><td>—</td><td class="us v">✓ Kill-switch</td></tr>
+          <tr><td>Tự kiểm “1 profile = 1 máy riêng”</td><td class="x">✗</td><td>—</td><td class="us v">✓ Nút Tự kiểm</td></tr>
           <tr><td>Quản lý tập trung</td><td class="x">✗</td><td class="x">✗ Chạy qua lại giữa các máy</td><td class="us v">✓ Một màn hình, nhóm &amp; lọc</td></tr>
           <tr><td>Sao lưu, chuyển máy</td><td class="x">✗</td><td class="x">✗</td><td class="us v">✓ File sao lưu có mật khẩu</td></tr>
         </tbody>
@@ -164,7 +190,7 @@
 </section>
 
 <!-- BẢNG GIÁ -->
-<section class="sec alt" id="bang-gia">
+<section class="sec" id="bang-gia">
   <div class="wrap">
     <div class="center reveal">
       <span class="eyebrow">Bảng giá</span>
@@ -178,7 +204,7 @@
 </section>
 
 <!-- NÓI THẬT -->
-<section class="sec" id="noi-that">
+<section class="sec alt" id="noi-that">
   <div class="wrap">
     <div class="center reveal">
       <span class="eyebrow">Nói thật trước khi bạn mua</span>
@@ -187,10 +213,10 @@
     </div>
     <div class="two">
       <div class="box g reveal"><h3>🛡️ RVM lo cho bạn</h3><ul>
+        <li>Vân tay thiết bị riêng cho từng kênh (anti-detect)</li>
         <li>Cookie, phiên đăng nhập tách riêng từng kênh</li>
-        <li>Mỗi kênh một IP riêng, cố định</li>
-        <li>Kill-switch: proxy chết là chặn, không lộ IP thật</li>
-        <li>Không đăng nhập chéo giữa các kênh</li>
+        <li>Mỗi kênh một IP riêng, cố định; kill-switch chống lộ IP thật</li>
+        <li>Tự khớp múi giờ theo proxy; tự kiểm 1 chạm</li>
         <li>Dữ liệu mã hoá, sao lưu được, chuyển máy được</li>
       </ul></div>
       <div class="box b reveal"><h3>🧭 Phần bạn cần tự giữ</h3><ul>
@@ -201,35 +227,35 @@
         <li>Mỗi người một tài khoản AdSense</li>
       </ul></div>
     </div>
-    <div class="note g reveal"><b>Tóm lại:</b> RVM giúp các kênh không dính nhau vì kỹ thuật. Việc kênh có bị xử lý hay không còn phụ thuộc vào nội dung và cách vận hành — không phần mềm nào có thể đảm bảo 100%, và chúng tôi không hứa điều đó.</div>
+    <div class="note g reveal"><b>Tóm lại:</b> RVM giúp các kênh không dính nhau về kỹ thuật (thiết bị, cookie, IP). Việc kênh có bị xử lý hay không còn phụ thuộc vào nội dung và cách vận hành — không phần mềm nào đảm bảo 100%, và chúng tôi không hứa điều đó.</div>
   </div>
 </section>
 
 <!-- HỎI ĐÁP -->
-<section class="sec alt" id="hoi-dap">
+<section class="sec" id="hoi-dap">
   <div class="wrap">
     <div class="center reveal">
       <span class="eyebrow">Hỏi đáp</span>
       <h2 class="title">Những câu hay được hỏi nhất</h2>
     </div>
     <div class="faq">
-      <details><summary>RVM chạy trên máy nào?</summary><p>Windows 10 và Windows 11 bản 64-bit. Cài thẳng lên máy bạn đang dùng, không cần máy ảo hay cấu hình phức tạp.</p></details>
+      <details><summary>RVM có phải trình duyệt anti-detect không?</summary><p>Có. Từ bản v<span data-version></span>, RVM gán cho mỗi kênh một <b>bộ vân tay thiết bị riêng</b> (trình duyệt, card màn hình/WebGL, số nhân, RAM, màn hình, múi giờ…) — website nhìn mỗi kênh như một máy tính khác nhau. Vân tay được tiêm theo cách <b>giữ nguyên sandbox</b> của Chrome (an toàn, không hạ bảo mật). Ngoài vân tay, RVM còn tách riêng <b>cookie, phiên đăng nhập và IP</b> cho từng kênh. Dù vậy, không phần mềm nào — kể cả anti-detect — đảm bảo kênh an toàn 100%; giữ từng kênh sạch chính sách vẫn là điều quan trọng nhất.</p></details>
+      <details><summary>“Tự kiểm” là gì?</summary><p>Là nút kiểm tra ngay trong RVM. Bấm vào, RVM mở một trang cho bạn thấy <b>web nhìn thấy gì</b> ở kênh này: vân tay thiết bị có “khớp” với bộ máy đã gán không, IP công khai có đúng là IP của proxy không, có bị rò WebRTC (lộ IP thật) không. Tất cả báo xanh là yên tâm mỗi kênh đang là một máy riêng.</p></details>
+      <details><summary>RVM chạy trên máy nào?</summary><p>Windows 10 và Windows 11 bản 64-bit. Cài thẳng lên máy bạn đang dùng, không cần máy ảo hay cấu hình phức tạp. Cần cài sẵn Google Chrome.</p></details>
       <details><summary>Một máy chạy được bao nhiêu kênh?</summary><p>Phần mềm không giới hạn số hồ sơ. Giới hạn thật nằm ở RAM của máy, vì mỗi kênh đang mở là một cửa sổ trình duyệt thật. Máy phổ thông chạy êm vài kênh cùng lúc; nhiều hơn thì mở luân phiên.</p></details>
-      <details><summary>Tôi có phải mua proxy riêng không?</summary><p>Có. RVM không bán kèm proxy để bạn tự chọn nhà cung cấp và quốc gia phù hợp. Trong phần mềm có nút "Mua proxy" và hướng dẫn chọn loại sạch, ổn định.</p></details>
-      <details><summary>Dùng RVM có chống được "chết chùm" 100% không?</summary><p>Không — và bạn nên cẩn thận với bất kỳ ai hứa 100%. RVM loại bỏ liên kết kỹ thuật qua trình duyệt và IP. Nhưng nếu các kênh dùng chung số điện thoại khôi phục, chung AdSense, hoặc một kênh vi phạm nặng, YouTube vẫn có thể xử lý các kênh liên quan. Giữ từng kênh sạch chính sách là cách bảo vệ cả cụm tốt nhất.</p></details>
-      <details><summary>Làm kênh nhắm khán giả Mỹ thì dùng Gmail và proxy thế nào cho đúng?</summary><p>Gmail không có "quốc tịch" — điều quan trọng là <b>danh tính phải thật</b>. Tạo Gmail bằng số điện thoại thật của bạn (số Việt Nam dùng bình thường), bật xác minh 2 bước. Trong YouTube Studio và AdSense, khai <b>đúng quốc gia cư trú, tên, địa chỉ</b>; người ở Việt Nam khai mẫu thuế <b>W-8BEN</b>. Khai giả là người Mỹ thường dẫn tới bị giữ tiền hoặc tắt kiếm tiền.<br><br>Khán giả Mỹ đến từ <b>nội dung</b>, không phải từ IP: làm video, tiêu đề, mô tả, phụ đề bằng tiếng Anh, đặt ngôn ngữ video là English, đăng vào giờ người Mỹ hay xem. Proxy Mỹ <b>không bắt buộc</b>; nếu dùng thì mỗi kênh một proxy Mỹ cố định ngay từ đầu, không nhảy qua lại giữa IP Việt và IP Mỹ.<br><br>Không nên mua Gmail/kênh/AdSense "Mỹ" làm sẵn, không mượn danh tính người khác, không reup nội dung — đó là các lý do hàng đầu khiến kênh mất tiền hoặc bị khoá.</p></details>
-      <details><summary>RVM khác gì phần mềm giả lập máy (antidetect)?</summary><p>Nói thẳng: RVM <b>không giả thông tin máy tính</b> (vân tay trình duyệt, phần cứng, múi giờ…) để mỗi profile trông như một máy riêng. Thứ RVM tách riêng cho từng kênh là <b>cookie, phiên đăng nhập và IP</b>: mỗi kênh một proxy cố định, proxy rớt là chặn ngay, không lộ IP thật.<br><br>Chúng tôi chọn cách này vì giả thông tin máy không xoá được những liên kết quan trọng nhất giữa các kênh: cùng số điện thoại xác minh, cùng email khôi phục, cùng AdSense, cùng cách đăng nội dung. Thông tin máy giả mà không khớp nhau còn có thể thành dấu hiệu bất thường. Vì vậy không phần mềm nào, kể cả loại giả lập máy, đảm bảo được kênh an toàn 100%.<br><br>RVM dành cho người làm kênh thật, nội dung thật, cần quản lý nhiều kênh gọn gàng, không nhầm lẫn, không lộ IP, sao lưu và chuyển máy dễ dàng. Nếu mục tiêu của bạn là lách án khoá kênh hoặc lách hệ thống phát hiện của YouTube thì RVM không phù hợp, và chúng tôi nói rõ điều đó ngay từ đầu. Muốn thử thực tế, bạn có thể bắt đầu với gói 1 tháng.</p></details>
+      <details><summary>RVM hỗ trợ loại proxy nào?</summary><p>HTTP, SOCKS5 (có mật khẩu) và các giao thức <b>vmess / vless / shadowsocks (ss) / trojan</b> — hợp với proxy hay dùng ở Việt Nam. Mỗi kênh gắn một proxy riêng; RVM kiểm tra proxy một chạm và tự lấy múi giờ theo IP của proxy. Proxy mua riêng để bạn chọn nhà cung cấp và quốc gia phù hợp.</p></details>
+      <details><summary>Làm kênh nhắm khán giả Mỹ thì dùng Gmail và proxy thế nào cho đúng?</summary><p>Gmail không có “quốc tịch” — điều quan trọng là <b>danh tính phải thật</b>. Tạo Gmail bằng số điện thoại thật của bạn, bật xác minh 2 bước. Trong YouTube Studio và AdSense, khai <b>đúng quốc gia cư trú, tên, địa chỉ</b>; người ở Việt Nam khai mẫu thuế <b>W-8BEN</b>. Khai giả là người Mỹ thường dẫn tới bị giữ tiền hoặc tắt kiếm tiền.<br><br>Khán giả Mỹ đến từ <b>nội dung</b>: làm video, tiêu đề, mô tả, phụ đề bằng tiếng Anh, đặt ngôn ngữ video là English, đăng vào giờ người Mỹ hay xem. Nếu dùng proxy Mỹ thì mỗi kênh một proxy Mỹ cố định ngay từ đầu, không nhảy qua lại giữa IP Việt và IP Mỹ — RVM sẽ tự khớp múi giờ theo proxy.</p></details>
       <details><summary>Bản quyền tính như thế nào?</summary><p>Mỗi bản quyền gắn với một máy tính. Bạn nhận một tài khoản đăng nhập, phần mềm tự kích hoạt trên máy đó. Cần chuyển sang máy mới, nhắn chúng tôi để được hỗ trợ.</p></details>
       <details><summary>Hết hạn thì dữ liệu kênh có mất không?</summary><p>Không mất. Dữ liệu vẫn nằm trên máy bạn ở dạng mã hoá; gia hạn xong đăng nhập lại là dùng tiếp như cũ. Bạn cũng nên sao lưu định kỳ bằng nút Sao lưu.</p></details>
       <details><summary>Cập nhật phiên bản mới có mất dữ liệu không?</summary><p>Không. Khi có bản mới, RVM tự hiện thông báo; bạn bấm cập nhật, phần mềm tải và cài lại, toàn bộ kênh và cấu hình giữ nguyên.</p></details>
-      <details><summary>Thanh toán và nhận tài khoản thế nào?</summary><p>Bấm "Chọn gói", điền họ tên, email, số điện thoại và đặt mật khẩu, rồi quét mã VietQR bằng app ngân hàng. Tiền về là tài khoản được kích hoạt tự động trong khoảng 1 phút, kể cả ban đêm. Tên đăng nhập RVM chính là email của bạn.</p></details>
-      <details><summary>Gia hạn thế nào?</summary><p>Bấm "Gia hạn" trên thanh menu, nhập tài khoản và mật khẩu đang dùng, chọn gói rồi quét mã QR. Thời gian còn lại được giữ nguyên và cộng thêm thời gian của gói mới.</p></details>
+      <details><summary>Thanh toán và nhận tài khoản thế nào?</summary><p>Bấm “Chọn gói”, điền họ tên, email, số điện thoại và đặt mật khẩu, rồi quét mã VietQR bằng app ngân hàng. Tiền về là tài khoản được kích hoạt tự động trong khoảng 1 phút, kể cả ban đêm. Tên đăng nhập RVM chính là email của bạn.</p></details>
+      <details><summary>Gia hạn thế nào?</summary><p>Bấm “Gia hạn” trên thanh menu, nhập tài khoản và mật khẩu đang dùng, chọn gói rồi quét mã QR. Thời gian còn lại được giữ nguyên và cộng thêm thời gian của gói mới.</p></details>
     </div>
   </div>
 </section>
 
 <!-- ĐỐI TÁC -->
-<section class="sec">
+<section class="sec alt">
   <div class="wrap">
     <div class="band reveal">
       <div>
@@ -244,7 +270,7 @@
 </section>
 
 <!-- LIÊN HỆ -->
-<section class="sec alt" id="lien-he">
+<section class="sec" id="lien-he">
   <div class="wrap">
     <div class="center reveal">
       <span class="eyebrow">Bắt đầu</span>
@@ -263,7 +289,7 @@
 <footer>
   <div class="wrap">
     <div><b style="color:var(--txt)">RVM</b> — Phần mềm quản lý kênh YouTube · © <span data-year></span> RVM Login</div>
-    <div class="disc">RVM là công cụ tách hồ sơ trình duyệt và đường mạng cho từng kênh, nhằm giảm liên kết kỹ thuật giữa các kênh và giúp quản lý gọn gàng. RVM không đảm bảo kênh không bị nền tảng xử lý, không cam kết lượt xem hay doanh thu, và không thay thế cho việc làm nội dung tử tế, tuân thủ chính sách YouTube. YouTube là thương hiệu của Google LLC; RVM không liên kết với Google.</div>
+    <div class="disc">RVM là công cụ gán vân tay thiết bị, tách hồ sơ trình duyệt và đường mạng cho từng kênh, nhằm giảm liên kết kỹ thuật giữa các kênh và giúp quản lý gọn gàng. RVM không đảm bảo kênh không bị nền tảng xử lý, không cam kết lượt xem hay doanh thu, và không thay thế cho việc làm nội dung tử tế, tuân thủ chính sách YouTube. YouTube là thương hiệu của Google LLC; RVM không liên kết với Google.</div>
   </div>
 </footer>
 
@@ -344,7 +370,7 @@
 
   // ---- Bảng giá ----
   const feats = {
-    m1: ['Không giới hạn số kênh', 'Proxy riêng + kill-switch', 'Sao lưu có mật khẩu', 'Tự động cập nhật'],
+    m1: ['Không giới hạn số kênh', 'Vân tay thiết bị riêng + kill-switch', 'Tự kiểm 1 chạm · sao lưu có mật khẩu', 'Tự động cập nhật'],
     m3: ['Mọi thứ của gói 1 tháng', 'Hỗ trợ cài đặt qua Zalo', 'Rẻ hơn 1/3 so với trả từng tháng'],
     y1: ['Mọi thứ của gói 3 tháng', 'Cập nhật suốt thời hạn', 'Hợp với người làm nghiêm túc cả năm'],
     y3: ['Mọi thứ của gói 1 năm', 'Giá mỗi tháng thấp nhất', 'Không phải lo gia hạn suốt 3 năm']
@@ -462,7 +488,6 @@
   refreshBar();
 
   // ---- Thanh báo mã giới thiệu ----
-  // chạy sau captureRef() của site.js (đăng ký listener trước)
   document.addEventListener('DOMContentLoaded', () => {
     const r = U.getRef();
     if (r) { const b = U.$('#refbar'); b.style.display = 'block'; b.innerHTML = `🤝 Bạn đến từ lời giới thiệu của đối tác <b>${U.esc(r)}</b> — mã sẽ được ghi nhận khi bạn đăng ký.`; }
