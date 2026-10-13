@@ -12,8 +12,8 @@ window.RVM = {
   zalo: 'https://zalo.me/0918637699',
   telegram: 'https://t.me/+84918637699',
 
-  version: '1.1.3',
-  download: 'https://raw.githubusercontent.com/rongvietmedia/rvm-release/main/RVM-Setup-1.1.3.exe',
+  version: '1.1.7',
+  download: 'https://raw.githubusercontent.com/rongvietmedia/rvm-release/main/RVM-Setup-1.1.7.exe',
 
   // Giá theo MÁY (mỗi máy 1 bản quyền). Giá gốc dùng để hiện "tiết kiệm %".
   plans: [

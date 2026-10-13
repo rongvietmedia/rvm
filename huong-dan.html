@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Hướng dẫn sử dụng phần mềm RVM Login v1.1.7 — xem đẹp trên điện thoại và máy tính.">
+<style>html{color-scheme:light dark}:root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Hướng dẫn RVM Login</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --bg:#f6f5f3; --surface:#ffffff; --surface-2:#faf8f5; --border:#e7e2db;
+  --ink:#17191e; --muted:#5d6470;
+  --accent:#e23b3b; --accent-ink:#ffffff; --accent-soft:#fcecec; --accent-line:#f3c9c9;
+  --good:#1a9b54; --good-soft:#e7f6ee;
+  --warn:#b9771a; --warn-soft:#fbf0db;
+  --mono-bg:#f3efe9;
+  --shadow:0 1px 2px rgba(20,20,30,.05), 0 8px 24px rgba(20,20,30,.06);
+  --radius:14px;
+  --font-display:'Archivo',system-ui,Segoe UI,sans-serif;
+  --font-body:'Inter',system-ui,Segoe UI,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,Consolas,monospace;
+}
+:root:not([data-theme="light"]){
+  @media (prefers-color-scheme:dark){
+    --bg:#0f1115; --surface:#171a21; --surface-2:#1b1f27; --border:#2a2f3a;
+    --ink:#e8eaef; --muted:#9aa2b0;
+    --accent:#f2544f; --accent-ink:#ffffff; --accent-soft:#2b1618; --accent-line:#48262a;
+    --good:#37c46d; --good-soft:#14281d;
+    --warn:#e3a53c; --warn-soft:#2b2210;
+    --mono-bg:#20242d;
+    --shadow:0 1px 2px rgba(0,0,0,.35), 0 12px 32px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1115; --surface:#171a21; --surface-2:#1b1f27; --border:#2a2f3a;
+  --ink:#e8eaef; --muted:#9aa2b0;
+  --accent:#f2544f; --accent-ink:#ffffff; --accent-soft:#2b1618; --accent-line:#48262a;
+  --good:#37c46d; --good-soft:#14281d;
+  --warn:#e3a53c; --warn-soft:#2b2210;
+  --mono-bg:#20242d;
+  --shadow:0 1px 2px rgba(0,0,0,.35), 0 12px 32px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);line-height:1.6;-webkit-font-smoothing:antialiased;font-size:16px}
+.wrap{max-width:820px;margin:0 auto;padding-inline:18px;padding-block:0}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;line-height:1.18;margin:0}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+
+/* Header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.top .bar{max-width:820px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.mark{width:40px;height:40px;border-radius:9px;background:var(--accent);display:grid;place-items:center;flex:0 0 auto;box-shadow:0 2px 8px color-mix(in srgb,var(--accent) 40%,transparent)}
+.mark b{font-family:var(--font-display);font-weight:800;color:#fff;font-size:17px;letter-spacing:.5px;line-height:1}
+.mark span{font-size:6.5px;letter-spacing:3px;color:#fff;opacity:.9;margin-top:2px}
+.bname{font-family:var(--font-display);font-weight:800;font-size:17px;letter-spacing:.2px}
+.ver{font-size:11px;font-weight:600;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line);padding:2px 8px;border-radius:999px;white-space:nowrap}
+.sp{flex:1}
+.tbtn{width:38px;height:38px;border-radius:9px;border:1px solid var(--border);background:var(--surface);color:var(--ink);cursor:pointer;display:grid;place-items:center;font-size:17px}
+.tbtn:hover{border-color:var(--accent)}
+
+/* TOC chips */
+.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 60px);z-index:15;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.toc .row{max-width:820px;margin:0 auto;padding:9px 18px;display:flex;gap:8px;overflow-x:auto;scrollbar-width:thin}
+.toc a{flex:0 0 auto;font-size:13px;font-weight:600;color:var(--muted);background:var(--surface);border:1px solid var(--border);padding:6px 12px;border-radius:999px;white-space:nowrap}
+.toc a:hover{color:var(--accent);border-color:var(--accent);text-decoration:none}
+
+section{scroll-margin-top:120px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent)}
+.lead{color:var(--muted);font-size:17px}
+
+/* Hero */
+.hero{padding:34px 0 26px}
+.hero h1{font-size:clamp(30px,7vw,46px);font-weight:800;margin:14px 0 10px;letter-spacing:-.5px}
+.hero .tag{color:var(--accent);font-weight:700}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.btn{font-family:var(--font-body);font-weight:600;font-size:15px;padding:12px 20px;border-radius:11px;border:1px solid transparent;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.btn.primary{background:var(--accent);color:var(--accent-ink);box-shadow:0 6px 18px color-mix(in srgb,var(--accent) 35%,transparent)}
+.btn.primary:hover{filter:brightness(1.05);text-decoration:none}
+.btn.ghost{background:var(--surface);border-color:var(--border);color:var(--ink)}
+.btn.ghost:hover{border-color:var(--accent);text-decoration:none}
+
+/* generic blocks */
+.block{padding:30px 0;border-top:1px solid var(--border)}
+.block h2{font-size:clamp(22px,4.6vw,28px);font-weight:700;margin-bottom:6px}
+.block > .lead{margin-bottom:18px}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+.card h3{font-size:17px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:9px}
+.card p{margin:0;color:var(--muted);font-size:14.5px}
+.ic{width:30px;height:30px;border-radius:8px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;flex:0 0 auto;font-size:16px}
+
+/* steps */
+ol.steps{list-style:none;counter-reset:s;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+ol.steps li{counter-increment:s;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:15px 16px 15px 56px;position:relative;box-shadow:var(--shadow)}
+ol.steps li::before{content:counter(s);position:absolute;left:14px;top:14px;width:28px;height:28px;border-radius:8px;background:var(--accent);color:#fff;font-family:var(--font-display);font-weight:800;font-size:14px;display:grid;place-items:center}
+ol.steps li b{font-weight:600}
+ol.steps li .d{display:block;color:var(--muted);font-size:14px;margin-top:3px}
+
+/* button reference */
+.ref{display:flex;flex-direction:column;gap:9px}
+.ref .r{display:flex;align-items:flex-start;gap:13px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:13px 15px;box-shadow:var(--shadow)}
+.chip{flex:0 0 auto;font-family:var(--font-body);font-weight:600;font-size:12.5px;padding:6px 12px;border-radius:8px;white-space:nowrap;min-width:92px;text-align:center}
+.c-go{background:var(--good);color:#fff}
+.c-stop{background:transparent;border:1px solid var(--border);color:var(--ink)}
+.c-neutral{background:var(--surface-2);border:1px solid var(--border);color:var(--ink)}
+.c-del{background:transparent;border:1px solid var(--accent-line);color:var(--accent)}
+.c-add{background:var(--accent);color:#fff}
+.c-nav{background:var(--accent-soft);color:var(--accent);min-width:110px}
+.ref .r .t{min-width:0}
+.ref .r .t b{font-weight:600}
+.ref .r .t span{display:block;color:var(--muted);font-size:14px;margin-top:2px}
+
+/* code / proxy */
+.code{font-family:var(--font-mono);background:var(--mono-bg);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:14px;overflow-x:auto;white-space:nowrap}
+.code .k{color:var(--accent);font-weight:600}
+.code .u{color:var(--good);font-weight:600}
+.split{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:12px}
+.split div{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 12px}
+.split small{display:block;font-size:11px;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);font-weight:600}
+.split b{font-family:var(--font-mono);font-size:14px;word-break:break-all}
+
+/* callout */
+.note{background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:12px;padding:14px 16px;font-size:14.5px}
+.note.good{background:var(--good-soft);border-color:color-mix(in srgb,var(--good) 35%,transparent)}
+.note.warn{background:var(--warn-soft);border-color:color-mix(in srgb,var(--warn) 40%,transparent)}
+.note b{font-weight:700}
+
+/* checklist */
+ul.check{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+ul.check li{display:flex;gap:11px;align-items:flex-start}
+ul.check li .tick{flex:0 0 auto;width:22px;height:22px;border-radius:6px;background:var(--good-soft);color:var(--good);display:grid;place-items:center;font-weight:800;font-size:13px;margin-top:1px}
+ul.check li span{color:var(--muted);font-size:14.5px}
+ul.check li b{color:var(--ink);font-weight:600}
+
+/* pricing */
+.prices{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.plan{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:16px;text-align:center;box-shadow:var(--shadow);position:relative}
+.plan.best{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 30%,transparent),var(--shadow)}
+.plan .p{font-family:var(--font-display);font-weight:800;font-size:24px;color:var(--accent);margin:4px 0 2px}
+.plan .n{font-size:13px;color:var(--muted);font-weight:600}
+.plan .tagbest{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;font-size:10.5px;font-weight:700;letter-spacing:.5px;padding:3px 10px;border-radius:999px;white-space:nowrap}
+
+/* FAQ */
+details{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:0 16px;box-shadow:var(--shadow)}
+details+details{margin-top:10px}
+summary{cursor:pointer;font-weight:600;padding:14px 0;list-style:none;display:flex;justify-content:space-between;gap:12px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-family:var(--font-display);font-weight:800;color:var(--accent);font-size:20px;flex:0 0 auto}
+details[open] summary::after{content:"–"}
+details .ans{padding:0 0 15px;color:var(--muted);font-size:14.5px;border-top:1px solid var(--border);padding-top:12px;margin-top:-2px}
+details .ans b{color:var(--ink)}
+
+/* footer */
+.foot{border-top:1px solid var(--border);margin-top:28px;padding:28px 0 40px;text-align:center}
+.foot .fmark{display:inline-flex;align-items:center;gap:10px;margin-bottom:12px}
+.foot .big{font-family:var(--font-display);font-weight:800;font-size:19px}
+.contacts{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:8px}
+.contacts a{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 16px;font-weight:600;font-size:14.5px;color:var(--ink)}
+.contacts a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+.foot small{display:block;color:var(--muted);margin-top:16px;font-size:12.5px}
+
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="bar">
+    <div class="brand">
+      <div class="mark"><b>RVM</b><span>LOGIN</span></div>
+      <div class="bname">RVM Login</div>
+    </div>
+    <span class="ver">v1.1.7</span>
+    <span class="sp"></span>
+    <button class="tbtn" id="theme" aria-label="Đổi giao diện sáng/tối" title="Sáng / Tối">◐</button>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Mục lục">
+  <div class="row">
+    <a href="#gioithieu">Giới thiệu</a>
+    <a href="#tinhnang">Tính năng</a>
+    <a href="#caidat">Cài đặt</a>
+    <a href="#giaodien">Từng nút</a>
+    <a href="#proxy">Thêm proxy</a>
+    <a href="#tukiem">Tự kiểm</a>
+    <a href="#giahan">Gia hạn</a>
+    <a href="#gia">Bảng giá</a>
+    <a href="#suco">Sự cố</a>
+    <a href="#hotro">Hỗ trợ</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <section class="hero" id="gioithieu">
+    <div class="eyebrow">Hướng dẫn sử dụng · phiên bản 1.1.7</div>
+    <h1>Mỗi profile là <span class="tag">một máy tính riêng</span></h1>
+    <p class="lead">RVM Login là phần mềm quản lý nhiều kênh YouTube an toàn trên một máy. Mỗi profile có vân tay thiết bị riêng (anti-detect), proxy riêng + kill-switch và dữ liệu mã hoá — để một kênh dính gậy <b>không</b> kéo cả chùm bay theo.</p>
+    <div class="cta">
+      <a class="btn primary" href="https://rongvietmedia.github.io/rvm/" target="_blank" rel="noopener">Tải phần mềm →</a>
+      <a class="btn ghost" href="#caidat">Xem cách cài đặt</a>
+    </div>
+  </section>
+
+  <section class="block" id="tinhnang">
+    <div class="eyebrow">Vì sao chọn RVM</div>
+    <h2>Tính năng chính</h2>
+    <p class="lead">Mọi thứ cần để nuôi nhiều kênh mà không sợ chết chùm.</p>
+    <div class="grid">
+      <div class="card"><h3><span class="ic">🧬</span>Vân tay thiết bị riêng</h3><p>Mỗi profile một bộ vân tay (UA, màn hình, GPU, múi giờ…) khác nhau — YouTube thấy mỗi kênh như một máy, một người khác.</p></div>
+      <div class="card"><h3><span class="ic">🌐</span>Proxy riêng từng kênh</h3><p>Hỗ trợ HTTP / SOCKS5 (và vmess/vless/ss/trojan). Mỗi kênh một IP riêng, không kênh nào đụng kênh nào.</p></div>
+      <div class="card"><h3><span class="ic">🛡️</span>Kill-switch chống lộ IP</h3><p>Proxy rớt mạng là chặn ngay — IP thật của bạn <b>không bao giờ</b> lộ ra.</p></div>
+      <div class="card"><h3><span class="ic">🔐</span>Dữ liệu mã hoá</h3><p>Cookie, đăng nhập, lịch sử của từng profile nằm riêng và được mã hoá — không rò rỉ chéo.</p></div>
+      <div class="card"><h3><span class="ic">✅</span>Tự kiểm 1 chạm</h3><p>Bấm một nút để kiểm tra vân tay có khớp và IP có đúng proxy không, trước khi chạy kênh.</p></div>
+      <div class="card"><h3><span class="ic">👥</span>Quản lý team dễ</h3><p>Giao profile cho nhân viên mà không lộ mật khẩu cá nhân; phân quyền, bàn giao, thu hồi gọn gàng.</p></div>
+    </div>
+  </section>
+
+  <section class="block" id="caidat">
+    <div class="eyebrow">Bắt đầu</div>
+    <h2>Cài đặt &amp; đăng nhập</h2>
+    <p class="lead">Chỉ vài phút là chạy được.</p>
+    <ol class="steps">
+      <li><b>Tải phần mềm</b> tại <a href="https://rongvietmedia.github.io/rvm/" target="_blank" rel="noopener">rongvietmedia.github.io/rvm</a><span class="d">Tải file <b>RVM-Setup-1.1.7.exe</b> (Windows 64-bit).</span></li>
+      <li><b>Chạy file cài đặt</b><span class="d">Nếu Windows hiện cảnh báo SmartScreen (“nhà phát hành không xác định”): bấm <b>Thông tin thêm → Vẫn chạy</b>. Phần mềm an toàn.</span></li>
+      <li><b>Mở app RVM Login</b><span class="d">Sau khi cài, tìm biểu tượng đỏ <b>“RVM Login”</b> trên desktop hoặc gõ “RVM Login” ở ô tìm kiếm Windows.</span></li>
+      <li><b>Đăng nhập bản quyền</b><span class="d">Nhập tài khoản + mật khẩu do bên bán cấp. Mỗi tài khoản gắn với một máy; muốn đổi máy báo bên bán mở khoá.</span></li>
+      <li><b>Mở khoá kho dữ liệu (vault)</b><span class="d">Đặt mật khẩu vault lần đầu để mã hoá dữ liệu. Nhớ kỹ mật khẩu này.</span></li>
+    </ol>
+    <div class="note" style="margin-top:14px">💡 <b>Cập nhật tự động:</b> khi có bản mới, bấm mục <b>Cập nhật</b> ở cột trái → app tự tải và cài. Luôn giữ bản mới nhất để có đủ tính năng &amp; vá lỗi.</div>
+  </section>
+
+  <section class="block" id="giaodien">
+    <div class="eyebrow">Làm chủ phần mềm</div>
+    <h2>Giao diện &amp; từng nút</h2>
+    <p class="lead">Mỗi dòng trong danh sách là một <b>profile</b> (một kênh = một máy riêng). Các nút thao tác nằm bên phải mỗi dòng.</p>
+
+    <h3 style="font-size:16px;margin:18px 0 10px;color:var(--muted)">NÚT TRÊN TỪNG PROFILE</h3>
+    <div class="ref">
+      <div class="r"><span class="chip c-add">+ Tạo profile</span><div class="t"><b>Tạo profile mới</b><span>Mở form tạo một kênh/máy riêng: đặt tên, nhóm, cửa sổ, email quản lý, proxy…</span></div></div>
+      <div class="r"><span class="chip c-go">Khởi động</span><div class="t"><b>Mở profile</b><span>Bật trình duyệt riêng của kênh (đã áp vân tay + proxy). Giữ nguyên phiên đăng nhập, mở là chạy.</span></div></div>
+      <div class="r"><span class="chip c-stop">Dừng</span><div class="t"><b>Đóng profile</b><span>Tắt trình duyệt của kênh đang chạy. Nên bấm Dừng trước khi mở lại để tránh lỗi.</span></div></div>
+      <div class="r"><span class="chip c-neutral">Tự kiểm</span><div class="t"><b>Kiểm tra “1 profile = 1 máy riêng”</b><span>Mở trang kiểm tra vân tay có khớp + IP có đúng proxy + không rò WebRTC.</span></div></div>
+      <div class="r"><span class="chip c-neutral">Đã KT</span><div class="t"><b>Đánh dấu đã kiểm tra</b><span>Ghi nhận kênh này đã được kiểm tra, để theo dõi chu kỳ nhắc kiểm.</span></div></div>
+      <div class="r"><span class="chip c-neutral">Sửa</span><div class="t"><b>Sửa thông tin kênh</b><span>Sửa tên, nhóm, proxy… <b>Proxy cũ hiện sẵn</b> để bạn tự theo dõi; xoá hết các ô proxy để gỡ proxy.</span></div></div>
+      <div class="r"><span class="chip c-del">Xoá</span><div class="t"><b>Xoá profile</b><span>Gỡ kênh khỏi danh sách (dữ liệu profile cách ly trên đĩa vẫn giữ lại).</span></div></div>
+    </div>
+
+    <h3 style="font-size:16px;margin:22px 0 10px;color:var(--muted)">THANH MENU BÊN TRÁI</h3>
+    <div class="ref">
+      <div class="r"><span class="chip c-nav">📺 Kênh</span><div class="t"><span>Danh sách tất cả profile/kênh của bạn.</span></div></div>
+      <div class="r"><span class="chip c-nav">👥 Thành viên</span><div class="t"><span>Thêm nhân viên, phân quyền, giao kênh cho từng người.</span></div></div>
+      <div class="r"><span class="chip c-nav">🛒 Mua proxy</span><div class="t"><span>Mở trang mua proxy để lấy IP cho kênh.</span></div></div>
+      <div class="r"><span class="chip c-nav">💳 Gia hạn gói</span><div class="t"><span>Mở trang thanh toán để gia hạn khi gói sắp hết hạn.</span></div></div>
+      <div class="r"><span class="chip c-nav">⤓ Sao lưu</span><div class="t"><span>Xuất bản sao dữ liệu (có mật khẩu) để phục hồi ở máy khác.</span></div></div>
+      <div class="r"><span class="chip c-nav">⤒ Khôi phục</span><div class="t"><span>Nạp lại dữ liệu từ file sao lưu.</span></div></div>
+      <div class="r"><span class="chip c-nav">📝 Nhật ký</span><div class="t"><span>Xem lịch sử thao tác (ai làm gì, lúc nào).</span></div></div>
+      <div class="r"><span class="chip c-nav">⬆️ Cập nhật</span><div class="t"><span>Kiểm tra và cài bản mới của phần mềm.</span></div></div>
+    </div>
+  </section>
+
+  <section class="block" id="proxy">
+    <div class="eyebrow">Mẹo hay</div>
+    <h2>Thêm proxy — dán là tự tách</h2>
+    <p class="lead">Mua proxy xong, bạn <b>không phải nhập tay từng ô</b>. Dán cả chuỗi vào ô <b>host</b>, phần mềm tự tách vào host / port / user / pass.</p>
+    <div class="code"><span class="k">79.127.208.74</span>:<span class="k">50100</span>@<span class="u">iejqtQO8_1</span>@<span class="u">SWoeH15KtY</span></div>
+    <div class="split">
+      <div><small>Host</small><b>79.127.208.74</b></div>
+      <div><small>Port</small><b>50100</b></div>
+      <div><small>User</small><b>iejqtQO8_1</b></div>
+      <div><small>Pass</small><b>SWoeH15KtY</b></div>
+    </div>
+    <p style="color:var(--muted);font-size:14.5px;margin-top:16px">Hỗ trợ nhiều định dạng phổ biến:</p>
+    <ul class="check">
+      <li><span class="tick">✓</span><span><b>host:port</b> (không mật khẩu)</span></li>
+      <li><span class="tick">✓</span><span><b>host:port:user:pass</b></span></li>
+      <li><span class="tick">✓</span><span><b>host:port@user@pass</b> &nbsp;·&nbsp; <b>host:port@user:pass</b></span></li>
+      <li><span class="tick">✓</span><span><b>user:pass@host:port</b> &nbsp;·&nbsp; <b>socks5://user:pass@host:port</b></span></li>
+    </ul>
+    <div class="note" style="margin-top:16px">Vẫn có thể <b>nhập tay</b> bình thường. Sau khi nhập, bấm <b>Kiểm tra proxy</b> — báo “sống” là dùng được.</div>
+  </section>
+
+  <section class="block" id="tukiem">
+    <div class="eyebrow">An tâm trước khi chạy</div>
+    <h2>Kiểm tra “1 profile = 1 máy riêng”</h2>
+    <p class="lead">Bấm nút <span class="chip c-neutral" style="min-width:auto;display:inline-block;padding:3px 10px">Tự kiểm</span> trên profile. Trang kiểm tra sẽ mở và cho bạn thấy đúng những gì web nhìn thấy:</p>
+    <ul class="check">
+      <li><span class="tick">✓</span><span><b>Vân tay khớp:</b> User-Agent, màn hình, GPU, múi giờ… đúng bộ đã gán cho kênh.</span></li>
+      <li><span class="tick">✓</span><span><b>IP công khai = IP proxy:</b> địa chỉ IP hiện ra đúng là proxy của kênh, không phải IP thật.</span></li>
+      <li><span class="tick">✓</span><span><b>Không rò WebRTC:</b> không lộ IP mạng nội bộ/IP thật.</span></li>
+    </ul>
+    <div class="note good" style="margin-top:16px">✅ Tất cả hiện <b>“khớp”</b> và IP đúng proxy nghĩa là kênh đang chạy như một máy thật, một người thật — yên tâm nuôi kênh.</div>
+  </section>
+
+  <section class="block" id="giahan">
+    <div class="eyebrow">Duy trì</div>
+    <h2>Gia hạn gói</h2>
+    <p class="lead">Khi gói sắp hết hạn, vào mục <span class="chip c-nav" style="display:inline-block;min-width:auto;padding:3px 10px">💳 Gia hạn gói</span> ở cột trái → mở trang thanh toán → chọn gói và chuyển khoản theo mã QR. Sau khi bên bán xác nhận, tài khoản được gia hạn tự động.</p>
+  </section>
+
+  <section class="block" id="gia">
+    <div class="eyebrow">Chi phí</div>
+    <h2>Bảng giá</h2>
+    <p class="lead">Mỗi máy (thiết bị) một tài khoản — chạy được nhiều profile.</p>
+    <div class="prices">
+      <div class="plan"><div class="n">1 THÁNG</div><div class="p">150K</div></div>
+      <div class="plan"><div class="n">3 THÁNG</div><div class="p">300K</div></div>
+      <div class="plan best"><span class="tagbest">ĐÁNG NHẤT</span><div class="n">1 NĂM</div><div class="p">600K</div></div>
+      <div class="plan"><div class="n">3 NĂM</div><div class="p">1,2TR</div></div>
+    </div>
+  </section>
+
+  <section class="block" id="suco">
+    <div class="eyebrow">Khi gặp trục trặc</div>
+    <h2>Xử lý sự cố thường gặp</h2>
+    <details><summary>Báo “Chrome không mở cổng điều khiển (CDP) kịp”</summary><div class="ans">Thường do còn cửa sổ/tiến trình Chrome cũ của kênh. Mở <b>Task Manager (Ctrl+Shift+Esc)</b> → kết thúc hết <b>chrome.exe</b>, rồi bấm <b>Khởi động</b> lại. Lần đầu sau khi bật máy Chrome khởi động hơi chậm — nếu lỡ báo lỗi, bấm lại lần nữa.</div></details>
+    <details><summary>Tự kiểm báo “proxy down” dù proxy còn sống</summary><div class="ans">Đã được sửa từ <b>v1.1.6</b>. Hãy <b>Cập nhật</b> lên bản mới nhất rồi Tự kiểm lại. Nếu sau khi cập nhật, mục IP vẫn báo “không lấy được (proxy chết?)” thì khi đó mới là proxy thật sự chết — thay proxy sống khác.</div></details>
+    <details><summary>Windows cảnh báo “nhà phát hành không xác định” khi cài</summary><div class="ans">Đây là cảnh báo mặc định của Windows với phần mềm chưa mua chứng chỉ ký số. Bấm <b>Thông tin thêm → Vẫn chạy</b>. Phần mềm an toàn.</div></details>
+    <details><summary>Proxy báo “sống” lúc kiểm nhưng rớt khi chạy</summary><div class="ans">Proxy rẻ hay chập chờn. Kill-switch sẽ chặn để bảo vệ IP thật của bạn (đúng chức năng). Hãy thay proxy ổn định hơn, hoặc để kênh chạy <b>DIRECT</b> (không proxy) nếu chưa cần ẩn IP.</div></details>
+  </section>
+
+</div>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="fmark"><div class="mark"><b>RVM</b><span>LOGIN</span></div><div class="big">RVM Login</div></div>
+    <p style="color:var(--muted);max-width:420px;margin:0 auto">Cần hỗ trợ cài đặt hay mua proxy? Liên hệ ngay:</p>
+    <div class="contacts">
+      <a href="https://zalo.me/0918637699" target="_blank" rel="noopener">💬 Zalo 0918 637 699</a>
+      <a href="https://rongvietmedia.github.io/rvm/" target="_blank" rel="noopener">🌐 rongvietmedia.github.io/rvm</a>
+    </div>
+    <small>RVM Login v1.1.7 · Hướng dẫn sử dụng · Phần mềm quản lý nhiều kênh YouTube cho Windows</small>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement, btn=document.getElementById('theme');
+  function sysDark(){try{return matchMedia('(prefers-color-scheme:dark)').matches;}catch(e){return false;}}
+  function cur(){var t=root.getAttribute('data-theme');return t?t:(sysDark()?'dark':'light');}
+  function apply(t){root.setAttribute('data-theme',t);try{localStorage.setItem('rvm-theme',t);}catch(e){}btn.textContent=(t==='dark')?'☀':'◐';}
+  try{var s=localStorage.getItem('rvm-theme');if(s)root.setAttribute('data-theme',s);}catch(e){}
+  btn.textContent=(cur()==='dark')?'☀':'◐';
+  btn.addEventListener('click',function(){apply(cur()==='dark'?'light':'dark');});
+})();
+</script>
+</body>
+</html>
