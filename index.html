@@ -307,6 +307,12 @@
     <div id="st-form">
       <div class="seg"><button type="button" data-mode="buy" class="on">Mua mới</button><button type="button" data-mode="renew">Gia hạn</button></div>
       <div class="planbar"><label class="pl"><span>Gói</span><select id="o-plan"></select></label><b id="o-price"></b></div>
+      <div style="display:flex;gap:8px;margin:0 0 6px">
+        <input id="o-disc" maxlength="20" placeholder="Mã giảm giá (nếu có)" autocomplete="off"
+               style="flex:1;text-transform:uppercase;padding:11px 12px;border:1px solid rgba(128,128,128,.4);border-radius:10px;background:transparent;color:inherit;font:inherit">
+        <button type="button" id="o-disc-apply" class="btn btn-g" style="padding:11px 18px">Áp dụng</button>
+      </div>
+      <div class="msg" id="o-disc-msg" style="margin:0 0 8px"></div>
 
       <form class="f" id="buy-f" novalidate>
         <input class="hp" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
@@ -394,8 +400,30 @@
   const sel = U.$('#o-plan'), bf = U.$('#buy-f'), rf = U.$('#renew-f');
   const bm = U.$('#buy-msg'), rm = U.$('#renew-msg');
   sel.innerHTML = C.plans.map((p) => `<option value="${p.id}">${U.esc(p.name)}</option>`).join('');
-  const price = () => { const p = C.plans.find((x) => x.id === sel.value) || base; U.$('#o-price').textContent = U.money(p.price); };
+  let disc = { code: '', percent: 0 };
+  const planNow = () => C.plans.find((x) => x.id === sel.value) || base;
+  const price = () => {
+    const p = planNow();
+    if (disc.percent) {
+      const nw = Math.round(p.price * (100 - disc.percent) / 100);
+      U.$('#o-price').innerHTML = `<s style="opacity:.5;font-weight:500">${U.money(p.price)}</s> <span style="color:var(--acc,#e23b3b)">${U.money(nw)}</span>`;
+    } else U.$('#o-price').textContent = U.money(p.price);
+  };
   sel.addEventListener('input', price);
+
+  // ---- Mã giảm giá ----
+  U.$('#o-disc-apply').addEventListener('click', async () => {
+    const code = (U.$('#o-disc').value || '').trim().toUpperCase();
+    const msg = U.$('#o-disc-msg'), btn = U.$('#o-disc-apply');
+    if (!code) { disc = { code: '', percent: 0 }; price(); msg.className = 'msg'; return; }
+    btn.disabled = true; const old = btn.textContent; btn.textContent = '…';
+    try {
+      const r = await U.api('checkDiscount', { code, plan: sel.value });
+      if (r.valid) { disc = { code: r.code, percent: r.percent }; price(); U.showMsg(msg, 'ok', `✓ Đã áp mã <b>${U.esc(r.code)}</b> — giảm ${r.percent}%`); }
+      else { disc = { code: '', percent: 0 }; price(); U.showMsg(msg, 'err', 'Mã giảm giá không đúng hoặc đã hết hạn.'); }
+    } catch (e) { U.showMsg(msg, 'err', e.noApi ? 'Hệ thống đang bảo trì.' : U.esc(e.message)); }
+    finally { btn.disabled = false; btn.textContent = old; }
+  });
 
   let mode = 'buy', timer = null;
   function setMode(m) {
@@ -420,6 +448,7 @@
     if (t.dataset.plan) sel.value = t.dataset.plan;
     setMode(t.dataset.mode || 'buy');
     const r = U.getRef(); if (r && !bf.ref.value) bf.ref.value = r;
+    disc = { code: '', percent: 0 }; U.$('#o-disc').value = ''; U.$('#o-disc-msg').className = 'msg';
     price(); show('form');
   });
   // đóng modal thì ngừng hỏi máy chủ
@@ -464,7 +493,7 @@
   bf.addEventListener('submit', (e) => {
     e.preventDefault();
     const d = Object.fromEntries(new FormData(bf).entries());
-    d.email = d.email.trim().toLowerCase(); d.ref = (d.ref || '').trim().toUpperCase(); d.plan = sel.value;
+    d.email = d.email.trim().toLowerCase(); d.ref = (d.ref || '').trim().toUpperCase(); d.plan = sel.value; d.discount = disc.code;
     if (d.name.trim().length < 2) return U.showMsg(bm, 'err', 'Vui lòng nhập họ tên.');
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email)) return U.showMsg(bm, 'err', 'Email chưa đúng — email sẽ là tên đăng nhập RVM.');
     if (!/^(\+?84|0)\d{9,10}$/.test(d.phone.replace(/[\s.\-]/g, ''))) return U.showMsg(bm, 'err', 'Số điện thoại chưa đúng.');
@@ -477,7 +506,7 @@
     e.preventDefault();
     const d = Object.fromEntries(new FormData(rf).entries());
     if (!d.account.trim() || !d.password) return U.showMsg(rm, 'err', 'Vui lòng nhập tài khoản và mật khẩu.');
-    d.plan = sel.value; d.ref = U.getRef();
+    d.plan = sel.value; d.ref = U.getRef(); d.discount = disc.code;
     start(rf, rm, 'renew', d, 'Lấy mã QR gia hạn');
   });
 

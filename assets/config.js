@@ -17,10 +17,10 @@ window.RVM = {
 
   // Giá theo MÁY (mỗi máy 1 bản quyền). Giá gốc dùng để hiện "tiết kiệm %".
   plans: [
-    { id: 'm1', name: '1 tháng', months: 1,  price: 150000,  tag: 'Vào nhẹ, thử thực tế' },
-    { id: 'm3', name: '3 tháng', months: 3,  price: 300000,  tag: 'Đủ dài để kênh có dữ liệu' },
-    { id: 'y1', name: '1 năm',   months: 12, price: 600000,  tag: 'Cân bằng giá và thời hạn', best: true },
-    { id: 'y3', name: '3 năm',   months: 36, price: 1200000, tag: 'Yên tâm dài hạn' }
+    { id: 'm1', name: '1 tháng', months: 1,  price: 180000,  tag: 'Vào nhẹ, thử thực tế' },
+    { id: 'm3', name: '3 tháng', months: 3,  price: 360000,  tag: 'Đủ dài để kênh có dữ liệu' },
+    { id: 'y1', name: '1 năm',   months: 12, price: 720000,  tag: 'Cân bằng giá và thời hạn', best: true },
+    { id: 'y3', name: '3 năm',   months: 36, price: 1440000, tag: 'Yên tâm dài hạn' }
   ],
 
   // Chương trình đối tác
