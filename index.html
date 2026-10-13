@@ -386,7 +386,7 @@
   const save = (p) => Math.round((1 - p.price / (base.price / base.months * p.months)) * 100);
   U.$('#plans').innerHTML = C.plans.map((p) => `
     <div class="plan reveal${p.best ? ' best' : ''}">
-      ${p.best ? '<span class="badge">ĐÁNG TIỀN NHẤT</span>' : ''}
+      ${p.best ? '<span class="badge">BEST SELLER</span>' : ''}
       <h3>${U.esc(p.name)}</h3><div class="tag">${U.esc(p.tag || '')}</div>
       <div class="price">${U.money(p.price)}</div>
       <div class="per">${p.months > 1 ? '≈ ' + U.money(perMonth(p)) + ' / tháng · 1 máy' : '/ 1 máy / tháng'}</div>
