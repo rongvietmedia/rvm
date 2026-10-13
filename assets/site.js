@@ -67,6 +67,7 @@
     $$('[data-hotline]').forEach((el) => { el.textContent = C.hotline; });
     $$('[data-download]').forEach((a) => { a.href = C.download; });
     $$('[data-version]').forEach((el) => { el.textContent = C.version; });
+    if (C.plans && C.plans.length) { const mp = money(Math.min(...C.plans.map((p) => p.price))); $$('[data-minprice]').forEach((el) => { el.textContent = mp; }); }
     $$('[data-commission]').forEach((el) => { el.textContent = C.commission + '%'; });
     $$('[data-refdays]').forEach((el) => { el.textContent = C.refDays; });
     $$('[data-year]').forEach((el) => { el.textContent = new Date().getFullYear(); });
