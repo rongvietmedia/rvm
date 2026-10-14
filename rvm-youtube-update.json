@@ -1,5 +1,5 @@
 {
-  "version": "2.1.5",
-  "url": "https://rongvietmedia.github.io/rvm/RVM-Youtube-Agent-Setup-2.1.5.exe",
-  "notes": "Nối Claude thiết kế Bản đồ/Thẻ & đồ hoạ; thêm Vecteezy (nhiều tài khoản) + Openverse + thư mục tư liệu cộng đồng; đưa layer vào video thông minh theo nội dung; chữ tiêu đề động; nút Cập nhật + panel Rà soát & sửa cảnh lỗi; hướng dẫn dạng slide + cách lấy API key."
+  "version": "2.1.6",
+  "url": "https://rongvietmedia.github.io/rvm/RVM-Youtube-Agent-Setup-2.1.6.exe",
+  "notes": "Tự tính % THỰC TẾ từng layer theo thời lượng sau khi ghép; nối Claude thiết kế Bản đồ/Thẻ & đồ hoạ; Vecteezy (nhiều tài khoản) + Openverse + thư mục tư liệu cộng đồng; đưa layer vào video thông minh theo nội dung; chữ tiêu đề động; nút Cập nhật + panel Rà soát & sửa cảnh lỗi; hướng dẫn dạng slide."
 }
