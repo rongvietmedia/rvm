@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hướng dẫn · RVM Youtube Agent</title>
+<style>
+:root{
+  --bg:#0b1118; --panel:#111b26; --panel2:#0e1a26; --line:#20303f;
+  --text:#eaf2fb; --muted:#9db2c8; --brand:#e53935; --brand2:#ff6b5e;
+  --ok:#36c08a; --accent:#36a3ff; --gold:#ffd34d;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,Arial,sans-serif;line-height:1.6;-webkit-text-size-adjust:100%}
+a{color:var(--accent)}
+/* ---- top bar ---- */
+.top{position:sticky;top:0;z-index:20;background:rgba(11,17,24,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:1000px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:12px 16px;flex-wrap:wrap}
+.logo{width:40px;height:40px;border-radius:9px;background:linear-gradient(135deg,var(--brand),#a11) ;display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;letter-spacing:1px;flex:0 0 auto;box-shadow:0 4px 14px #e5393540}
+.brandname{font-weight:800;font-size:16px}
+.brandname small{display:block;font-weight:600;color:var(--muted);font-size:12px}
+.nav{display:flex;gap:6px;overflow-x:auto;margin-left:auto;-webkit-overflow-scrolling:touch;max-width:100%}
+.nav a{white-space:nowrap;font-size:13px;color:var(--muted);text-decoration:none;padding:6px 11px;border-radius:999px;border:1px solid var(--line)}
+.nav a:hover{color:#fff;border-color:var(--accent)}
+/* ---- slides ---- */
+.wrap{max-width:1000px;margin:0 auto;padding:22px 16px 80px}
+.slide{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:26px 22px;margin:18px 0;scroll-margin-top:84px;box-shadow:0 10px 30px #0006}
+.slide .no{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;padding:0 10px;border-radius:999px;background:var(--brand);color:#fff;font-weight:800;font-size:15px;margin-bottom:12px}
+.slide h2{font-size:clamp(22px,5vw,30px);line-height:1.2;margin-bottom:6px}
+.slide .lead{color:var(--muted);font-size:clamp(15px,3.6vw,17px);margin-bottom:14px}
+h3{font-size:clamp(17px,4vw,20px);margin:18px 0 8px;color:#fff}
+p,li{font-size:clamp(15px,3.6vw,16.5px)}
+ul,ol{padding-left:22px;margin:8px 0}
+li{margin:6px 0}
+.hero{background:linear-gradient(160deg,#17263a,#0c1420);text-align:center;padding:40px 22px}
+.hero h1{font-size:clamp(26px,7vw,44px);line-height:1.12;margin-bottom:10px}
+.hero p{color:var(--muted);font-size:clamp(15px,4vw,18px);max-width:640px;margin:0 auto}
+.pill{display:inline-block;background:#0e1a26;border:1px solid var(--line);border-radius:999px;padding:6px 13px;margin:5px 4px;font-size:14px}
+.pill b{color:var(--gold)}
+/* feature cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:12px}
+.card{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px}
+.card .ic{font-size:26px}
+.card b{display:block;margin:6px 0 3px;font-size:16px}
+.card span{color:var(--muted);font-size:14px}
+/* button reference rows */
+.btnrow{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px dashed var(--line)}
+.btnrow:last-child{border-bottom:0}
+.btnrow .b{flex:0 0 auto;background:#16263a;border:1px solid var(--line);border-radius:9px;padding:7px 12px;font-weight:700;white-space:nowrap;font-size:14px}
+.btnrow .d{color:var(--muted)}
+.btnrow .d b{color:var(--text)}
+/* steps for API keys */
+.api{background:var(--panel2);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:12px;padding:16px;margin:12px 0}
+.api.free{border-left-color:var(--ok)} .api.paid{border-left-color:var(--gold)}
+.api h4{font-size:clamp(17px,4.2vw,20px);margin-bottom:4px}
+.api .tag{font-size:12px;font-weight:800;padding:3px 9px;border-radius:999px;margin-left:8px;vertical-align:middle}
+.tag.free{background:#12302440;color:var(--ok);border:1px solid #1d5a42}
+.tag.paid{background:#3a300f;color:var(--gold);border:1px solid #5a4a1d}
+.api ol{counter-reset:s;list-style:none;padding-left:0;margin-top:8px}
+.api ol li{counter-increment:s;position:relative;padding-left:40px;margin:10px 0}
+.api ol li::before{content:counter(s);position:absolute;left:0;top:-1px;width:28px;height:28px;background:var(--accent);color:#04121f;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px}
+.api.free ol li::before{background:var(--ok)} .api.paid ol li::before{background:var(--gold);color:#201a06}
+code{background:#06101a;border:1px solid var(--line);border-radius:6px;padding:1px 7px;font-size:14px;color:#ffd9a3;word-break:break-all}
+.note{background:#102031;border:1px solid #1d3550;border-radius:10px;padding:12px 14px;margin:12px 0;font-size:15px}
+.note.warn{background:#2a1813;border-color:#5a2a1d}
+.note b{color:#fff}
+.k{color:var(--gold);font-weight:700}
+.contact{text-align:center;background:linear-gradient(160deg,#1a2740,#0c1420)}
+.contact .big{font-size:clamp(22px,6vw,30px);font-weight:800;margin:6px 0}
+.contact .phone{font-size:clamp(26px,8vw,40px);font-weight:900;color:var(--gold);letter-spacing:1px}
+.foot{text-align:center;color:var(--muted);font-size:13px;padding:24px 16px}
+/* dải lợi ích */
+.benefits{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:18px 0}
+.benefit{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center}
+.benefit .bi{font-size:30px}
+.benefit b{display:block;margin-top:6px;font-size:15.5px}
+.benefit span{color:var(--muted);font-size:13px}
+/* hiệu ứng xuất hiện khi cuộn */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.reveal{opacity:1;transform:none;transition:none}}
+.slide h2{background:linear-gradient(90deg,#fff,#cfe4ff);-webkit-background-clip:text;background-clip:text}
+@media (prefers-color-scheme: light){.slide h2{background:linear-gradient(90deg,#15202b,#2a5a8f);-webkit-background-clip:text;background-clip:text}}
+/* light mode */
+@media (prefers-color-scheme: light){
+  :root{--bg:#f4f7fb;--panel:#fff;--panel2:#f0f5fb;--line:#d9e3ef;--text:#15202b;--muted:#5c6b7a}
+  .slide{box-shadow:0 8px 24px #0001}
+  code{background:#fff4e6;color:#9a5a00}
+}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="top-in">
+    <div class="logo">RVM</div>
+    <div class="brandname">RVM Youtube Agent<small>Hướng dẫn sử dụng · phần mềm tạo video tổng hợp</small></div>
+    <nav class="nav">
+      <a href="#tongquan">Tổng quan</a>
+      <a href="#manhinh">Màn hình</a>
+      <a href="#taovideo">Tạo video</a>
+      <a href="#congthuc">Công thức Layer</a>
+      <a href="#aimedia">AI Ảnh/Video</a>
+      <a href="#rasoat">Rà soát & sửa</a>
+      <a href="#apikey">Lấy API key</a>
+      <a href="#giong">Giọng đọc</a>
+      <a href="#capnhat">Cập nhật</a>
+      <a href="#lienhe">Liên hệ</a>
+    </nav>
+  </div>
+</div>
+
+<section class="slide hero" id="tongquan">
+  <h1>Tạo video YouTube tổng hợp — tự động từ A đến Z</h1>
+  <p>Nhập <b>chủ đề</b> (hoặc dán kịch bản của bạn) → phần mềm tự viết kịch bản, đọc giọng, gom footage/ảnh/tư liệu theo công thức, ghép thành video hoàn chỉnh, <b>tự rà soát &amp; tự sửa</b> chất lượng. Dành để làm kênh kiếm tiền (bán content).</p>
+  <div style="margin-top:16px">
+    <span class="pill">🎬 Video <b>1080p</b></span>
+    <span class="pill">🧮 Công thức <b>40/20/10/15/15</b></span>
+    <span class="pill">🗣️ Giọng <b>miễn phí</b> + cao cấp</span>
+    <span class="pill">🔎 AI <b>tự sửa lỗi</b></span>
+    <span class="pill">✍️ Chữ tiêu đề <b>động</b></span>
+    <span class="pill">🛡️ Né <b>bản quyền</b></span>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <div class="benefits">
+    <div class="benefit"><div class="bi">⚡</div><b>Nhanh gấp 10 lần</b><span>1 nút ra video hoàn chỉnh</span></div>
+    <div class="benefit"><div class="bi">🆓</div><b>Tối đa miễn phí</b><span>Edge, Pexels, Pixabay, NASA…</span></div>
+    <div class="benefit"><div class="bi">🤖</div><b>AI tự kiểm &amp; sửa</b><span>Khớp lời, né watermark</span></div>
+    <div class="benefit"><div class="bi">🛡️</div><b>Né bản quyền</b><span>Nhịp cắt + lệch clip</span></div>
+  </div>
+
+  <!-- QUY TRÌNH -->
+  <section class="slide">
+    <span class="no">①</span>
+    <h2>Quy trình 4 bước (bấm 1 nút là chạy hết)</h2>
+    <p class="lead">Mỗi video đi qua 4 bước, phần mềm làm tự động và báo tiến độ ở thanh bước.</p>
+    <div class="grid">
+      <div class="card"><div class="ic">📝</div><b>1. Kịch bản &amp; Prompt</b><span>AI viết kịch bản theo chủ đề &amp; quốc gia, chia cảnh, tạo prompt hình.</span></div>
+      <div class="card"><div class="ic">🗣️</div><b>2. Giọng đọc</b><span>Đọc từng cảnh bằng giọng đã chọn (Edge free / Vids / ElevenLabs / ai84).</span></div>
+      <div class="card"><div class="ic">🎞️</div><b>3. Video / Ảnh</b><span>Gom footage, ảnh AI, tư liệu, thẻ/bản đồ theo đúng công thức layer.</span></div>
+      <div class="card"><div class="ic">🎬</div><b>4. Ghép video</b><span>Ghép, phụ đề, chữ tiêu đề động, nhạc nền, logo, thumbnail — ra MP4.</span></div>
+    </div>
+  </section>
+
+  <!-- MÀN HÌNH -->
+  <section class="slide" id="manhinh">
+    <span class="no">②</span>
+    <h2>Các nút trên thanh công cụ</h2>
+    <p class="lead">Góc trên cùng bên phải phần mềm.</p>
+    <div class="btnrow"><span class="b">📖 Hướng dẫn</span><div class="d">Mở đúng tài liệu bạn đang đọc — tra cứu mọi lúc.</div></div>
+    <div class="btnrow"><span class="b">⬇️ Cập nhật</span><div class="d">Kiểm tra bản mới <b>ngay lập tức</b>. Có bản mới → hiện thanh "Cập nhật ngay" (tải &amp; cài 1 chạm, <b>GIỮ NGUYÊN tài khoản &amp; API key</b>).</div></div>
+    <div class="btnrow"><span class="b">🔌 Kiểm tra kết nối</span><div class="d">Soát nhanh FFmpeg, 9Router, các key giọng &amp; footage (Pexels, Pixabay, Vecteezy, ElevenLabs, ai84, Gemini, Claude). Thiếu cái gì sẽ <b>nhắc kèm nơi lấy key</b>.</div></div>
+    <div class="btnrow"><span class="b">⚙️ Cài đặt</span><div class="d">Nơi nhập mọi API key, chọn giọng, nguồn footage, công thức, thương hiệu, phụ đề, thư mục xuất video.</div></div>
+    <div class="btnrow"><span class="b">ⓘ</span><div class="d">Thông tin phiên bản, bản quyền, nút <b>Đổi mã kích hoạt</b>.</div></div>
+    <div class="note">Hai huy hiệu bên cạnh: <span class="k">🔑 bản quyền</span> (tên + hạn dùng) và <b>trạng thái đăng nhập</b> dịch vụ.</div>
+  </section>
+
+  <!-- TẠO VIDEO -->
+  <section class="slide" id="taovideo">
+    <span class="no">③</span>
+    <h2>Tạo video mới (cột trái)</h2>
+    <div class="btnrow"><span class="b">Chủ đề</span><div class="d">Gõ chủ đề video (VD một câu chuyện lịch sử). AI sẽ tự viết kịch bản.</div></div>
+    <div class="btnrow"><span class="b">📝 Dùng kịch bản tự viết</span><div class="d">Tick để <b>dán kịch bản của bạn</b> — phần mềm giữ <b>nguyên văn lời đọc</b>, chỉ lo giọng + hình + ghép.</div></div>
+    <div class="btnrow"><span class="b">Độ dài video</span><div class="d">5/10/15/20 phút. Phần mềm tự chia số cảnh &amp; số chữ phù hợp.</div></div>
+    <div class="btnrow"><span class="b">Quốc gia / ngôn ngữ</span><div class="d">Quyết định ngôn ngữ kịch bản + giọng (VD <code>us</code> = tiếng Anh Mỹ). 17 lựa chọn.</div></div>
+    <div class="btnrow"><span class="b">Nhịp cắt</span><div class="d">Nhanh 2-3s / Vừa 4-5s / Chậm 6-8s. <b>Cắt dày giúp giữ chân người xem &amp; né Content ID bản quyền.</b></div></div>
+    <div class="btnrow"><span class="b">Giọng đọc</span><div class="d">Chọn engine: Edge (miễn phí), Vids/Google, ElevenLabs, ai84 (xem mục Giọng đọc).</div></div>
+    <div class="btnrow"><span class="b">Công thức Layer</span><div class="d">Tỷ lệ các lớp nguyên liệu. Bấm <b>sửa</b> để chỉnh. (xem mục Công thức)</div></div>
+    <div class="btnrow"><span class="b">Tick AI video / AI ảnh</span><div class="d">Bật/tắt dùng AI. <b>Bỏ tick = lớp đó tự lấp bằng footage/ảnh stock</b> — công thức % vẫn giữ nguyên.</div></div>
+    <div class="btnrow"><span class="b">▶ Tạo video</span><div class="d">Bắt đầu. Theo dõi ở tab <b>Nhật ký</b>; xong xem ở tab <b>Kết quả</b>.</div></div>
+  </section>
+
+  <!-- CÔNG THỨC -->
+  <section class="slide" id="congthuc">
+    <span class="no">④</span>
+    <h2>Công thức Layer &amp; cách đưa layer vào video thông minh</h2>
+    <p class="lead">5 lớp nguyên liệu, tổng <b>100%</b>. Phần mềm đưa <b>mỗi lớp vào đúng cảnh nó hợp nhất</b> (theo nội dung), vẫn giữ đúng tỷ lệ.</p>
+    <div class="grid">
+      <div class="card"><div class="ic">🎞️</div><b>Footage 40%</b><span>Cảnh thực tế. Nguồn: Pexels, Pixabay, <b>Vecteezy</b>, Mixkit…</span></div>
+      <div class="card"><div class="ic">🤖</div><b>AI Video &lt;20%</b><span>Cảnh trừu tượng/khó quay. Nguồn: ai84 / Veo3.</span></div>
+      <div class="card"><div class="ic">🖼️</div><b>AI Ảnh &lt;10%</b><span>Chân dung/biểu tượng. Nguồn: Gemini (Nano Banana).</span></div>
+      <div class="card"><div class="ic">🗂️</div><b>Tư liệu cộng đồng 15%</b><span>Wikimedia, Internet Archive, Openverse (CC) + <b>thư mục clip của bạn</b>.</span></div>
+      <div class="card"><div class="ic">🗺️</div><b>Bản đồ / Thẻ 15%</b><span>Thẻ số liệu/trích dẫn/bản đồ. RVM tự tạo hoặc <b>nối Claude</b> thiết kế đẹp hơn.</span></div>
+    </div>
+    <h3>🧠 Đưa layer vào video thông minh (tự động)</h3>
+    <ul>
+      <li>Cảnh có <b>con số / % / năm / địa danh / câu trích</b> → ưu tiên lớp <b>Bản đồ/Thẻ</b> (rõ ràng, chuyên nghiệp hơn footage chung chung).</li>
+      <li>Cảnh <b>lịch sử / chiến tranh / xưa</b> → ưu tiên <b>Tư liệu cộng đồng</b>.</li>
+      <li>Cảnh <b>trừu tượng / tưởng tượng / hoành tráng</b> → ưu tiên <b>AI Video</b>; chân dung/biểu tượng → <b>AI Ảnh</b>.</li>
+      <li>Cảnh thực tế còn lại → <b>Footage</b>, rải xen kẽ đều để không dồn cục một loại.</li>
+    </ul>
+    <h3>🗺️ Nối Claude cho lớp Bản đồ/Thẻ &amp; đồ hoạ</h3>
+    <p>Trong <b>Cài đặt → "Bản đồ/Thẻ &amp; đồ hoạ — nối Claude"</b>: bật <b>Dùng Claude thiết kế</b> + dán <b>Claude API key</b>. Claude sẽ thiết kế thẻ số liệu / trích dẫn / bản đồ / infographic đẹp hơn, phần mềm tự render ra hình. Không nhập key vẫn chạy bằng mẫu thẻ RVM.</p>
+    <h3>🗂️ Tư liệu cộng đồng (Facebook / TikTok / nguồn khác)</h3>
+    <div class="note warn"><b>Lưu ý bản quyền:</b> Facebook/TikTok không có cổng API để tải tự do, và tải lén vi phạm điều khoản. Cách <b>an toàn &amp; hiệu quả</b>: tải các clip bạn <b>có quyền dùng</b> về một thư mục, rồi trỏ phần mềm vào đó.</div>
+    <p>Trong <b>Cài đặt → Thư mục tư liệu</b>: chọn thư mục chứa clip (FB/TikTok/tự quay…). Phần mềm <b>ưu tiên dùng</b> cho lớp Tư liệu cộng đồng. Ngoài ra đã có sẵn nguồn cộng đồng hợp pháp: <b>Wikimedia, Internet Archive, Openverse</b> (giấy phép Creative Commons, không cần key).</p>
+  </section>
+
+  <!-- AI ẢNH & AI VIDEO -->
+  <section class="slide" id="aimedia">
+    <span class="no">④·b</span>
+    <h2>AI Ảnh &amp; AI Video — lấy ở đâu</h2>
+    <p class="lead">Hai lớp này dùng AI tạo sinh. Bật/tắt bằng tick <b>AI ảnh</b> / <b>AI video</b> ở cột trái; nhập key trong <b>Cài đặt</b>.</p>
+    <div class="api free">
+      <h4>🖼️ AI Ảnh &lt;10% — Gemini “Nano Banana” <span class="tag free">KEY MIỄN PHÍ</span></h4>
+      <ul>
+        <li>Nguồn: <b>Google Gemini</b> (model ảnh <code>gemini-2.5-flash-image</code> = Nano Banana).</li>
+        <li>Lấy key: <code>aistudio.google.com/apikey</code> → dán vào <b>Cài đặt → Key Gemini ảnh</b> (dùng chung được với giọng Vids).</li>
+        <li>Bỏ tick <b>AI ảnh</b> ở cột trái = lớp này tự lấp bằng ảnh stock/thẻ (công thức % vẫn giữ).</li>
+      </ul>
+    </div>
+    <div class="api paid">
+      <h4>🤖 AI Video &lt;20% — ai84.pro (lớp Veo/Kling…) <span class="tag paid">CÓ PHÍ</span></h4>
+      <ul>
+        <li>Nguồn: <b>ai84.pro</b> — cổng gom nhiều model AI video (Veo3, Kling, Minimax… tùy ai84).</li>
+        <li>Lấy key: đăng nhập <code>ai84.pro/app</code> → trang API → copy key → <b>Cài đặt → ai84 API key</b>.</li>
+        <li>Bấm <b>🔎 Khám phá API</b> để chọn <b>Video provider / model</b> (VD <code>text-to-video</code>). Trống = tắt AI video, tự lấp bằng footage.</li>
+        <li>Bỏ tick <b>AI video</b> ở cột trái = lớp này dùng footage thay.</li>
+      </ul>
+      <div class="note">Google Veo/Flow (flow.google.com) chạy trên web, chưa có cổng API mở để tự động hoá — nên AI video tự động đi qua ai84 (đã gồm lớp Veo). Nếu muốn dùng Veo thủ công, bạn render trên Flow rồi thả clip vào <b>thư mục tư liệu</b> để phần mềm dùng.</div>
+    </div>
+  </section>
+
+  <!-- RÀ SOÁT -->
+  <section class="slide" id="rasoat">
+    <span class="no">⑤</span>
+    <h2>Tab kết quả &amp; "RÀ SOÁT VIDEO" (tự rà soát + tự sửa)</h2>
+    <p class="lead">Các tab bên phải: <b>Dự án · Kịch bản · Nhật ký · Kết quả · Trạng thái</b>.</p>
+    <p>Sau khi ghép xong, ở tab <b>Kết quả</b> có khung <b>RÀ SOÁT VIDEO</b>: AI đã <b>tự nhìn từng cảnh</b> và chấm điểm (có khớp lời đọc không? mờ/tối? dính <b>watermark/chữ/logo/timecode</b>? khung đen? sai thời đại?). Những cảnh dưới ngưỡng được <b>tự sửa</b> ngay trong lúc tạo — và bộ tự sửa đã được nâng cấp để <b>né nguồn hay dính watermark</b> (như tư liệu Archive) và ưu tiên nguồn sạch, nét.</p>
+    <h3>Bạn còn 2 nút để chủ động</h3>
+    <div class="btnrow"><span class="b">🔧 Rà soát &amp; sửa lại + ghép</span><div class="d">Chạy lại vòng rà soát + tự sửa toàn bộ cảnh lỗi rồi <b>ghép lại video</b> (giữ nguyên giọng &amp; kịch bản).</div></div>
+    <div class="btnrow"><span class="b">🖼️ Đổi hình cảnh</span><div class="d">Ở từng cảnh trong danh sách — bấm để <b>đổi sang hình khác</b> (AI tìm hình sạch hơn, khớp hơn) rồi ghép lại.</div></div>
+    <div class="note">Mỗi cảnh lỗi hiện kèm <b>ảnh thu nhỏ + lý do + mốc thời gian (phút:giây) + cảnh/shot</b> để bạn biết chính xác chỗ cần xem.</div>
+  </section>
+
+  <!-- API KEYS -->
+  <section class="slide" id="apikey">
+    <span class="no">⑥</span>
+    <h2>Lấy API key — hướng dẫn từng bước</h2>
+    <p class="lead">Dán tất cả vào <b>⚙️ Cài đặt</b>. Nút <b>"Lấy"/"Lấy key"</b> cạnh mỗi ô sẽ mở đúng trang. Ưu tiên nguồn <span class="k">miễn phí</span> trước.</p>
+
+    <div class="api free">
+      <h4>Pexels (footage/ảnh) <span class="tag free">MIỄN PHÍ</span></h4>
+      <ol>
+        <li>Vào <code>pexels.com/api/new</code> (bấm nút <b>Lấy</b> cạnh ô Key Pexels).</li>
+        <li>Đăng nhập / tạo tài khoản Pexels (miễn phí).</li>
+        <li>Điền mục đích sử dụng → bấm <b>Generate / Request</b>.</li>
+        <li>Copy chuỗi <b>API Key</b> → dán vào ô <b>Key Pexels</b> → Lưu.</li>
+      </ol>
+    </div>
+
+    <div class="api free">
+      <h4>Pixabay (footage/ảnh) <span class="tag free">MIỄN PHÍ</span></h4>
+      <ol>
+        <li>Vào <code>pixabay.com/api/docs</code> (nút <b>Lấy</b> cạnh ô Key Pixabay).</li>
+        <li>Đăng nhập Pixabay. Key hiện ngay trong trang tài liệu API (mục "Your API key").</li>
+        <li>Copy → dán vào ô <b>Key Pixabay</b> → Lưu.</li>
+      </ol>
+    </div>
+
+    <div class="api paid">
+      <h4>Vecteezy (footage cao cấp) <span class="tag paid">500 clip/tháng free</span></h4>
+      <ol>
+        <li>Vào <code>vecteezy.com/developers</code> (nút <b>Lấy key</b> cạnh ô Vecteezy).</li>
+        <li>Đăng nhập → vào <b>Developer Tools</b> → tạo một <b>API Application</b>.</li>
+        <li>Lấy 2 giá trị: <b>Account ID</b> (dãy số) và <b>Secret key</b>.</li>
+        <li>Account ID → ô <b>Account ID Vecteezy</b>; Secret → ô <b>Secret key Vecteezy</b>.</li>
+        <li><b>Nhiều tài khoản:</b> điền nhiều Account ID cách nhau dấu phẩy, và nhiều Secret cách nhau dấu phẩy, <b>ghép đúng thứ tự</b>. VD: ID <code>203445,203764</code> ↔ Secret <code>sec1,sec2</code>. Phần mềm <b>xoay vòng</b> các tài khoản để trải đều hạn 500 clip/tháng.</li>
+      </ol>
+      <div class="note">Gói API Vecteezy tính theo lượt tải; dùng nhiều tài khoản free để tiết kiệm. Phần mềm đã ưu tiên Pexels/Pixabay (free hẳn) trước, Vecteezy là nguồn mạnh bổ sung.</div>
+    </div>
+
+    <div class="api free">
+      <h4>Gemini — giọng Vids + ảnh Nano Banana <span class="tag free">MIỄN PHÍ</span></h4>
+      <ol>
+        <li>Vào <code>aistudio.google.com/apikey</code> (nút <b>Lấy key</b> cạnh ô Gemini).</li>
+        <li>Đăng nhập Google → <b>Create API key</b>.</li>
+        <li>Copy → dán vào ô <b>Gemini API key</b> (dùng cho cả giọng Vids &amp; ảnh Nano Banana).</li>
+      </ol>
+    </div>
+
+    <div class="api paid">
+      <h4>ElevenLabs (giọng cao cấp) <span class="tag paid">CÓ PHÍ</span></h4>
+      <ol>
+        <li>Vào <code>elevenlabs.io/app/settings/api-keys</code> (nút <b>Lấy</b>).</li>
+        <li>Đăng nhập → <b>Create API Key</b> → copy.</li>
+        <li>Dán vào ô <b>ElevenLabs key</b>. (Tùy chọn: dán <b>Voice ID</b> từ Voice Library.)</li>
+      </ol>
+    </div>
+
+    <div class="api paid">
+      <h4>ai84.pro (giọng + AI video) <span class="tag paid">CÓ PHÍ</span></h4>
+      <ol>
+        <li>Đăng nhập <code>ai84.pro/app</code> (nút <b>Mở ai84.pro lấy key</b>).</li>
+        <li>Vào trang <b>API</b> → copy <b>API key</b> → dán vào ô <b>ai84 API key</b>.</li>
+        <li>Bấm <b>🔎 Khám phá API</b> để xem credits + danh sách model/giọng, rồi chọn provider/voice/model bên dưới.</li>
+      </ol>
+    </div>
+
+    <div class="api paid">
+      <h4>Claude — thiết kế Bản đồ/Thẻ &amp; đồ hoạ <span class="tag paid">CÓ PHÍ (rẻ)</span></h4>
+      <ol>
+        <li>Vào <code>console.anthropic.com/settings/keys</code> (nút <b>Lấy key</b> trong mục Bản đồ/Thẻ).</li>
+        <li>Đăng nhập → <b>Create Key</b> → copy.</li>
+        <li>Dán vào ô <b>Claude API key</b> + bật <b>Dùng Claude thiết kế</b>. (Model mặc định <code>claude-haiku-4-5</code> — nhanh &amp; rẻ.)</li>
+      </ol>
+    </div>
+
+    <div class="api">
+      <h4>9Router (bộ não viết kịch bản + AI rà soát hình)</h4>
+      <ol>
+        <li>Mở phần mềm 9Router trên máy (proxy AI nội bộ, mặc định <code>http://127.0.0.1:20128/v1</code>).</li>
+        <li>Trong Cài đặt → mục 9Router: dán <b>API key</b>, bấm <b>Tải model</b>, chọn model <b>CÓ THỊ GIÁC</b> (VD <code>ag/gemini</code>) để AI rà soát được hình.</li>
+        <li>Bấm <b>Kiểm tra kết nối</b> thấy ✓ là xong.</li>
+      </ol>
+    </div>
+
+    <div class="note">Nguồn <b>không cần key</b>: NASA, Wikimedia, Openverse, Internet Archive, giọng <b>Edge</b>. Bạn có thể chạy video hoàn toàn miễn phí, rồi nâng cấp dần bằng các key trả phí khi cần chất lượng cao hơn.</div>
+  </section>
+
+  <!-- GIỌNG -->
+  <section class="slide" id="giong">
+    <span class="no">⑦</span>
+    <h2>Giọng đọc</h2>
+    <div class="grid">
+      <div class="card"><div class="ic">🆓</div><b>Edge (miễn phí)</b><span>322 giọng đa ngôn ngữ, không cần tài khoản. Mặc định — bật là đọc ngay.</span></div>
+      <div class="card"><div class="ic">🔵</div><b>Vids / Google</b><span>Giọng qua Gemini (key free). 23 giọng kiểu Google Vids.</span></div>
+      <div class="card"><div class="ic">💎</div><b>ElevenLabs</b><span>Giọng cao cấp, cảm xúc tự nhiên (cần API key).</span></div>
+      <div class="card"><div class="ic">💎</div><b>ai84.pro</b><span>Giọng cao cấp + AI video (cần API key).</span></div>
+    </div>
+    <p style="margin-top:12px">Chọn nhanh ở cột trái (ô <b>Giọng đọc</b>), hoặc tinh chỉnh sâu (tốc độ, Voice ID…) trong <b>Cài đặt → Giọng đọc</b>. Có <b>engine dự phòng</b> (mặc định Edge) tự thay khi engine chính lỗi.</p>
+  </section>
+
+  <!-- CHẤT LƯỢNG -->
+  <section class="slide">
+    <span class="no">⑧</span>
+    <h2>Nâng chất lượng video</h2>
+    <div class="btnrow"><span class="b">✍️ Chữ tiêu đề động</span><div class="d">Chữ (mốc năm/số liệu/tên riêng) hiện lên ở cảnh quan trọng theo kiểu <b>mờ dần + trượt lên + mờ đi</b> — chuyên nghiệp hơn chữ tĩnh. (Cài đặt → Video xuất)</div></div>
+    <div class="btnrow"><span class="b">🛡️ Nhịp cắt né bản quyền</span><div class="d">Cắt dày + lệch điểm bắt đầu khi dùng lại clip → giảm trùng, qua Content ID tốt hơn.</div></div>
+    <div class="btnrow"><span class="b">🎵 Nhạc nền auto-duck</span><div class="d">Nhạc tự hạ xuống khi có giọng. Dùng thư mục nhạc của bạn hoặc Jamendo (CC).</div></div>
+    <div class="btnrow"><span class="b">🏷️ Logo · Watermark · Thumbnail</span><div class="d">Overlay logo kênh, tạo thumbnail 1280×720 tự động. (Cài đặt → Thương hiệu kênh)</div></div>
+    <div class="btnrow"><span class="b">💬 Phụ đề</span><div class="d">Đốt phụ đề, chỉnh cỡ/màu/viền/phông (.ttf có dấu tiếng Việt). (Cài đặt → Phụ đề)</div></div>
+  </section>
+
+  <!-- CẬP NHẬT -->
+  <section class="slide" id="capnhat">
+    <span class="no">⑨</span>
+    <h2>Cập nhật phần mềm &amp; bản quyền</h2>
+    <h3>Cập nhật</h3>
+    <ul>
+      <li>Phần mềm <b>tự kiểm tra</b> khi mở; có bản mới → hiện thanh <b>"🎉 Có bản mới → Cập nhật ngay"</b>.</li>
+      <li>Hoặc bấm nút <b>⬇️ Cập nhật</b> trên thanh công cụ để kiểm tra bất cứ lúc nào.</li>
+      <li>Bấm <b>Cập nhật ngay</b> → tải &amp; cài tự động, <b>GIỮ NGUYÊN toàn bộ tài khoản &amp; API key</b> đã nhập.</li>
+    </ul>
+    <h3>Bản quyền</h3>
+    <ul>
+      <li>Đăng nhập bằng <b>tài khoản + mật khẩu + số điện thoại/Zalo</b> RVM cấp. Phần mềm khoá theo <b>máy</b>.</li>
+      <li>Đổi máy / gia hạn: liên hệ RVM (xem mục Liên hệ). Nút <b>Đổi mã kích hoạt</b> trong ⓘ.</li>
+    </ul>
+  </section>
+
+  <!-- LIÊN HỆ -->
+  <section class="slide contact" id="lienhe">
+    <span class="no">⑩</span>
+    <div class="big">Cần hỗ trợ cài đặt / mua bản quyền?</div>
+    <p>Liên hệ RVM — Zalo / Điện thoại / Telegram:</p>
+    <div class="phone">0918 637 699</div>
+  </section>
+
+  <div class="foot">RVM Youtube Agent · Bộ não được cung cấp bởi RV Group</div>
+</div>
+
+<script>
+(function(){
+  try{
+    var els=document.querySelectorAll('.wrap .slide, .benefit');
+    els.forEach(function(e){e.classList.add('reveal');});
+    if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in');});return;}
+    var io=new IntersectionObserver(function(ents){
+      ents.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});
+    },{threshold:.12});
+    els.forEach(function(e){io.observe(e);});
+  }catch(_){document.querySelectorAll('.reveal').forEach(function(e){e.classList.add('in');});}
+})();
+</script>
+</body>
+</html>
