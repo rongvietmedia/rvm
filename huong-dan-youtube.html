@@ -194,7 +194,8 @@ code{background:#06101a;border:1px solid var(--line);border-radius:6px;padding:1
       <li>Cảnh thực tế còn lại → <b>Footage</b>, rải xen kẽ đều để không dồn cục một loại.</li>
     </ul>
     <h3>🗺️ Nối Claude cho lớp Bản đồ/Thẻ &amp; đồ hoạ</h3>
-    <p>Trong <b>Cài đặt → "Bản đồ/Thẻ &amp; đồ hoạ — nối Claude"</b>: bật <b>Dùng Claude thiết kế</b> + dán <b>Claude API key</b>. Claude sẽ thiết kế thẻ số liệu / trích dẫn / bản đồ / infographic đẹp hơn, phần mềm tự render ra hình. Không nhập key vẫn chạy bằng mẫu thẻ RVM.</p>
+    <p>Trong <b>Cài đặt → "Bản đồ/Thẻ &amp; đồ hoạ — nối Claude"</b>: bật <b>Dùng Claude thiết kế</b> + dán <b>Claude API key</b>. Claude sẽ thiết kế thẻ số liệu / trích dẫn / bản đồ / infographic đẹp hơn, phần mềm tự render ra hình.</p>
+    <div class="note"><b>Không đăng nhập Claude vẫn tạo được Bản đồ/Thẻ &amp; đồ hoạ.</b> Không có key → phần mềm dùng <b>mẫu thẻ RVM dựng sẵn</b> (thẻ số liệu, trích dẫn, bản đồ, tiêu đề). Lớp 15% vẫn đủ, không thiếu cảnh. Claude chỉ để <b>đẹp &amp; đa dạng hơn</b>.</div>
     <h3>🗂️ Tư liệu cộng đồng (Facebook / TikTok / nguồn khác)</h3>
     <div class="note warn"><b>Lưu ý bản quyền:</b> Facebook/TikTok không có cổng API để tải tự do, và tải lén vi phạm điều khoản. Cách <b>an toàn &amp; hiệu quả</b>: tải các clip bạn <b>có quyền dùng</b> về một thư mục, rồi trỏ phần mềm vào đó.</div>
     <p>Trong <b>Cài đặt → Thư mục tư liệu</b>: chọn thư mục chứa clip (FB/TikTok/tự quay…). Phần mềm <b>ưu tiên dùng</b> cho lớp Tư liệu cộng đồng. Ngoài ra đã có sẵn nguồn cộng đồng hợp pháp: <b>Wikimedia, Internet Archive, Openverse</b> (giấy phép Creative Commons, không cần key).</p>
@@ -314,10 +315,12 @@ code{background:#06101a;border:1px solid var(--line);border-radius:6px;padding:1
 
     <div class="api">
       <h4>9Router (bộ não viết kịch bản + AI rà soát hình)</h4>
+      <p>9Router là proxy AI chạy nền trên máy (mặc định <code>http://127.0.0.1:20128/v1</code>). Phải <b>đang chạy</b> thì phần mềm mới viết kịch bản &amp; tự rà soát hình được.</p>
       <ol>
-        <li>Mở phần mềm 9Router trên máy (proxy AI nội bộ, mặc định <code>http://127.0.0.1:20128/v1</code>).</li>
-        <li>Trong Cài đặt → mục 9Router: dán <b>API key</b>, bấm <b>Tải model</b>, chọn model <b>CÓ THỊ GIÁC</b> (VD <code>ag/gemini</code>) để AI rà soát được hình.</li>
-        <li>Bấm <b>Kiểm tra kết nối</b> thấy ✓ là xong.</li>
+        <li>Trong <b>Cài đặt → AI/9Router</b>, bấm nút <b>▶ Bật 9Router</b> — phần mềm <b>tự khởi động</b> 9Router (không cần gõ lệnh). Chờ vài giây đến khi báo ✓.</li>
+        <li>Lần đầu: đăng nhập 9Router (cửa sổ/web của 9Router) để liên kết model.</li>
+        <li>Bấm <b>Tải model</b> → chọn model <b>CÓ THỊ GIÁC</b> (VD <code>ag/gemini</code>) để AI rà soát được hình.</li>
+        <li>Bấm <b>Kiểm tra kết nối</b> thấy ✓ là xong. (Nếu báo "fetch failed" tức 9Router chưa chạy — bấm lại ▶ Bật 9Router.)</li>
       </ol>
     </div>
 
