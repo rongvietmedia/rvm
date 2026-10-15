@@ -1,5 +1,5 @@
 {
-  "version": "2.2.3",
-  "url": "https://rongvietmedia.github.io/rvm/RVM-Youtube-Agent-Setup-2.2.3.exe",
-  "notes": "Lấy API key mở bằng TRÌNH DUYỆT CỦA BẠN (qua Cloudflare dễ, thường đã đăng nhập sẵn); Độ dài video thêm nhiều mốc + TỰ NHẬP số phút (1–180); kèm giao diện pro + hướng dẫn premium và toàn bộ tính năng."
+  "version": "2.2.4",
+  "url": "https://rongvietmedia.github.io/rvm/RVM-Youtube-Agent-Setup-2.2.4.exe",
+  "notes": "Nút ▶ Bật 9Router giờ TỰ lấy API key local của 9Router + TỰ chọn model hợp lệ (có thị giác) → hết lỗi 401 Invalid API key khi viết kịch bản; Kiểm tra kết nối bắt đúng lỗi key sai/model sai; kèm lấy key qua trình duyệt ngoài + độ dài video tự nhập + giao diện pro."
 }
