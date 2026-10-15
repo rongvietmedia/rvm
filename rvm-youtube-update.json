@@ -1,5 +1,5 @@
 {
-  "version": "2.2.0",
-  "url": "https://rongvietmedia.github.io/rvm/RVM-Youtube-Agent-Setup-2.2.0.exe",
-  "notes": "Giao diện chuyên nghiệp mới (mỗi chức năng một màu nổi bật) + hướng dẫn bản premium; lấy API key 1 chạm (giữ đăng nhập); chọn nhanh giọng ai84 Minimax⇄ElevenLabs; nút Bật 9Router; không cần Claude vẫn tạo Bản đồ/Thẻ bằng mẫu RVM; Vecteezy nhiều tài khoản + Openverse + tư liệu cộng đồng; layer theo nội dung; chữ tiêu đề động; tự tính % thực tế; panel Rà soát & sửa cảnh lỗi."
+  "version": "2.2.1",
+  "url": "https://rongvietmedia.github.io/rvm/RVM-Youtube-Agent-Setup-2.2.1.exe",
+  "notes": "Sửa lỗi lấy key 1 chạm Pexels/Pixabay kẹt ở Cloudflare (đặt user-agent Chrome thật); giao diện pro + hướng dẫn premium; chọn nhanh giọng ai84 Minimax⇄ElevenLabs; nút Bật 9Router; Vecteezy nhiều tài khoản; layer theo nội dung; chữ tiêu đề động; % layer thực tế; panel rà soát & sửa cảnh lỗi."
 }
