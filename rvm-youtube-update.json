@@ -1,5 +1,5 @@
 {
-  "version": "2.2.6",
-  "url": "https://rongvietmedia.github.io/rvm/RVM-Youtube-Agent-Setup-2.2.6.exe",
-  "notes": "HẾT lỗi 9Router 401: mỗi lần bấm Tạo video phần mềm TỰ bật 9Router + tự chọn model có thị giác + tự thử & điền đúng API key local (chỉ dùng key chạy được). Kèm cảnh báo kịch bản tự viết ngắn + chặn video rỗng."
+  "version": "2.2.7",
+  "url": "https://rongvietmedia.github.io/rvm/RVM-Youtube-Agent-Setup-2.2.7.exe",
+  "notes": "Cập nhật mượt hơn: app tự thoát hẳn trước khi cài (hết lỗi 'cannot be closed, Retry'). Kèm tự cấu hình 9Router khi Tạo video (hết 401), cảnh báo kịch bản tự viết ngắn, lấy key qua trình duyệt ngoài, độ dài video tự nhập, giao diện pro."
 }
