@@ -1,5 +1,5 @@
 {
-  "version": "2.2.4",
-  "url": "https://rongvietmedia.github.io/rvm/RVM-Youtube-Agent-Setup-2.2.4.exe",
-  "notes": "Nút ▶ Bật 9Router giờ TỰ lấy API key local của 9Router + TỰ chọn model hợp lệ (có thị giác) → hết lỗi 401 Invalid API key khi viết kịch bản; Kiểm tra kết nối bắt đúng lỗi key sai/model sai; kèm lấy key qua trình duyệt ngoài + độ dài video tự nhập + giao diện pro."
+  "version": "2.2.5",
+  "url": "https://rongvietmedia.github.io/rvm/RVM-Youtube-Agent-Setup-2.2.5.exe",
+  "notes": "Khắc phục video quá ngắn: báo rõ khi 'Dùng kịch bản tự viết' (độ dài không áp dụng, làm mờ ô độ dài) + cảnh báo khi kịch bản tự viết quá ngắn; chặn tạo video rỗng khi AI/9Router sinh thiếu cảnh (báo lỗi hướng dẫn thay vì ra video 4s). Kèm Bật 9Router tự lấy key + chọn model."
 }
