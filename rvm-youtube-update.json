@@ -1,5 +1,5 @@
 {
-  "version": "2.2.7",
-  "url": "https://rongvietmedia.github.io/rvm/RVM-Youtube-Agent-Setup-2.2.7.exe",
-  "notes": "Cập nhật mượt hơn: app tự thoát hẳn trước khi cài (hết lỗi 'cannot be closed, Retry'). Kèm tự cấu hình 9Router khi Tạo video (hết 401), cảnh báo kịch bản tự viết ngắn, lấy key qua trình duyệt ngoài, độ dài video tự nhập, giao diện pro."
+  "version": "2.2.8",
+  "url": "https://rongvietmedia.github.io/rvm/RVM-Youtube-Agent-Setup-2.2.8.exe",
+  "notes": "Bật 9Router ổn định (chế độ server thay vì tray hay chết); chống TREO: có timeout khi 9Router không phản hồi + dừng sớm báo lỗi rõ thay vì quay mãi 'Đang chạy'. Kèm tự cấu hình 9Router (key+model), cập nhật mượt, cảnh báo kịch bản ngắn."
 }
