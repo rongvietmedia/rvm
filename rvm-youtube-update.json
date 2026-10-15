@@ -1,5 +1,5 @@
 {
-  "version": "2.2.5",
-  "url": "https://rongvietmedia.github.io/rvm/RVM-Youtube-Agent-Setup-2.2.5.exe",
-  "notes": "Khắc phục video quá ngắn: báo rõ khi 'Dùng kịch bản tự viết' (độ dài không áp dụng, làm mờ ô độ dài) + cảnh báo khi kịch bản tự viết quá ngắn; chặn tạo video rỗng khi AI/9Router sinh thiếu cảnh (báo lỗi hướng dẫn thay vì ra video 4s). Kèm Bật 9Router tự lấy key + chọn model."
+  "version": "2.2.6",
+  "url": "https://rongvietmedia.github.io/rvm/RVM-Youtube-Agent-Setup-2.2.6.exe",
+  "notes": "HẾT lỗi 9Router 401: mỗi lần bấm Tạo video phần mềm TỰ bật 9Router + tự chọn model có thị giác + tự thử & điền đúng API key local (chỉ dùng key chạy được). Kèm cảnh báo kịch bản tự viết ngắn + chặn video rỗng."
 }
