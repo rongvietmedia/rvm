@@ -1,5 +1,5 @@
 {
-  "version": "2.2.1",
-  "url": "https://rongvietmedia.github.io/rvm/RVM-Youtube-Agent-Setup-2.2.1.exe",
-  "notes": "Sửa lỗi lấy key 1 chạm Pexels/Pixabay kẹt ở Cloudflare (đặt user-agent Chrome thật); giao diện pro + hướng dẫn premium; chọn nhanh giọng ai84 Minimax⇄ElevenLabs; nút Bật 9Router; Vecteezy nhiều tài khoản; layer theo nội dung; chữ tiêu đề động; % layer thực tế; panel rà soát & sửa cảnh lỗi."
+  "version": "2.2.2",
+  "url": "https://rongvietmedia.github.io/rvm/RVM-Youtube-Agent-Setup-2.2.2.exe",
+  "notes": "Khắc phục triệt để Cloudflare khi lấy key 1 chạm (Pexels/Pixabay/Vecteezy): user-agent Chrome thật + Client Hints khớp Chrome + xoá dấu Electron → hiện ô 'Verify you are human' để tick, không còn kẹt quay vòng. Kèm giao diện pro + hướng dẫn premium và toàn bộ tính năng trước."
 }
