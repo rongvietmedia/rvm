@@ -1,5 +1,5 @@
 {
-  "version": "2.2.8",
-  "url": "https://rongvietmedia.github.io/rvm/RVM-Youtube-Agent-Setup-2.2.8.exe",
-  "notes": "Bật 9Router ổn định (chế độ server thay vì tray hay chết); chống TREO: có timeout khi 9Router không phản hồi + dừng sớm báo lỗi rõ thay vì quay mãi 'Đang chạy'. Kèm tự cấu hình 9Router (key+model), cập nhật mượt, cảnh báo kịch bản ngắn."
+  "version": "2.2.9",
+  "url": "https://rongvietmedia.github.io/rvm/RVM-Youtube-Agent-Setup-2.2.9.exe",
+  "notes": "Sửa lỗi 'Unexpected token data...': đọc được cả phản hồi streaming (SSE) của 9Router → viết kịch bản chạy thật. Kèm 9Router tự cấu hình key+model, bật server ổn định, chống treo, cập nhật mượt."
 }
