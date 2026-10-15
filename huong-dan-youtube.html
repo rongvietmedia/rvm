@@ -89,8 +89,56 @@ code{background:#06101a;border:1px solid var(--line);border-radius:6px;padding:1
   code{background:#fff4e6;color:#9a5a00}
 }
 </style>
+
+<!-- ===== LỚP THIẾT KẾ PREMIUM (đè lên style cơ bản) ===== -->
+<style>
+:root{ --c1:#2f8fff; --c2:#ffd34d; --c3:#36c08a; --c4:#b36bff; --c5:#ff9f43; --c6:#19c3a6; --c7:#e53935; }
+body{background:
+  radial-gradient(900px 500px at 85% -5%, #16304d55, transparent 60%),
+  radial-gradient(800px 520px at -10% 10%, #2a174033, transparent 55%),
+  var(--bg);}
+#progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:40;
+  background:linear-gradient(90deg,#e53935,#ff9f43,#ffd34d);box-shadow:0 0 10px #e5393566;transition:width .1s}
+.top{box-shadow:0 6px 24px #0005}
+.logo{box-shadow:0 6px 18px #e5393555;position:relative;overflow:hidden}
+.nav a{transition:.15s}
+.nav a:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.hero{background:
+  radial-gradient(700px 360px at 50% -20%, #2f8fff33, transparent 60%),
+  linear-gradient(170deg,#17263a,#0b1320);border:1px solid #203a52;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(#ffffff0d 1px,transparent 1px);background-size:22px 22px;opacity:.5}
+.hero>*{position:relative}
+.hero h1{letter-spacing:-.5px}
+.pill{background:#0e1a2688;transition:.15s}
+.pill:hover{border-color:var(--accent);transform:translateY(-2px)}
+.benefit{background:linear-gradient(160deg,var(--panel),#0c1621);transition:.18s}
+.benefit:hover{transform:translateY(-3px);border-color:#2f6fb0;box-shadow:0 12px 26px #0006}
+.slide{position:relative;transition:.18s}
+.wrap .slide{border-left:5px solid var(--c1)}
+.slide .no{background:linear-gradient(135deg,var(--c1),#1f6fd8);box-shadow:0 6px 16px #2f8fff44;font-size:17px;min-width:40px;height:40px}
+.wrap .slide:nth-of-type(7n+1){border-left-color:var(--c1)} .wrap .slide:nth-of-type(7n+1) .no{background:linear-gradient(135deg,#3a9bff,#1f6fd8)}
+.wrap .slide:nth-of-type(7n+2){border-left-color:var(--c2)} .wrap .slide:nth-of-type(7n+2) .no{background:linear-gradient(135deg,#ffd76b,#e0a81f);color:#201a06}
+.wrap .slide:nth-of-type(7n+3){border-left-color:var(--c3)} .wrap .slide:nth-of-type(7n+3) .no{background:linear-gradient(135deg,#4fd6a6,#1f9e74)}
+.wrap .slide:nth-of-type(7n+4){border-left-color:var(--c4)} .wrap .slide:nth-of-type(7n+4) .no{background:linear-gradient(135deg,#c48cff,#8a4de0)}
+.wrap .slide:nth-of-type(7n+5){border-left-color:var(--c5)} .wrap .slide:nth-of-type(7n+5) .no{background:linear-gradient(135deg,#ffb36b,#e07a1f)}
+.wrap .slide:nth-of-type(7n+6){border-left-color:var(--c6)} .wrap .slide:nth-of-type(7n+6) .no{background:linear-gradient(135deg,#4fe0cc,#149e8a)}
+.wrap .slide:nth-of-type(7n+7){border-left-color:var(--c7)} .wrap .slide:nth-of-type(7n+7) .no{background:linear-gradient(135deg,#ff6b5e,#c41e1e)}
+.card{transition:.16s}
+.card:hover{transform:translateY(-3px);border-color:#2f6fb0;box-shadow:0 12px 26px #0006}
+.btnrow .b{background:linear-gradient(135deg,#1a2e45,#132131);box-shadow:0 2px 8px #0004}
+.api{box-shadow:0 8px 22px #0004}
+.api ol li::before{box-shadow:0 3px 8px #0006}
+.contact{border:1px solid #2a3f60;box-shadow:0 14px 40px #0006}
+.contact .phone{text-shadow:0 4px 18px #ffd34d55}
+@media (prefers-color-scheme: light){
+  body{background:radial-gradient(900px 500px at 85% -5%,#dbe8fa,transparent 60%),var(--bg)}
+  .btnrow .b{background:#eef4fb;color:#15202b}
+  .benefit{background:#fff}
+}
+</style>
 </head>
 <body>
+<div id="progress"></div>
 
 <div class="top">
   <div class="top-in">
@@ -390,6 +438,12 @@ code{background:#06101a;border:1px solid var(--line);border-radius:6px;padding:1
     },{threshold:.12});
     els.forEach(function(e){io.observe(e);});
   }catch(_){document.querySelectorAll('.reveal').forEach(function(e){e.classList.add('in');});}
+  // thanh tiến trình đọc
+  try{
+    var bar=document.getElementById('progress');
+    var upd=function(){var h=document.documentElement;var max=(h.scrollHeight-h.clientHeight)||1;bar.style.width=(Math.min(1,h.scrollTop/max)*100)+'%';};
+    window.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',upd);upd();
+  }catch(_){}
 })();
 </script>
 </body>
