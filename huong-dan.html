@@ -186,6 +186,7 @@ details .ans b{color:var(--ink)}
     <a href="#gioithieu">Giới thiệu</a>
     <a href="#tinhnang">Tính năng</a>
     <a href="#caidat">Cài đặt</a>
+    <a href="#dangnhap">Đăng nhập</a>
     <a href="#giaodien">Từng nút</a>
     <a href="#proxy">Thêm proxy</a>
     <a href="#tukiem">Tự kiểm</a>
@@ -234,6 +235,20 @@ details .ans b{color:var(--ink)}
       <li><b>Mở khoá kho dữ liệu (vault)</b><span class="d">Đặt mật khẩu vault lần đầu để mã hoá dữ liệu. Nhớ kỹ mật khẩu này.</span></li>
     </ol>
     <div class="note" style="margin-top:14px">💡 <b>Cập nhật tự động:</b> khi có bản mới, bấm mục <b>Cập nhật</b> ở cột trái → app tự tải và cài. Luôn giữ bản mới nhất để có đủ tính năng &amp; vá lỗi.</div>
+  </section>
+
+  <section class="block" id="dangnhap">
+    <div class="eyebrow">Quan trọng</div>
+    <h2>Đăng nhập YouTube / Google đúng cách</h2>
+    <p class="lead">Nếu mở thẳng <b>studio.youtube.com</b> rồi bấm đăng nhập mà Google báo <b>“Không thể đăng nhập cho bạn / trình duyệt có thể không an toàn”</b>, hãy đăng nhập theo đúng thứ tự sau — sẽ vào được bình thường:</p>
+    <ol class="steps">
+      <li><b>Mở profile</b><span class="d">Bấm <b>Khởi động</b> trên kênh để bật trình duyệt riêng.</span></li>
+      <li><b>Vào thẳng trang đăng nhập Google</b><span class="d">Ở thanh địa chỉ, gõ <b>accounts.google.com</b> rồi Enter. ĐỪNG vào studio.youtube.com trước.</span></li>
+      <li><b>Đăng nhập tài khoản Google</b><span class="d">Nhập email + mật khẩu như bình thường ngay tại trang này.</span></li>
+      <li><b>Rồi mới vào YouTube Studio</b><span class="d">Đăng nhập xong, gõ tiếp <b>studio.youtube.com</b> (hoặc youtube.com) — lúc này đã đăng nhập sẵn nên vào thẳng, không còn báo lỗi.</span></li>
+    </ol>
+    <div class="note good" style="margin-top:14px">✅ <b>Vì sao:</b> mở thẳng Studio khi chưa đăng nhập sẽ bị Google đẩy qua một luồng mà Google hay chặn. Đăng nhập tại <b>accounts.google.com</b> là trang chuẩn của Google nên luôn vào được.</div>
+    <div class="note" style="margin-top:12px">💡 <b>Để chắc ăn hơn:</b> dùng <b>proxy dân cư (residential)</b>, mỗi kênh một IP cố định, và tài khoản đã <b>xác minh số điện thoại</b>. Tài khoản mới/chưa xác minh dễ bị Google hạn chế đăng nhập (báo “không an toàn” kể cả trên trình duyệt thường).</div>
   </section>
 
   <section class="block" id="giaodien">
@@ -319,6 +334,7 @@ details .ans b{color:var(--ink)}
   <section class="block" id="suco">
     <div class="eyebrow">Khi gặp trục trặc</div>
     <h2>Xử lý sự cố thường gặp</h2>
+    <details open><summary>Google báo “Không thể đăng nhập cho bạn / trình duyệt có thể không an toàn”</summary><div class="ans">Đừng mở thẳng <b>studio.youtube.com</b> để đăng nhập. Hãy ở thanh địa chỉ gõ <b>accounts.google.com</b> → đăng nhập tại đó → xong mới vào Studio (xem mục <a href="#dangnhap"><b>Đăng nhập YouTube/Google đúng cách</b></a> ở trên). Nếu vào accounts.google.com <b>vẫn</b> bị chặn thì nguyên nhân là <b>IP proxy</b> hoặc <b>tài khoản</b> bị Google gắn cờ — hãy dùng proxy dân cư và tài khoản đã xác minh số điện thoại.</div></details>
     <details><summary>Báo “Chrome không mở cổng điều khiển (CDP) kịp”</summary><div class="ans">Thường do còn cửa sổ/tiến trình Chrome cũ của kênh. Mở <b>Task Manager (Ctrl+Shift+Esc)</b> → kết thúc hết <b>chrome.exe</b>, rồi bấm <b>Khởi động</b> lại. Lần đầu sau khi bật máy Chrome khởi động hơi chậm — nếu lỡ báo lỗi, bấm lại lần nữa.</div></details>
     <details><summary>Tự kiểm báo “proxy down” dù proxy còn sống</summary><div class="ans">Đã được sửa từ <b>v1.1.6</b>. Hãy <b>Cập nhật</b> lên bản mới nhất rồi Tự kiểm lại. Nếu sau khi cập nhật, mục IP vẫn báo “không lấy được (proxy chết?)” thì khi đó mới là proxy thật sự chết — thay proxy sống khác.</div></details>
     <details><summary>Windows cảnh báo “nhà phát hành không xác định” khi cài</summary><div class="ans">Đây là cảnh báo mặc định của Windows với phần mềm chưa mua chứng chỉ ký số. Bấm <b>Thông tin thêm → Vẫn chạy</b>. Phần mềm an toàn.</div></details>
