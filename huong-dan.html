@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Hướng dẫn sử dụng phần mềm RVM Login v1.1.7 — xem đẹp trên điện thoại và máy tính.">
+<meta name="description" content="Hướng dẫn sử dụng phần mềm RVM Login — xem đẹp trên điện thoại và máy tính.">
 <style>html{color-scheme:light dark}:root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Hướng dẫn RVM Login</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -175,7 +175,7 @@ details .ans b{color:var(--ink)}
       <div class="mark"><b>RVM</b><span>LOGIN</span></div>
       <div class="bname">RVM Login</div>
     </div>
-    <span class="ver">v1.1.7</span>
+    <span class="ver">v<span data-version>1.1.31</span></span>
     <span class="sp"></span>
     <button class="tbtn" id="theme" aria-label="Đổi giao diện sáng/tối" title="Sáng / Tối">◐</button>
   </div>
@@ -186,7 +186,6 @@ details .ans b{color:var(--ink)}
     <a href="#gioithieu">Giới thiệu</a>
     <a href="#tinhnang">Tính năng</a>
     <a href="#caidat">Cài đặt</a>
-    <a href="#dangnhap">Đăng nhập</a>
     <a href="#giaodien">Từng nút</a>
     <a href="#proxy">Thêm proxy</a>
     <a href="#tukiem">Tự kiểm</a>
@@ -200,7 +199,7 @@ details .ans b{color:var(--ink)}
 <div class="wrap">
 
   <section class="hero" id="gioithieu">
-    <div class="eyebrow">Hướng dẫn sử dụng · phiên bản 1.1.7</div>
+    <div class="eyebrow">Hướng dẫn sử dụng · phiên bản <span data-version>1.1.31</span></div>
     <h1>Mỗi profile là <span class="tag">một máy tính riêng</span></h1>
     <p class="lead">RVM Login là phần mềm quản lý nhiều kênh YouTube an toàn trên một máy. Mỗi profile có vân tay thiết bị riêng (anti-detect), proxy riêng + kill-switch và dữ liệu mã hoá — để một kênh dính gậy <b>không</b> kéo cả chùm bay theo.</p>
     <div class="cta">
@@ -214,9 +213,11 @@ details .ans b{color:var(--ink)}
     <h2>Tính năng chính</h2>
     <p class="lead">Mọi thứ cần để nuôi nhiều kênh mà không sợ chết chùm.</p>
     <div class="grid">
-      <div class="card"><h3><span class="ic">🧬</span>Vân tay thiết bị riêng</h3><p>Mỗi profile một bộ vân tay (UA, màn hình, GPU, múi giờ…) khác nhau — YouTube thấy mỗi kênh như một máy, một người khác.</p></div>
+      <div class="card"><h3><span class="ic">🧬</span>Vân tay thiết bị riêng (luôn bật)</h3><p>Mỗi profile một bộ vân tay (UA, màn hình, GPU, múi giờ…) khác nhau — giả ở tầng engine mà <b>vẫn đăng nhập Google mượt</b>. Anti-detect luôn bật, không cần chọn gì.</p></div>
       <div class="card"><h3><span class="ic">🌐</span>Proxy riêng từng kênh</h3><p>Hỗ trợ HTTP / SOCKS5 (và vmess/vless/ss/trojan). Mỗi kênh một IP riêng, không kênh nào đụng kênh nào.</p></div>
       <div class="card"><h3><span class="ic">🛡️</span>Kill-switch chống lộ IP</h3><p>Proxy rớt mạng là chặn ngay — IP thật của bạn <b>không bao giờ</b> lộ ra.</p></div>
+      <div class="card"><h3><span class="ic">🚫</span>Không rò WebRTC</h3><p>Engine chặn WebRTC lộ IP thật. Kiểm trên whoer.com: chỉ thấy IP proxy, không thấy IP của bạn.</p></div>
+      <div class="card"><h3><span class="ic">☑️</span>Chọn &amp; thao tác hàng loạt</h3><p>Tích nhiều kênh một lúc rồi Khởi động / Dừng / đánh dấu kiểm tra cả loạt — quản vài chục kênh trong vài giây.</p></div>
       <div class="card"><h3><span class="ic">🔐</span>Dữ liệu mã hoá</h3><p>Cookie, đăng nhập, lịch sử của từng profile nằm riêng và được mã hoá — không rò rỉ chéo.</p></div>
       <div class="card"><h3><span class="ic">✅</span>Tự kiểm 1 chạm</h3><p>Bấm một nút để kiểm tra vân tay có khớp và IP có đúng proxy không, trước khi chạy kênh.</p></div>
       <div class="card"><h3><span class="ic">👥</span>Quản lý team dễ</h3><p>Giao profile cho nhân viên mà không lộ mật khẩu cá nhân; phân quyền, bàn giao, thu hồi gọn gàng.</p></div>
@@ -228,27 +229,13 @@ details .ans b{color:var(--ink)}
     <h2>Cài đặt &amp; đăng nhập</h2>
     <p class="lead">Chỉ vài phút là chạy được.</p>
     <ol class="steps">
-      <li><b>Tải phần mềm</b> tại <a href="https://rongvietmedia.github.io/rvm/" target="_blank" rel="noopener">rongvietmedia.github.io/rvm</a><span class="d">Tải file <b>RVM-Setup-1.1.7.exe</b> (Windows 64-bit).</span></li>
+      <li><b>Tải phần mềm</b> tại <a href="https://rongvietmedia.github.io/rvm/" target="_blank" rel="noopener">rongvietmedia.github.io/rvm</a><span class="d">Tải file <b>RVM-Setup-<span data-version>1.1.31</span>.exe</b> (Windows 64-bit).</span></li>
       <li><b>Chạy file cài đặt</b><span class="d">Nếu Windows hiện cảnh báo SmartScreen (“nhà phát hành không xác định”): bấm <b>Thông tin thêm → Vẫn chạy</b>. Phần mềm an toàn.</span></li>
       <li><b>Mở app RVM Login</b><span class="d">Sau khi cài, tìm biểu tượng đỏ <b>“RVM Login”</b> trên desktop hoặc gõ “RVM Login” ở ô tìm kiếm Windows.</span></li>
       <li><b>Đăng nhập bản quyền</b><span class="d">Nhập tài khoản + mật khẩu do bên bán cấp. Mỗi tài khoản gắn với một máy; muốn đổi máy báo bên bán mở khoá.</span></li>
       <li><b>Mở khoá kho dữ liệu (vault)</b><span class="d">Đặt mật khẩu vault lần đầu để mã hoá dữ liệu. Nhớ kỹ mật khẩu này.</span></li>
     </ol>
     <div class="note" style="margin-top:14px">💡 <b>Cập nhật tự động:</b> khi có bản mới, bấm mục <b>Cập nhật</b> ở cột trái → app tự tải và cài. Luôn giữ bản mới nhất để có đủ tính năng &amp; vá lỗi.</div>
-  </section>
-
-  <section class="block" id="dangnhap">
-    <div class="eyebrow">Quan trọng</div>
-    <h2>Đăng nhập YouTube / Google đúng cách</h2>
-    <p class="lead">Nếu mở thẳng <b>studio.youtube.com</b> rồi bấm đăng nhập mà Google báo <b>“Không thể đăng nhập cho bạn / trình duyệt có thể không an toàn”</b>, hãy đăng nhập theo đúng thứ tự sau — sẽ vào được bình thường:</p>
-    <ol class="steps">
-      <li><b>Mở profile</b><span class="d">Bấm <b>Khởi động</b> trên kênh để bật trình duyệt riêng.</span></li>
-      <li><b>Vào thẳng trang đăng nhập Google</b><span class="d">Ở thanh địa chỉ, gõ <b>accounts.google.com</b> rồi Enter. ĐỪNG vào studio.youtube.com trước.</span></li>
-      <li><b>Đăng nhập tài khoản Google</b><span class="d">Nhập email + mật khẩu như bình thường ngay tại trang này.</span></li>
-      <li><b>Rồi mới vào YouTube Studio</b><span class="d">Đăng nhập xong, gõ tiếp <b>studio.youtube.com</b> (hoặc youtube.com) — lúc này đã đăng nhập sẵn nên vào thẳng, không còn báo lỗi.</span></li>
-    </ol>
-    <div class="note good" style="margin-top:14px">✅ <b>Vì sao:</b> mở thẳng Studio khi chưa đăng nhập sẽ bị Google đẩy qua một luồng mà Google hay chặn. Đăng nhập tại <b>accounts.google.com</b> là trang chuẩn của Google nên luôn vào được.</div>
-    <div class="note" style="margin-top:12px">💡 <b>Để chắc ăn hơn:</b> dùng <b>proxy dân cư (residential)</b>, mỗi kênh một IP cố định, và tài khoản đã <b>xác minh số điện thoại</b>. Tài khoản mới/chưa xác minh dễ bị Google hạn chế đăng nhập (báo “không an toàn” kể cả trên trình duyệt thường).</div>
   </section>
 
   <section class="block" id="giaodien">
@@ -334,8 +321,7 @@ details .ans b{color:var(--ink)}
   <section class="block" id="suco">
     <div class="eyebrow">Khi gặp trục trặc</div>
     <h2>Xử lý sự cố thường gặp</h2>
-    <details open><summary>Google báo “Không thể đăng nhập cho bạn / trình duyệt có thể không an toàn”</summary><div class="ans">Đừng mở thẳng <b>studio.youtube.com</b> để đăng nhập. Hãy ở thanh địa chỉ gõ <b>accounts.google.com</b> → đăng nhập tại đó → xong mới vào Studio (xem mục <a href="#dangnhap"><b>Đăng nhập YouTube/Google đúng cách</b></a> ở trên). Nếu vào accounts.google.com <b>vẫn</b> bị chặn thì nguyên nhân là <b>IP proxy</b> hoặc <b>tài khoản</b> bị Google gắn cờ — hãy dùng proxy dân cư và tài khoản đã xác minh số điện thoại.</div></details>
-    <details><summary>Báo “Chrome không mở cổng điều khiển (CDP) kịp”</summary><div class="ans">Thường do còn cửa sổ/tiến trình Chrome cũ của kênh. Mở <b>Task Manager (Ctrl+Shift+Esc)</b> → kết thúc hết <b>chrome.exe</b>, rồi bấm <b>Khởi động</b> lại. Lần đầu sau khi bật máy Chrome khởi động hơi chậm — nếu lỡ báo lỗi, bấm lại lần nữa.</div></details>
+    <details><summary>Lần đầu Khởi động kênh hơi lâu / đang tải engine</summary><div class="ans">Lần đầu dùng, RVM tự tải <b>engine anti-detect (~185MB)</b> — chỉ một lần, có thanh báo tiến độ. Những lần sau mở nhanh. RVM cũng <b>tự đóng engine cũ của kênh</b> trước khi mở lại, nên bạn không cần tự tắt. Nếu lỡ báo lỗi, bấm <b>Khởi động</b> lại một lần nữa.</div></details>
     <details><summary>Tự kiểm báo “proxy down” dù proxy còn sống</summary><div class="ans">Đã được sửa từ <b>v1.1.6</b>. Hãy <b>Cập nhật</b> lên bản mới nhất rồi Tự kiểm lại. Nếu sau khi cập nhật, mục IP vẫn báo “không lấy được (proxy chết?)” thì khi đó mới là proxy thật sự chết — thay proxy sống khác.</div></details>
     <details><summary>Windows cảnh báo “nhà phát hành không xác định” khi cài</summary><div class="ans">Đây là cảnh báo mặc định của Windows với phần mềm chưa mua chứng chỉ ký số. Bấm <b>Thông tin thêm → Vẫn chạy</b>. Phần mềm an toàn.</div></details>
     <details><summary>Proxy báo “sống” lúc kiểm nhưng rớt khi chạy</summary><div class="ans">Proxy rẻ hay chập chờn. Kill-switch sẽ chặn để bảo vệ IP thật của bạn (đúng chức năng). Hãy thay proxy ổn định hơn, hoặc để kênh chạy <b>DIRECT</b> (không proxy) nếu chưa cần ẩn IP.</div></details>
@@ -351,7 +337,7 @@ details .ans b{color:var(--ink)}
       <a href="https://zalo.me/0918637699" target="_blank" rel="noopener">💬 Zalo 0918 637 699</a>
       <a href="https://rongvietmedia.github.io/rvm/" target="_blank" rel="noopener">🌐 rongvietmedia.github.io/rvm</a>
     </div>
-    <small>RVM Login v1.1.7 · Hướng dẫn sử dụng · Phần mềm quản lý nhiều kênh YouTube cho Windows</small>
+    <small>RVM Login v<span data-version>1.1.31</span> · Hướng dẫn sử dụng · Phần mềm quản lý nhiều kênh YouTube cho Windows</small>
   </div>
 </footer>
 
@@ -366,5 +352,8 @@ details .ans b{color:var(--ink)}
   btn.addEventListener('click',function(){apply(cur()==='dark'?'light':'dark');});
 })();
 </script>
+<!-- Lấy version + link tải TỪ config.js (dùng chung với trang chủ) → không bao giờ lệch version nữa -->
+<script src="assets/config.js"></script>
+<script>try{var V=(window.RVM||{}).version||'';if(V)document.querySelectorAll('[data-version]').forEach(function(e){e.textContent=V;});var D=(window.RVM||{}).download;if(D)document.querySelectorAll('[data-download]').forEach(function(a){a.href=D;});}catch(e){}</script>
 </body>
 </html>
