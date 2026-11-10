@@ -48,6 +48,7 @@
       <a href="#hoi-dap">Hỏi đáp</a>
       <a href="huong-dan.html">Hướng dẫn</a>
       <a href="#" data-open="order" data-mode="renew">Gia hạn</a>
+      <a href="tai-khoan.html">Tài khoản</a>
       <a href="doi-tac.html">Đối tác 💰</a>
     </nav>
     <a class="btn btn-p btn-sm cta-top" href="#bang-gia">Mua bản quyền</a>
@@ -369,7 +370,7 @@ v.addEventListener('timeupdate',function(){var t=v.currentTime,cur=null;bs.forEa
 <footer>
   <div class="wrap">
     <div><b style="color:var(--txt)">RVM</b> — Phần mềm quản lý kênh YouTube · © <span data-year></span> RVM Login</div>
-    <div style="margin:8px 0;display:flex;gap:16px;flex-wrap:wrap"><a href="thay-doi.html">Có gì mới &amp; bảng điểm vân tay</a><a href="dieu-khoan.html">Điều khoản sử dụng</a><a href="bao-mat.html">Quyền riêng tư</a></div>
+    <div style="margin:8px 0;display:flex;gap:16px;flex-wrap:wrap"><a href="tai-khoan.html">Tài khoản của tôi</a><a href="thay-doi.html">Có gì mới &amp; bảng điểm vân tay</a><a href="dieu-khoan.html">Điều khoản sử dụng</a><a href="bao-mat.html">Quyền riêng tư</a></div>
     <div class="disc">RVM là công cụ gán vân tay thiết bị, tách hồ sơ trình duyệt và đường mạng cho từng kênh, nhằm giảm liên kết kỹ thuật giữa các kênh và giúp quản lý gọn gàng. RVM không đảm bảo kênh không bị nền tảng xử lý, không cam kết lượt xem hay doanh thu, và không thay thế cho việc làm nội dung tử tế, tuân thủ chính sách YouTube. YouTube là thương hiệu của Google LLC; RVM không liên kết với Google.</div>
   </div>
 </footer>
@@ -415,7 +416,7 @@ v.addEventListener('timeupdate',function(){var t=v.currentTime,cur=null;bs.forEa
         <label>Mật khẩu<input name="password" type="password" required maxlength="64" autocomplete="current-password"></label>
         <div class="msg" id="renew-msg"></div>
         <button class="btn btn-p btn-block" type="submit">Lấy mã QR gia hạn</button>
-        <p class="small center">Thời gian còn lại được giữ nguyên và cộng thêm. Quên mật khẩu? Nhắn <a data-zalo href="#" style="color:var(--acc2)"><b>Zalo</b></a>.</p>
+        <p class="small center">Thời gian còn lại được giữ nguyên và cộng thêm. Quên mật khẩu? <a href="tai-khoan.html" style="color:var(--acc2)"><b>Nhận link gia hạn qua email</b></a> hoặc nhắn <a data-zalo href="#" style="color:var(--acc2)"><b>Zalo</b></a>.</p>
       </form>
     </div>
 
@@ -608,8 +609,33 @@ v.addEventListener('timeupdate',function(){var t=v.currentTime,cur=null;bs.forEa
     delete d.password2;
     start(bf, bm, 'buy', d, 'Tạo tài khoản & lấy mã QR');
   });
+  // ---- Gia hạn 1 chạm: link ?gh=<mã riêng> trong email nhắc gia hạn / trang Tài khoản của tôi ----
+  let ghTok = '';
+  const pwLabel = rf.password.closest('label');
+  function tokMode(acc, t) {
+    ghTok = acc ? t : '';
+    rf.account.value = acc || ''; rf.account.readOnly = !!acc;
+    pwLabel.style.display = acc ? 'none' : '';
+  }
+  document.addEventListener('rvm:open', () => tokMode(''));   // mở modal bình thường → về cách nhập mật khẩu
+  const gh = new URLSearchParams(location.search).get('gh');
+  if (gh) {
+    history.replaceState(null, '', location.pathname + location.hash);
+    const open = () => { U.openModal('order'); setMode('renew'); disc = { code: '', percent: 0 }; machEl.value = ''; price(); show('form'); };
+    U.api('tokInfo', { t: gh }).then((r) => {
+      open(); tokMode(r.account, gh);
+      machEl.placeholder = 'như cũ (' + r.machines + ')';
+      U.showMsg(rm, 'ok', `Gia hạn cho <b>${U.esc(r.account)}</b> — hạn hiện tại ${U.esc(r.exp)}. Chọn gói rồi bấm nút bên dưới, không cần mật khẩu.`);
+    }).catch((err) => { open(); U.showMsg(rm, 'err', U.esc(err.message) + ' Bạn vẫn có thể nhập tài khoản và mật khẩu để gia hạn.'); });
+  }
+
   rf.addEventListener('submit', (e) => {
     e.preventDefault();
+    if (ghTok) {
+      const t = { tok: ghTok, plan: sel.value, ref: U.getRef(), discount: disc.code };
+      if (machEl.value) t.machines = machN();
+      return start(rf, rm, 'renew', t, 'Lấy mã QR gia hạn');
+    }
     const d = Object.fromEntries(new FormData(rf).entries());
     if (!d.account.trim() || !d.password) return U.showMsg(rm, 'err', 'Vui lòng nhập tài khoản và mật khẩu.');
     d.plan = sel.value; d.ref = U.getRef(); d.discount = disc.code;

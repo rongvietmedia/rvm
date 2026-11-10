@@ -35,6 +35,7 @@
     <tr><td>Tài khoản bản quyền (email) + mật khẩu tài khoản RVM</td><td>Đăng nhập, kiểm tra hạn định kỳ</td><td>Xác thực bản quyền</td></tr>
     <tr><td><b>Mã máy</b> — chuỗi băm SHA-256 một chiều từ mã phần cứng (không gửi mã gốc, không gửi tên máy)</td><td>Đăng nhập, dùng thử</td><td>Gắn bản quyền với đúng máy; mỗi máy dùng thử một lần</td></tr>
     <tr><td>Họ tên, email, số điện thoại</td><td>Khi bạn mua / gia hạn</td><td>Tạo tài khoản, đối soát thanh toán VietQR, hỗ trợ</td></tr>
+    <tr><td>Email của bạn</td><td>Khi kích hoạt, khi sắp hết hạn (3 ngày trước và đúng ngày), khi bạn xin link "Tài khoản của tôi"</td><td>Gửi xác nhận kích hoạt kèm phiếu thu, nhắc gia hạn, link riêng xem tài khoản. Không gửi quảng cáo.</td></tr>
     <tr><td>Dữ liệu <b>đồng bộ nhóm</b> (kênh, phiên đăng nhập)</td><td>Chỉ khi bạn bật Đồng bộ nhóm</td><td>Đưa kênh sang máy khác trong đội. Nén và <b>mã hoá AES-256-GCM ngay trên máy</b> trước khi gửi — máy chủ chỉ giữ dữ liệu đã mã hoá, không đọc được nội dung. Khoá nhóm được niêm phong riêng cho từng máy được quyền.</td></tr>
     <tr><td>Nhật ký hoạt động nhóm (mở/đóng kênh, báo sự cố)</td><td>Khi dùng Đồng bộ nhóm</td><td>Chủ đội theo dõi giờ làm. Tên kênh trong nhật ký được mã hoá.</td></tr>
     <tr><td>Báo lỗi kỹ thuật: phiên bản app, hệ điều hành, nơi lỗi, thông báo lỗi, dấu vết lỗi (đường dẫn thư mục người dùng được xoá)</td><td>Khi app gặp lỗi — <b>tắt được</b> trong Cài đặt → "Tự gửi báo lỗi"</td><td>Sửa lỗi. Không gửi tên kênh, mật khẩu, cookie.</td></tr>
@@ -46,7 +47,8 @@
     <li><b>ipwho.is</b> — tra múi giờ/quốc gia theo IP <i>của proxy</i> (gọi qua chính proxy của kênh) để vân tay khớp vùng.</li>
     <li><b>Nhà cung cấp proxy xoay</b> (TMProxy, Tinsoft, KiotProxy, WWProxy) — chỉ khi bạn dán khoá API của họ vào RVM.</li>
     <li><b>GitHub</b> — tải bản cập nhật và trình duyệt anti-detect (mã nguồn mở fingerprint-chromium).</li>
-    <li>Máy chủ RVM chạy trên hạ tầng Google (Apps Script/Drive).</li>
+    <li>Máy chủ RVM chạy trên hạ tầng Google (Apps Script/Drive); email gửi bạn đi qua Gmail.</li>
+    <li><b>Telegram</b> — chủ RVM nhận thông báo đơn hàng (tài khoản, gói, số tiền) qua bot Telegram riêng để xử lý nhanh.</li>
   </ul>
 
   <h2>4. Những gì RVM không làm</h2>

@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Tài khoản RVM Login của bạn: xem hạn dùng, số máy, lịch sử thanh toán, tải phiếu thu và gia hạn 1 chạm.">
+<meta name="robots" content="noindex">
+<title>Tài khoản RVM</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="assets/doc.css">
+<style>
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px;margin:16px 0}
+.f{display:flex;gap:8px;flex-wrap:wrap}.f input{flex:1 1 220px;min-width:0;padding:12px 13px;border:1px solid var(--border);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit}
+.btn{display:inline-block;border:0;border-radius:10px;padding:12px 18px;font:inherit;font-weight:600;cursor:pointer;background:var(--accent);color:#fff;text-align:center}
+.btn:hover{text-decoration:none;filter:brightness(1.05)}.btn:disabled{opacity:.55;cursor:default}
+.btn.g{background:var(--surface);color:var(--ink);border:1px solid var(--border)}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.msg{display:none;margin-top:12px;padding:12px 14px;border-radius:10px;font-size:15px}.msg.on{display:block}
+.msg.ok{background:var(--good-soft);color:var(--good)}.msg.err{background:var(--bad-soft);color:var(--bad)}
+.kv{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
+.kv div{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 12px}
+.kv span{display:block;color:var(--muted);font-size:13px}.kv b{font-size:17px;word-break:break-all}
+.acc{font-family:var(--font-display);font-size:22px;word-break:break-all;margin:0}
+.hrow{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--border)}.hrow:last-child{border:0}
+.hrow .m{color:var(--muted);font-size:13.5px}.hrow b{white-space:nowrap}
+.small{color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<header class="top"><div class="bar">
+  <a class="brand" href="./"><span class="mark"><b>RVM</b><span>LOGIN</span></span><span class="bname">RVM Login</span></a>
+  <span class="sp"></span>
+  <nav class="links"><a href="./">Trang chủ</a><a href="huong-dan.html">Hướng dẫn</a><a data-zalo href="#">Hỗ trợ Zalo</a></nav>
+</div></header>
+
+<main class="wrap doc">
+  <p class="eyebrow">Khách hàng RVM</p>
+  <h1>Tài khoản của tôi</h1>
+
+  <section id="ask">
+    <p class="lead">Xem hạn dùng, lịch sử thanh toán, tải phiếu thu và gia hạn 1 chạm — không cần nhớ mật khẩu.</p>
+    <div class="card">
+      <form class="f" id="ask-f" novalidate>
+        <input name="email" type="email" required maxlength="80" autocomplete="email" placeholder="Email bạn dùng khi mua RVM">
+        <button class="btn" type="submit">Gửi link vào email</button>
+      </form>
+      <div class="msg" id="ask-msg"></div>
+      <p class="small" style="margin:12px 0 0">Chúng tôi gửi một link riêng tới email đã đăng ký. Link dùng được 30 ngày.</p>
+    </div>
+  </section>
+
+  <section id="me" hidden>
+    <div class="card">
+      <p class="small" style="margin:0">Tài khoản RVM</p>
+      <p class="acc" id="me-acc"></p>
+      <div id="me-pill" style="margin-top:6px"></div>
+      <div class="kv">
+        <div><span>Hạn dùng đến</span><b id="me-exp"></b></div>
+        <div><span>Số máy</span><b id="me-mach"></b></div>
+      </div>
+      <div class="acts">
+        <a class="btn" id="me-renew" href="#">Gia hạn 1 chạm</a>
+        <a class="btn g" data-download href="#">⬇ Tải RVM</a>
+        <a class="btn g" data-zalo href="#">Hỗ trợ Zalo</a>
+      </div>
+    </div>
+    <h2>Lịch sử thanh toán</h2>
+    <div class="card" id="me-hist"></div>
+    <p class="small">Phiếu thu dùng để đối chiếu thanh toán, không phải hoá đơn VAT. <a href="#" id="me-out">Thoát khỏi thiết bị này</a></p>
+  </section>
+  <div class="msg" id="me-msg"></div>
+</main>
+
+<footer class="foot"><div class="wrap">RVM Login · <a href="./">rvmlogin.io.vn</a> · <a href="dieu-khoan.html">Điều khoản</a> · <a href="bao-mat.html">Quyền riêng tư</a> · <a href="thay-doi.html">Có gì mới</a></div></footer>
+
+<script src="assets/config.js"></script>
+<script src="assets/site.js"></script>
+<script>
+(function () {
+  const C = window.RVM, U = window.RVMUI, KEY = 'rvm_me';
+  const qs = new URLSearchParams(location.search);
+  if (qs.get('dl')) { location.replace(C.download); return; }   // nút "Tải RVM" trong email luôn trỏ bản mới nhất
+
+  // Link riêng từ email → nhớ trên thiết bị này để lần sau mở thẳng, rồi xoá khỏi thanh địa chỉ.
+  let tok = qs.get('t') || '';
+  if (tok) { U.store.set(KEY, { t: tok, ts: Date.now() }); history.replaceState(null, '', location.pathname); }
+  else { const s = U.store.get(KEY); if (s && s.t && Date.now() - s.ts < 30 * 864e5) tok = s.t; }
+
+  const f = U.$('#ask-f'), am = U.$('#ask-msg'), mm = U.$('#me-msg');
+  f.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = f.email.value.trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return U.showMsg(am, 'err', 'Email chưa đúng.');
+    const btn = f.querySelector('button'); btn.disabled = true; btn.textContent = 'Đang gửi…';
+    try { const r = await U.api('myLink', { email }); U.showMsg(am, 'ok', '📧 ' + U.esc(r.msg)); f.reset(); }
+    catch (err) { U.showMsg(am, 'err', err.noApi ? 'Hệ thống đang bảo trì. ' + U.contactHtml() : U.esc(err.message)); }
+    finally { btn.disabled = false; btn.textContent = 'Gửi link vào email'; }
+  });
+
+  U.$('#me-out').addEventListener('click', (e) => { e.preventDefault(); U.store.del(KEY); location.href = location.pathname; });
+
+  async function load() {
+    U.$('#ask').hidden = true; U.showMsg(mm, 'ok', 'Đang tải tài khoản…');
+    try {
+      const r = await U.api('myInfo', { t: tok });
+      mm.className = 'msg';
+      U.$('#me').hidden = false;
+      U.$('#me-acc').textContent = r.account;
+      U.$('#me-exp').textContent = r.exp;
+      U.$('#me-mach').textContent = r.machines + ' máy';
+      const st = r.perm ? ['ok', 'Vĩnh viễn'] : r.left > 7 ? ['ok', 'Đang dùng · còn ' + r.left + ' ngày'] : r.left >= 1 ? ['warn', 'Sắp hết hạn · còn ' + r.left + ' ngày'] : r.left === 0 ? ['bad', 'Hết hạn hôm nay'] : ['bad', 'Đã hết hạn ' + (-r.left) + ' ngày'];
+      U.$('#me-pill').innerHTML = `<span class="pill ${st[0]}">${U.esc(st[1])}</span>`;
+      const rn = U.$('#me-renew');
+      if (r.perm) rn.style.display = 'none'; else rn.href = './?gh=' + encodeURIComponent(tok);
+      U.$('#me-hist').innerHTML = r.history.length ? r.history.map((h) => `
+        <div class="hrow"><div><div><b>${U.esc(h.type)}</b> · ${U.esc(h.plan)}${h.machines > 1 ? ' × ' + h.machines + ' máy' : ''}</div>
+        <div class="m">${U.esc(h.date)} · mã ${U.esc(h.code)}${h.exp ? ' · hạn đến ' + U.esc(h.exp) : ''}</div></div>
+        <div style="text-align:right"><b>${U.esc(U.money(h.amount))}</b><br><a href="#" data-rc="${U.esc(h.code)}" style="font-size:13.5px">Phiếu thu PDF</a></div></div>`).join('')
+        : '<p class="small" style="margin:0">Chưa có thanh toán online nào cho tài khoản này.</p>';
+    } catch (err) {
+      U.store.del(KEY); U.$('#me').hidden = true; U.$('#ask').hidden = false;
+      U.showMsg(am, 'err', U.esc(err.message));
+      mm.className = 'msg';
+    }
+  }
+
+  U.$('#me-hist').addEventListener('click', async (e) => {
+    const a = e.target.closest('[data-rc]'); if (!a) return;
+    e.preventDefault();
+    const old = a.textContent; a.textContent = 'Đang tạo…';
+    try {
+      const r = await U.api('receipt', { t: tok, code: a.dataset.rc });
+      const bin = atob(r.b64), buf = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
+      const url = URL.createObjectURL(new Blob([buf], { type: 'application/pdf' }));
+      const dl = document.createElement('a'); dl.href = url; dl.download = r.name; document.body.appendChild(dl); dl.click(); dl.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 30000);
+    } catch (err) { U.toast(err.message); }
+    finally { a.textContent = old; }
+  });
+
+  if (tok) load();
+})();
+</script>
+</body>
+</html>
