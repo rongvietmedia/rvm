@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Nhật ký thay đổi từng phiên bản RVM Login và bảng điểm kiểm thử vân tay công khai trên CreepJS, BrowserScan, BrowserLeaks.">
+<title>Có gì mới RVM</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="assets/doc.css">
+</head>
+<body>
+<header class="top"><div class="bar">
+  <a class="brand" href="./"><span class="mark"><b>RVM</b><span>LOGIN</span></span><span class="bname">RVM Login</span></a>
+  <span class="sp"></span>
+  <nav class="links"><a href="./">Trang chủ</a><a href="#kiem-thu">Bảng điểm</a><a href="dieu-khoan.html">Điều khoản</a><a href="bao-mat.html">Quyền riêng tư</a></nav>
+</div></header>
+
+<main class="wrap doc">
+  <p class="eyebrow">Minh bạch · cập nhật 10/11/2026</p>
+  <h1>Có gì mới</h1>
+  <p class="lead">Mỗi bản RVM làm gì, sửa gì — và kết quả kiểm thử vân tay thật trên các trang kiểm tra công khai, kể cả chỗ chưa đạt.</p>
+
+  <h2 id="kiem-thu">Bảng điểm kiểm thử vân tay</h2>
+  <p>Đo ngày <b>10/11/2026</b> trên bản <b>1.3.1</b> (trình duyệt Chrome 150), cấu hình mặc định, 2 kênh thử khác nhau trên cùng một máy Windows, múi giờ khớp IP. Đo tự động bằng công cụ nội bộ, mở đúng trình duyệt mà khách dùng.</p>
+  <table>
+    <tr><th>Trang kiểm tra</th><th>Kết quả</th><th>Ghi chú</th></tr>
+    <tr><td>Pixelscan</td><td><span class="pill ok">Đạt</span></td><td>"Fingerprint is consistent" · "No masking detected" · "No automated behavior detected"</td></tr>
+    <tr><td>CreepJS</td><td><span class="pill ok">Đạt</span></td><td>0 dấu hiệu giả mạo (lies) · headless 0% · stealth 0% · 2 kênh ra 2 mã nhận dạng khác nhau</td></tr>
+    <tr><td>BrowserLeaks — WebRTC</td><td><span class="pill ok">Đạt</span></td><td>No Leak — không lộ IP thật</td></tr>
+    <tr><td>BrowserScan</td><td><span class="pill ok">90%</span></td><td>10% bị trừ vì trang coi "Asia/Saigon" và "Asia/Ho_Chi_Minh" là hai múi giờ (thực ra là một) — máy thật ở Việt Nam cũng bị trừ như vậy. Với proxy nước ngoài không bị trừ mục này.</td></tr>
+    <tr><td>BrowserLeaks — Canvas</td><td><span class="pill warn">Chưa đạt</span></td><td>Các kênh trên <b>cùng một máy</b> đang có chung chữ ký canvas, vì phần giả canvas của trình duyệt gốc đang lỗi (gây treo tab) nên RVM tạm tắt. Có tuỳ chọn <b>thử nghiệm</b> "Giả vân tay canvas theo từng kênh" trong Cài đặt — mỗi kênh ra chữ ký riêng, nhưng một số trang chống gian lận có thể nhận ra lớp giả nên mặc định tắt. Sẽ bật lại ngay khi trình duyệt gốc sửa lỗi.</td></tr>
+  </table>
+  <p class="note">Không phần mềm nào bảo đảm kênh an toàn 100%. Bảng này cho bạn thấy đúng những gì website nhìn thấy — chúng tôi đo lại sau mỗi bản cập nhật.</p>
+
+  <h2>Nhật ký phiên bản</h2>
+
+  <div class="rel">
+    <h3>1.3.1 <span class="d">sắp phát hành</span></h3>
+    <ul>
+      <li><b>Sức khoẻ kênh:</b> mỗi ngày tự kiểm kênh còn truy cập được không, video mới nhất đăng khi nào, số video 30 ngày — kiểm <b>qua đúng proxy của từng kênh</b> để không gom các kênh về một IP. Kênh "bay màu" hiện nhãn đỏ và báo về Quản trị/Leader. Chỉ cần điền ô Handle (@kenh hoặc link kênh).</li>
+      <li><b>Bắt đầu nhanh 3 bước</b> cho người mới: thẻ tiến độ trên danh sách kênh, tự đánh dấu khi làm xong.</li>
+      <li><b>Trang quản trị web</b> cho chủ đội (xem trên điện thoại hoặc máy tính): thêm tab Giờ làm 7 ngày (xuất CSV) và tab Cảnh báo.</li>
+      <li><b>Engine an toàn hơn:</b> kiểm mã SHA-256 trước khi cài trình duyệt anti-detect, tải từ kho RVM trước, đổi phiên bản engine từ xa không cần cập nhật app.</li>
+      <li>Tuỳ chọn thử nghiệm "Giả vân tay canvas theo từng kênh" (Cài đặt → Khác), mặc định tắt.</li>
+      <li>Bộ kiểm thử vân tay tự động sau mỗi bản — kết quả công khai ở bảng trên.</li>
+    </ul>
+  </div>
+
+  <div class="rel">
+    <h3>1.3.0 <span class="d">09/11/2026</span></h3>
+    <ul>
+      <li>Bảng quản lý kênh: nhập/xuất Excel (email, mật khẩu, 2FA, email khôi phục, proxy, trạng thái kiếm tiền), tag màu, cột tự đặt, thùng rác 30 ngày.</li>
+      <li>Chuyển một kênh sang máy khác bằng file .zip có mật khẩu (giữ nguyên vân tay, proxy, đăng nhập).</li>
+      <li>Proxy xoay Việt Nam: TMProxy, Tinsoft, KiotProxy, WWProxy — nút Đổi IP ngay trên hàng kênh.</li>
+      <li>Đồng bộ thao tác nhiều cửa sổ, tự xếp lưới.</li>
+      <li>Trợ lý đăng nhập lại hàng loạt (email, mật khẩu, 2FA, đọc mã OTP từ email khôi phục).</li>
+      <li>Trợ lý trả lời lỗi trong app; mua/gia hạn bằng QR ngay trong app.</li>
+      <li>Phân quyền từng nhân viên; chặn trang web quét cổng mạng của máy.</li>
+    </ul>
+  </div>
+
+  <div class="rel">
+    <h3>1.2.0 <span class="d">09/11/2026 · phát hành cùng 1.3.0</span></h3>
+    <ul>
+      <li>Một tài khoản dùng cho nhiều máy, dùng thử 7 ngày.</li>
+      <li>Mã PIN cho thao tác nhạy cảm; tự sao lưu mã hoá hằng ngày.</li>
+      <li>Nuôi kênh theo lịch; tab Hoạt động nhóm, quản lý nhân viên trên điện thoại, giờ làm việc.</li>
+      <li>Hướng dẫn lần đầu.</li>
+    </ul>
+  </div>
+
+  <div class="rel">
+    <h3>1.1.34 – 1.1.36 <span class="d">09/11/2026</span></h3>
+    <ul>
+      <li>Đồng bộ nhóm: nhiều máy dùng chung kênh và phiên đăng nhập, mã hoá AES-256-GCM trên máy trước khi gửi.</li>
+      <li>Hệ thống nhiều nhóm: Quản trị → Leader → Nhân viên; nhân viên không thấy mật khẩu Gmail.</li>
+      <li>Local API cho công cụ tự động (mặc định tắt, có token).</li>
+    </ul>
+  </div>
+
+  <div class="rel">
+    <h3>1.1.30 – 1.1.33 <span class="d">06/11/2026</span></h3>
+    <ul>
+      <li>Mọi kênh chạy trình duyệt anti-detect riêng (fingerprint-chromium): giả vân tay ở tầng trình duyệt, không qua cổng điều khiển — đăng nhập Google mượt.</li>
+      <li>Chặn rò WebRTC; múi giờ tự khớp IP proxy.</li>
+      <li>Nút Tự kiểm chạy trên chính trình duyệt của kênh.</li>
+      <li>Đóng trình duyệt của kênh khi bấm Dừng, khoá app hoặc thoát app.</li>
+    </ul>
+  </div>
+
+  <p class="note">Bản cập nhật tự đến qua tính năng tự cập nhật trong app. Thắc mắc: Zalo <a href="https://zalo.me/0918637699">0918 637 699</a>.</p>
+</main>
+
+<footer class="foot"><div class="wrap">RVM Login · <a href="./">rvmlogin.io.vn</a> · <a href="dieu-khoan.html">Điều khoản</a> · <a href="bao-mat.html">Quyền riêng tư</a> · <a href="thay-doi.html">Có gì mới</a></div></footer>
+</body>
+</html>

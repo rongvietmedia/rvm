@@ -273,6 +273,7 @@ v.addEventListener('timeupdate',function(){var t=v.currentTime,cur=null;bs.forEa
       <p class="lead">Không giới hạn số kênh trên máy. Vào nhẹ một tháng, thấy hợp thì đi dài để có giá tốt nhất.</p>
     </div>
     <div class="plans" id="plans"></div>
+    <div class="note reveal" id="team-plan" style="display:none;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap"></div>
     <div class="note reveal"><b>Một tài khoản, nhiều máy.</b> Mua cho bao nhiêu máy thì một tài khoản đăng nhập được bấy nhiêu máy (không cần mỗi máy một email). <b>3–9 máy giảm 10%, từ 10 máy giảm 20%.</b> Đổi máy: bấm "Gỡ máy này khỏi tài khoản" trong app. Nhắn <a data-zalo href="#"><b>Zalo</b></a> để nhận báo giá nhiều máy.</div>
     <div class="note g reveal"><b>🎁 Dùng thử 7 ngày miễn phí.</b> Tải RVM về → ở màn đăng nhập bấm <b>"Dùng thử 7 ngày"</b> — dùng ngay, không cần chờ cấp tài khoản. Mua bản quyền là dùng tiếp, dữ liệu giữ nguyên.</div>
     <div class="note w reveal"><b>Proxy mua riêng.</b> RVM không bán kèm proxy. Trong phần mềm có nút dẫn tới nhà cung cấp và hướng dẫn chọn loại proxy phù hợp (ưu tiên residential/ISP sạch).</div>
@@ -317,7 +318,7 @@ v.addEventListener('timeupdate',function(){var t=v.currentTime,cur=null;bs.forEa
     <div class="faq">
       <details><summary>RVM có phải trình duyệt anti-detect không?</summary><p>Có. Từ bản v<span data-version></span>, RVM gán cho mỗi kênh một <b>bộ vân tay thiết bị riêng</b> (trình duyệt, card màn hình/WebGL, số nhân, RAM, màn hình, múi giờ…) — website nhìn mỗi kênh như một máy tính khác nhau. Vân tay được tiêm theo cách <b>giữ nguyên sandbox</b> của Chrome (an toàn, không hạ bảo mật). Ngoài vân tay, RVM còn tách riêng <b>cookie, phiên đăng nhập và IP</b> cho từng kênh. Dù vậy, không phần mềm nào — kể cả anti-detect — đảm bảo kênh an toàn 100%; giữ từng kênh sạch chính sách vẫn là điều quan trọng nhất.</p></details>
       <details><summary>“Tự kiểm” là gì?</summary><p>Là nút kiểm tra ngay trong RVM. Bấm vào, RVM mở một trang cho bạn thấy <b>web nhìn thấy gì</b> ở kênh này: vân tay thiết bị có “khớp” với bộ máy đã gán không, IP công khai có đúng là IP của proxy không, có bị rò WebRTC (lộ IP thật) không. Tất cả báo xanh là yên tâm mỗi kênh đang là một máy riêng.</p></details>
-      <details><summary>RVM chạy trên máy nào?</summary><p>Windows 10 và Windows 11 bản 64-bit. Cài thẳng lên máy bạn đang dùng, không cần máy ảo hay cấu hình phức tạp. Cần cài sẵn Google Chrome.</p></details>
+      <details><summary>RVM chạy trên máy nào?</summary><p>Windows 10 và Windows 11 bản 64-bit. Cài thẳng lên máy bạn đang dùng, không cần máy ảo hay cấu hình phức tạp. <b>Không cần cài sẵn Google Chrome</b> — lần đầu bấm Khởi động một kênh, RVM tự tải trình duyệt anti-detect riêng (khoảng 185 MB, một lần duy nhất). Hiện chưa có bản macOS.</p></details>
       <details><summary>Một máy chạy được bao nhiêu kênh?</summary><p>Phần mềm không giới hạn số hồ sơ. Giới hạn thật nằm ở RAM của máy, vì mỗi kênh đang mở là một cửa sổ trình duyệt thật. Máy phổ thông chạy êm vài kênh cùng lúc; nhiều hơn thì mở luân phiên.</p></details>
       <details><summary>RVM hỗ trợ loại proxy nào?</summary><p>HTTP, SOCKS5 (có mật khẩu) và các giao thức <b>vmess / vless / shadowsocks (ss) / trojan</b> — hợp với proxy hay dùng ở Việt Nam. Mỗi kênh gắn một proxy riêng; RVM kiểm tra proxy một chạm và tự lấy múi giờ theo IP của proxy. Proxy mua riêng để bạn chọn nhà cung cấp và quốc gia phù hợp.</p></details>
       <details><summary>Làm kênh nhắm khán giả Mỹ thì dùng Gmail và proxy thế nào cho đúng?</summary><p>Gmail không có “quốc tịch” — điều quan trọng là <b>danh tính phải thật</b>. Tạo Gmail bằng số điện thoại thật của bạn, bật xác minh 2 bước. Trong YouTube Studio và AdSense, khai <b>đúng quốc gia cư trú, tên, địa chỉ</b>; người ở Việt Nam khai mẫu thuế <b>W-8BEN</b>. Khai giả là người Mỹ thường dẫn tới bị giữ tiền hoặc tắt kiếm tiền.<br><br>Khán giả Mỹ đến từ <b>nội dung</b>: làm video, tiêu đề, mô tả, phụ đề bằng tiếng Anh, đặt ngôn ngữ video là English, đăng vào giờ người Mỹ hay xem. Nếu dùng proxy Mỹ thì mỗi kênh một proxy Mỹ cố định ngay từ đầu, không nhảy qua lại giữa IP Việt và IP Mỹ — RVM sẽ tự khớp múi giờ theo proxy.</p></details>
@@ -368,6 +369,7 @@ v.addEventListener('timeupdate',function(){var t=v.currentTime,cur=null;bs.forEa
 <footer>
   <div class="wrap">
     <div><b style="color:var(--txt)">RVM</b> — Phần mềm quản lý kênh YouTube · © <span data-year></span> RVM Login</div>
+    <div style="margin:8px 0;display:flex;gap:16px;flex-wrap:wrap"><a href="thay-doi.html">Có gì mới &amp; bảng điểm vân tay</a><a href="dieu-khoan.html">Điều khoản sử dụng</a><a href="bao-mat.html">Quyền riêng tư</a></div>
     <div class="disc">RVM là công cụ gán vân tay thiết bị, tách hồ sơ trình duyệt và đường mạng cho từng kênh, nhằm giảm liên kết kỹ thuật giữa các kênh và giúp quản lý gọn gàng. RVM không đảm bảo kênh không bị nền tảng xử lý, không cam kết lượt xem hay doanh thu, và không thay thế cho việc làm nội dung tử tế, tuân thủ chính sách YouTube. YouTube là thương hiệu của Google LLC; RVM không liên kết với Google.</div>
   </div>
 </footer>
@@ -384,7 +386,8 @@ v.addEventListener('timeupdate',function(){var t=v.currentTime,cur=null;bs.forEa
 
     <div id="st-form">
       <div class="seg"><button type="button" data-mode="buy" class="on">Mua mới</button><button type="button" data-mode="renew">Gia hạn</button></div>
-      <div class="planbar"><label class="pl"><span>Gói</span><select id="o-plan"></select></label><b id="o-price"></b></div>
+      <div class="planbar"><label class="pl"><span>Gói</span><select id="o-plan"></select></label><label class="pl" style="max-width:110px"><span>Số máy</span><input id="o-mach" type="number" min="1" max="50" inputmode="numeric" placeholder="1" style="width:100%;padding:9px 10px;border:1px solid rgba(128,128,128,.4);border-radius:10px;background:transparent;color:inherit;font:inherit"></label><b id="o-price"></b></div>
+      <div class="msg ok" id="o-promo" style="margin:0 0 8px;display:none"></div>
       <div style="display:flex;gap:8px;margin:0 0 6px">
         <input id="o-disc" maxlength="20" placeholder="Mã giảm giá (nếu có)" autocomplete="off"
                style="flex:1;text-transform:uppercase;padding:11px 12px;border:1px solid rgba(128,128,128,.4);border-radius:10px;background:transparent;color:inherit;font:inherit">
@@ -460,18 +463,35 @@ v.addEventListener('timeupdate',function(){var t=v.currentTime,cur=null;bs.forEa
     y1: ['Mọi thứ của gói 3 tháng', 'Cập nhật suốt thời hạn', 'Hợp với người làm nghiêm túc cả năm'],
     y3: ['Mọi thứ của gói 1 năm', 'Giá mỗi tháng thấp nhất', 'Không phải lo gia hạn suốt 3 năm']
   };
-  const perMonth = (p) => Math.round(p.price / p.months / 1000) * 1000;
-  const save = (p) => Math.round((1 - p.price / (base.price / base.months * p.months)) * 100);
-  U.$('#plans').innerHTML = C.plans.map((p) => `
+  // Khuyến mãi tặng thời hạn còn hiệu lực (theo ngày máy khách; máy chủ tính lại theo giờ đặt đơn).
+  const promoOf = (id) => { const p = (C.promos || {})[id]; if (!p || !p.bonus) return null; const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(p.until || ''); return m && Date.now() <= new Date(+m[1], +m[2] - 1, +m[3], 23, 59, 59).getTime() ? p : null; };
+  const untilTxt = (p) => p.until.split('-').reverse().slice(0, 2).join('/');
+  const totalMonths = (p) => p.months + ((promoOf(p.id) || {}).bonus || 0);
+  const perMonth = (p) => Math.round(p.price / totalMonths(p) / 1000) * 1000;
+  const save = (p) => Math.round((1 - p.price / (base.price / base.months * totalMonths(p))) * 100);
+  U.$('#plans').innerHTML = C.plans.map((p) => { const pr = promoOf(p.id); return `
     <div class="plan reveal${p.best ? ' best' : ''}">
       ${p.best ? '<span class="badge">BEST SELLER</span>' : ''}
       <h3>${U.esc(p.name)}</h3><div class="tag">${U.esc(p.tag || '')}</div>
+      ${pr ? `<div class="tag" style="color:var(--acc,#e23b3b);font-weight:700">🎁 ${U.esc(pr.label)} — dùng ${totalMonths(p)} tháng (đến ${untilTxt(pr)})</div>` : ''}
       <div class="price">${U.money(p.price)}</div>
       <div class="per">${p.months > 1 ? '≈ ' + U.money(perMonth(p)) + ' / tháng · 1 máy' : '/ 1 máy / tháng'}</div>
       <div>${save(p) > 0 ? `<span class="save">Tiết kiệm ${save(p)}%</span>` : '<span class="save" style="visibility:hidden">.</span>'}</div>
       <ul>${(feats[p.id] || []).map((f) => `<li>${U.esc(f)}</li>`).join('')}</ul>
       <button class="btn ${p.best ? 'btn-p' : 'btn-g'} btn-block" data-open="order" data-plan="${p.id}">Chọn gói này</button>
-    </div>`).join('');
+    </div>`; }).join('');
+
+  // Gói Đội: thẻ gợi ý mua sẵn N máy (giảm theo số lượng như máy chủ: 3–9 máy −10%, ≥10 máy −20%).
+  const tier = (n) => (n >= 10 ? 0.8 : n >= 3 ? 0.9 : 1);
+  if (C.team && U.$('#team-plan')) {
+    const tp = C.plans.find((x) => x.id === C.team.plan) || base, n = C.team.machines, tot = Math.round(tp.price * n * tier(n));
+    const pr = promoOf(tp.id);
+    U.$('#team-plan').innerHTML = `<div><b style="font-size:18px">👥 Gói Đội — ${n} máy · ${U.esc(tp.name)}${pr ? ' (+' + pr.bonus + ' tháng tặng)' : ''}</b>
+      <div style="opacity:.8">Một tài khoản cho cả ${n} máy · giảm ${Math.round((1 - tier(n)) * 100)}% · ≈ ${U.money(Math.round(tot / n / totalMonths(tp) / 1000) * 1000)} / máy / tháng · đồng bộ nhóm, phân quyền nhân viên</div></div>
+      <div style="text-align:right"><div class="price" style="margin:0">${U.money(tot)}</div>
+      <button class="btn btn-p" data-open="order" data-plan="${tp.id}" data-mach="${n}">Chọn Gói Đội</button></div>`;
+    U.$('#team-plan').style.display = 'flex';
+  }
 
   // ---- Mua mới / Gia hạn → VietQR → tự kích hoạt ----
   const PENDING = 'rvm_pay';
@@ -480,14 +500,20 @@ v.addEventListener('timeupdate',function(){var t=v.currentTime,cur=null;bs.forEa
   sel.innerHTML = C.plans.map((p) => `<option value="${p.id}">${U.esc(p.name)}</option>`).join('');
   let disc = { code: '', percent: 0 };
   const planNow = () => C.plans.find((x) => x.id === sel.value) || base;
+  const machEl = U.$('#o-mach');
+  const machN = () => { const n = Math.floor(Number(machEl.value)); return n >= 1 && n <= 50 ? n : 1; };
   const price = () => {
-    const p = planNow();
-    if (disc.percent) {
-      const nw = Math.round(p.price * (100 - disc.percent) / 100);
-      U.$('#o-price').innerHTML = `<s style="opacity:.5;font-weight:500">${U.money(p.price)}</s> <span style="color:var(--acc,#e23b3b)">${U.money(nw)}</span>`;
-    } else U.$('#o-price').textContent = U.money(p.price);
+    const p = planNow(), n = machN();
+    const full = p.price * n, gross = Math.round(full * tier(n));
+    const nw = disc.percent ? Math.round(gross * (100 - disc.percent) / 100) : gross;
+    U.$('#o-price').innerHTML = nw < full ? `<s style="opacity:.5;font-weight:500">${U.money(full)}</s> <span style="color:var(--acc,#e23b3b)">${U.money(nw)}</span>` : U.esc(U.money(nw));
+    const pr = promoOf(p.id), notes = [];
+    if (n > 1) notes.push(`${n} máy${tier(n) < 1 ? ' · giảm ' + Math.round((1 - tier(n)) * 100) + '%' : ''}`);
+    if (pr) notes.push(`🎁 ${pr.label} — tổng ${totalMonths(p)} tháng`);
+    const pe = U.$('#o-promo'); pe.innerHTML = notes.map(U.esc).join(' · '); pe.style.display = notes.length ? '' : 'none';
   };
   sel.addEventListener('input', price);
+  machEl.addEventListener('input', price);
 
   // ---- Mã giảm giá ----
   U.$('#o-disc-apply').addEventListener('click', async () => {
@@ -506,6 +532,7 @@ v.addEventListener('timeupdate',function(){var t=v.currentTime,cur=null;bs.forEa
   let mode = 'buy', timer = null;
   function setMode(m) {
     mode = m;
+    machEl.placeholder = m === 'renew' ? 'như cũ' : '1';
     U.$$('.seg button').forEach((b) => b.classList.toggle('on', b.dataset.mode === m));
     bf.style.display = m === 'buy' ? '' : 'none';
     rf.style.display = m === 'renew' ? '' : 'none';
@@ -524,6 +551,7 @@ v.addEventListener('timeupdate',function(){var t=v.currentTime,cur=null;bs.forEa
     const t = e.detail;
     if (t.dataset.open !== 'order') return;
     if (t.dataset.plan) sel.value = t.dataset.plan;
+    machEl.value = t.dataset.mach || '';
     setMode(t.dataset.mode || 'buy');
     const r = U.getRef(); if (r && !bf.ref.value) bf.ref.value = r;
     disc = { code: '', percent: 0 }; U.$('#o-disc').value = ''; U.$('#o-disc-msg').className = 'msg';
@@ -571,7 +599,7 @@ v.addEventListener('timeupdate',function(){var t=v.currentTime,cur=null;bs.forEa
   bf.addEventListener('submit', (e) => {
     e.preventDefault();
     const d = Object.fromEntries(new FormData(bf).entries());
-    d.email = d.email.trim().toLowerCase(); d.ref = (d.ref || '').trim().toUpperCase(); d.plan = sel.value; d.discount = disc.code;
+    d.email = d.email.trim().toLowerCase(); d.ref = (d.ref || '').trim().toUpperCase(); d.plan = sel.value; d.discount = disc.code; d.machines = machN();
     if (d.name.trim().length < 2) return U.showMsg(bm, 'err', 'Vui lòng nhập họ tên.');
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email)) return U.showMsg(bm, 'err', 'Email chưa đúng — email sẽ là tên đăng nhập RVM.');
     if (!/^(\+?84|0)\d{9,10}$/.test(d.phone.replace(/[\s.\-]/g, ''))) return U.showMsg(bm, 'err', 'Số điện thoại chưa đúng.');
@@ -585,6 +613,7 @@ v.addEventListener('timeupdate',function(){var t=v.currentTime,cur=null;bs.forEa
     const d = Object.fromEntries(new FormData(rf).entries());
     if (!d.account.trim() || !d.password) return U.showMsg(rm, 'err', 'Vui lòng nhập tài khoản và mật khẩu.');
     d.plan = sel.value; d.ref = U.getRef(); d.discount = disc.code;
+    if (machEl.value) d.machines = machN();          // để trống = giữ nguyên số máy đang có
     start(rf, rm, 'renew', d, 'Lấy mã QR gia hạn');
   });
 

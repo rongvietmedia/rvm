@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Chính sách quyền riêng tư của RVM Login: dữ liệu nào nằm trên máy bạn, dữ liệu nào gửi về máy chủ, và vì sao.">
+<title>Quyền riêng tư RVM</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="assets/doc.css">
+</head>
+<body>
+<header class="top"><div class="bar">
+  <a class="brand" href="./"><span class="mark"><b>RVM</b><span>LOGIN</span></span><span class="bname">RVM Login</span></a>
+  <span class="sp"></span>
+  <nav class="links"><a href="./">Trang chủ</a><a href="dieu-khoan.html">Điều khoản</a><a href="thay-doi.html">Có gì mới</a></nav>
+</div></header>
+
+<main class="wrap doc">
+  <p class="eyebrow">Chính sách · cập nhật 10/11/2026</p>
+  <h1>Quyền riêng tư</h1>
+  <p class="lead">RVM Login được thiết kế để <b>dữ liệu kênh của bạn nằm trên máy của bạn</b>. Trang này liệt kê đúng những gì phần mềm gửi ra ngoài — lấy trực tiếp từ mã nguồn của phiên bản hiện hành.</p>
+
+  <h2>1. Dữ liệu ở lại trên máy bạn</h2>
+  <ul>
+    <li>Danh sách kênh, email, mật khẩu Gmail, mã 2FA, proxy, ghi chú, tag.</li>
+    <li>Hồ sơ trình duyệt của từng kênh (cookie, phiên đăng nhập, lịch sử).</li>
+    <li>Toàn bộ được <b>mã hoá AES-256</b> bằng khoá sinh ra trên máy. Bản sao lưu bạn xuất ra được mã hoá thêm bằng mật khẩu do bạn tự đặt.</li>
+  </ul>
+  <p>Nhà cung cấp RVM <b>không</b> có bản sao những dữ liệu này và không đọc được chúng.</p>
+
+  <h2>2. Dữ liệu gửi về máy chủ RVM — và vì sao</h2>
+  <table>
+    <tr><th>Dữ liệu</th><th>Khi nào</th><th>Để làm gì</th></tr>
+    <tr><td>Tài khoản bản quyền (email) + mật khẩu tài khoản RVM</td><td>Đăng nhập, kiểm tra hạn định kỳ</td><td>Xác thực bản quyền</td></tr>
+    <tr><td><b>Mã máy</b> — chuỗi băm SHA-256 một chiều từ mã phần cứng (không gửi mã gốc, không gửi tên máy)</td><td>Đăng nhập, dùng thử</td><td>Gắn bản quyền với đúng máy; mỗi máy dùng thử một lần</td></tr>
+    <tr><td>Họ tên, email, số điện thoại</td><td>Khi bạn mua / gia hạn</td><td>Tạo tài khoản, đối soát thanh toán VietQR, hỗ trợ</td></tr>
+    <tr><td>Dữ liệu <b>đồng bộ nhóm</b> (kênh, phiên đăng nhập)</td><td>Chỉ khi bạn bật Đồng bộ nhóm</td><td>Đưa kênh sang máy khác trong đội. Nén và <b>mã hoá AES-256-GCM ngay trên máy</b> trước khi gửi — máy chủ chỉ giữ dữ liệu đã mã hoá, không đọc được nội dung. Khoá nhóm được niêm phong riêng cho từng máy được quyền.</td></tr>
+    <tr><td>Nhật ký hoạt động nhóm (mở/đóng kênh, báo sự cố)</td><td>Khi dùng Đồng bộ nhóm</td><td>Chủ đội theo dõi giờ làm. Tên kênh trong nhật ký được mã hoá.</td></tr>
+    <tr><td>Báo lỗi kỹ thuật: phiên bản app, hệ điều hành, nơi lỗi, thông báo lỗi, dấu vết lỗi (đường dẫn thư mục người dùng được xoá)</td><td>Khi app gặp lỗi — <b>tắt được</b> trong Cài đặt → "Tự gửi báo lỗi"</td><td>Sửa lỗi. Không gửi tên kênh, mật khẩu, cookie.</td></tr>
+    <tr><td>Câu hỏi bạn gõ cho Trợ lý (khi bộ trả lời có sẵn không khớp)</td><td>Khi bạn hỏi</td><td>Trả lời bằng AI qua máy chủ RVM</td></tr>
+  </table>
+
+  <h2>3. Dịch vụ bên thứ ba mà phần mềm kết nối</h2>
+  <ul>
+    <li><b>ipwho.is</b> — tra múi giờ/quốc gia theo IP <i>của proxy</i> (gọi qua chính proxy của kênh) để vân tay khớp vùng.</li>
+    <li><b>Nhà cung cấp proxy xoay</b> (TMProxy, Tinsoft, KiotProxy, WWProxy) — chỉ khi bạn dán khoá API của họ vào RVM.</li>
+    <li><b>GitHub</b> — tải bản cập nhật và trình duyệt anti-detect (mã nguồn mở fingerprint-chromium).</li>
+    <li>Máy chủ RVM chạy trên hạ tầng Google (Apps Script/Drive).</li>
+  </ul>
+
+  <h2>4. Những gì RVM không làm</h2>
+  <ul>
+    <li>Không cài tiện ích lạ, không chèn quảng cáo, không gắn công cụ theo dõi người dùng vào trình duyệt của kênh.</li>
+    <li>Không bán, cho thuê hay chia sẻ dữ liệu của bạn cho bên thứ ba vì mục đích quảng cáo.</li>
+    <li>Không điều khiển trình duyệt qua cổng tự động hoá khi bạn làm việc bình thường (cổng Local API mặc định tắt, chỉ mở trên máy bạn khi bạn bật).</li>
+  </ul>
+
+  <h2>5. Quyền của bạn</h2>
+  <ul>
+    <li>Tắt báo lỗi, tắt đồng bộ nhóm bất cứ lúc nào.</li>
+    <li>Xoá dữ liệu trên máy: gỡ phần mềm và xoá thư mục dữ liệu RVM.</li>
+    <li>Yêu cầu xoá thông tin tài khoản/thanh toán và dữ liệu đồng bộ trên máy chủ: nhắn Zalo <a href="https://zalo.me/0918637699">0918 637 699</a>.</li>
+  </ul>
+
+  <p class="note">Câu hỏi về quyền riêng tư: Zalo <a href="https://zalo.me/0918637699">0918 637 699</a>. Khi chính sách thay đổi, ngày cập nhật ở đầu trang sẽ đổi theo.</p>
+</main>
+
+<footer class="foot"><div class="wrap">RVM Login · <a href="./">rvmlogin.io.vn</a> · <a href="dieu-khoan.html">Điều khoản</a> · <a href="bao-mat.html">Quyền riêng tư</a> · <a href="thay-doi.html">Có gì mới</a></div></footer>
+</body>
+</html>

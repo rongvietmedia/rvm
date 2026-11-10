@@ -1,0 +1,47 @@
+/* doc.css — giao diện chung cho các trang tài liệu (quyền riêng tư, điều khoản, có gì mới). */
+:root{
+  --bg:#f6f5f3; --surface:#fff; --border:#e7e2db; --ink:#17191e; --muted:#5d6470;
+  --accent:#e23b3b; --good:#1a9b54; --good-soft:#e7f6ee; --warn:#b9771a; --warn-soft:#fbf0db; --bad:#c43a3a; --bad-soft:#fcecec;
+  --font-display:'Archivo',system-ui,Segoe UI,sans-serif; --font-body:'Inter',system-ui,Segoe UI,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1115; --surface:#171a21; --border:#2a2f3a; --ink:#e8eaef; --muted:#9aa2b0;
+    --accent:#f2544f; --good:#37c46d; --good-soft:#14281d; --warn:#e3a53c; --warn-soft:#2b2210; --bad:#f2544f; --bad-soft:#2b1618;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1115; --surface:#171a21; --border:#2a2f3a; --ink:#e8eaef; --muted:#9aa2b0;
+  --accent:#f2544f; --good:#37c46d; --good-soft:#14281d; --warn:#e3a53c; --warn-soft:#2b2210; --bad:#f2544f; --bad-soft:#2b1618;
+}
+*{box-sizing:border-box}
+html{color-scheme:light dark}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);line-height:1.65;font-size:16px;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+.wrap{max-width:820px;margin:0 auto;padding:0 16px}
+.top{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.top .bar{max-width:820px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;color:var(--ink)} .brand:hover{text-decoration:none}
+.mark{width:36px;height:36px;border-radius:8px;background:var(--accent);display:inline-grid;place-items:center;align-content:center}
+.mark b{font-family:var(--font-display);font-weight:800;color:#fff;font-size:15px;line-height:1}
+.mark span{font-size:6px;letter-spacing:2.5px;color:#fff;opacity:.9}
+.bname{font-family:var(--font-display);font-weight:800}
+.sp{flex:1}
+.links{display:flex;gap:14px;flex-wrap:wrap;font-size:14px}
+.doc{padding-top:28px;padding-bottom:48px}
+.eyebrow{color:var(--muted);font-size:13px;letter-spacing:.4px;text-transform:uppercase;margin:0 0 6px}
+h1{font-family:var(--font-display);font-size:clamp(28px,6vw,40px);line-height:1.15;margin:0 0 12px}
+h2{font-family:var(--font-display);font-size:21px;margin:32px 0 10px}
+h3{font-size:17px;margin:20px 0 6px}
+.lead{font-size:18px;color:var(--muted)}
+ul{padding-left:20px} li{margin:4px 0}
+table{width:100%;border-collapse:collapse;font-size:14.5px;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;display:block;overflow-x:auto}
+th,td{padding:10px 12px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top}
+th{font-weight:600;background:color-mix(in srgb,var(--surface) 80%,var(--border))}
+.note{margin-top:28px;padding:14px 16px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--muted);font-size:15px}
+.pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12.5px;font-weight:600}
+.pill.ok{background:var(--good-soft);color:var(--good)} .pill.warn{background:var(--warn-soft);color:var(--warn)} .pill.bad{background:var(--bad-soft);color:var(--bad)}
+.rel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin:14px 0}
+.rel h3{margin:0 0 4px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.rel .d{color:var(--muted);font-size:13.5px;font-weight:400}
+.foot{border-top:1px solid var(--border);padding:22px 0;color:var(--muted);font-size:14px;text-align:center}

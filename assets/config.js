@@ -12,8 +12,8 @@ window.RVM = {
   zalo: 'https://zalo.me/0918637699',
   telegram: 'https://t.me/+84918637699',
 
-  version: '1.3.0',
-  download: 'https://raw.githubusercontent.com/rongvietmedia/rvm-release/main/RVM-Setup-1.3.0.exe',
+  version: '1.3.1',
+  download: 'https://raw.githubusercontent.com/rongvietmedia/rvm-release/main/RVM-Setup-1.3.1.exe',
 
   // Giá theo MÁY (mỗi máy 1 bản quyền). Giá gốc dùng để hiện "tiết kiệm %".
   plans: [
@@ -22,6 +22,14 @@ window.RVM = {
     { id: 'y1', name: '1 năm',   months: 12, price: 720000,  tag: 'Cân bằng giá và thời hạn', best: true },
     { id: 'y3', name: '3 năm',   months: 36, price: 1399000, tag: 'Yên tâm dài hạn' }
   ],
+
+  // Khuyến mãi TẶNG THỜI HẠN — PHẢI khớp CFG.PROMOS trong website-backend/Code.gs.
+  // Triển khai Code.gs TRƯỚC rồi mới đẩy web (kẻo khách thấy KM mà máy chủ chưa tặng).
+  promos: {
+    y1: { bonus: 3, until: '2026-12-31', label: 'Tặng thêm 3 tháng' }
+  },
+  // Gói Đội: gợi ý mua sẵn số máy (giảm theo số lượng do máy chủ tính: 3–9 máy −10%, từ 10 máy −20%).
+  team: { machines: 10, plan: 'y1' },
 
   // Chương trình đối tác
   commission: 40,       // % hoa hồng mặc định trên mỗi đơn ĐÃ THANH TOÁN
