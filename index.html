@@ -21,6 +21,15 @@
 .card.flag .ic{width:54px;height:54px;font-size:26px}
 .hero .chips .chip b{color:var(--acc2)}
 .row .s{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* Video hướng dẫn */
+#video{padding-top:34px}
+.vbox{position:relative;max-width:1040px;margin:26px auto 0;border-radius:20px;overflow:hidden;border:1px solid rgba(255,59,48,.45);box-shadow:0 30px 80px -30px rgba(255,59,48,.55),0 0 0 6px rgba(255,59,48,.08);background:#000;aspect-ratio:16/9}
+.vbox video{display:block;width:100%;height:100%;background:#000}
+.vchap{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:1040px;margin:16px auto 0}
+.vchap button{font:inherit;font-size:14px;font-weight:600;color:var(--txt);background:var(--panel);border:1px solid var(--line2);border-radius:30px;padding:8px 14px;cursor:pointer}
+.vchap button b{color:var(--acc2);margin-right:6px;font-variant-numeric:tabular-nums}
+.vchap button:hover,.vchap button.on{border-color:var(--acc);background:rgba(255,59,48,.12)}
+.vnote{text-align:center;color:var(--mut);font-size:14px;margin-top:12px}
 </style>
 </head>
 <body>
@@ -29,6 +38,7 @@
   <div class="wrap">
     <a class="logo" href="#top"><i>R</i><div>RVM<small>Quản lý kênh YouTube</small></div></a>
     <nav class="links">
+      <a href="#video">▶ Video</a>
       <a href="#diem-moi">Điểm mới</a>
       <a href="#van-de">Vì sao cần</a>
       <a href="#cach-hoat-dong">Cách hoạt động</a>
@@ -55,6 +65,7 @@
       <div class="ctas">
         <a class="btn btn-p" href="#bang-gia">Mua bản quyền — từ <span data-minprice>180.000đ</span></a>
         <a class="btn btn-g" data-download href="#"><span>⬇ Tải RVM v<span data-version></span></span></a>
+        <a class="btn btn-g" href="#video"><span>▶ Xem video hướng dẫn (7 phút)</span></a>
       </div>
       <div class="chips">
         <span class="chip">🧬 <b>Vân tay thiết bị</b> riêng từng kênh</span>
@@ -92,6 +103,33 @@
     </div>
   </div>
 </section>
+
+<!-- VIDEO HƯỚNG DẪN -->
+<section class="sec" id="video">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">🎬 Video hướng dẫn · 7 phút</span>
+      <h2 class="title">Xem RVM làm việc — <span class="grad">từ cài đặt đến cả đội cùng dùng</span></h2>
+      <p class="lead">Tạo kênh, gắn proxy, quản lý cả trăm kênh, giao kênh cho nhân viên mà không lộ mật khẩu Gmail — làm thật trên phần mềm.</p>
+    </div>
+    <div class="vbox"><video id="rvmVideo" controls preload="metadata" playsinline poster="assets/rvm-video-poster.jpg"><source src="assets/rvm-huong-dan.mp4" type="video/mp4">Trình duyệt của bạn không phát được video.</video></div>
+    <div class="vchap" id="vchap">
+      <button type="button" data-t="0"><b>0:00</b>Vì sao kênh die chùm</button>
+      <button type="button" data-t="51"><b>0:51</b>Cài đặt &amp; dùng thử</button>
+      <button type="button" data-t="85"><b>1:25</b>Tạo kênh — 3 bước</button>
+      <button type="button" data-t="179"><b>2:59</b>Quản lý cả trăm kênh</button>
+      <button type="button" data-t="247"><b>4:07</b>Làm việc nhóm</button>
+      <button type="button" data-t="319"><b>5:19</b>Mẹo tiết kiệm thời gian</button>
+      <button type="button" data-t="365"><b>6:05</b>Bảng giá</button>
+    </div>
+    <p class="vnote">Bấm vào từng mục để nhảy tới đúng đoạn cần xem.</p>
+  </div>
+</section>
+<script>
+(function(){var v=document.getElementById('rvmVideo'),c=document.getElementById('vchap');if(!v||!c)return;var bs=[].slice.call(c.querySelectorAll('button'));
+c.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;v.currentTime=+b.dataset.t;v.play();});
+v.addEventListener('timeupdate',function(){var t=v.currentTime,cur=null;bs.forEach(function(b){if(t>=+b.dataset.t-.5)cur=b;});bs.forEach(function(b){b.classList.toggle('on',b===cur);});});})();
+</script>
 
 <!-- ĐIỂM MỚI 1.1.3 -->
 <section class="sec alt" id="diem-moi">

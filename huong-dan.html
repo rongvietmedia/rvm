@@ -165,6 +165,16 @@ details .ans b{color:var(--ink)}
 .foot small{display:block;color:var(--muted);margin-top:16px;font-size:12.5px}
 
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+/* Video hướng dẫn */
+.vid{margin:24px 0 6px;scroll-margin-top:110px}
+.vid .vh{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:800;font-size:19px;margin-bottom:10px}
+.vid .vh span{background:var(--accent);color:var(--accent-ink);font-size:12px;font-weight:800;border-radius:20px;padding:3px 10px}
+.vbox{border-radius:var(--radius);overflow:hidden;border:2px solid var(--accent-line);box-shadow:var(--shadow);background:#000;aspect-ratio:16/9}
+.vbox video{display:block;width:100%;height:100%;background:#000}
+.vchap{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.vchap button{font:inherit;font-size:13.5px;font-weight:600;color:var(--ink);background:var(--surface);border:1px solid var(--border);border-radius:30px;padding:7px 13px;cursor:pointer}
+.vchap button b{color:var(--accent);margin-right:6px;font-variant-numeric:tabular-nums}
+.vchap button:hover,.vchap button.on{border-color:var(--accent);background:var(--accent-soft)}
 </style>
 </head>
 <body>
@@ -183,6 +193,7 @@ details .ans b{color:var(--ink)}
 
 <nav class="toc" aria-label="Mục lục">
   <div class="row">
+    <a href="#video">▶ Video</a>
     <a href="#gioithieu">Giới thiệu</a>
     <a href="#tinhnang">Tính năng</a>
     <a href="#caidat">Cài đặt</a>
@@ -201,11 +212,29 @@ details .ans b{color:var(--ink)}
   <section class="hero" id="gioithieu">
     <div class="eyebrow">Hướng dẫn sử dụng · phiên bản <span data-version>1.1.31</span></div>
     <h1>Mỗi profile là <span class="tag">một máy tính riêng</span></h1>
-    <p class="lead">RVM Login là phần mềm quản lý nhiều kênh YouTube an toàn trên một máy. Mỗi profile có vân tay thiết bị riêng (anti-detect), proxy riêng + kill-switch và dữ liệu mã hoá — để một kênh dính gậy <b>không</b> kéo cả chùm bay theo.</p>
+    <p class="lead">RVM Login là phần mềm quản lý nhiều kênh YouTube an toàn trên một máy. Mỗi profile có vân tay thiết bị riêng (anti-detect), proxy riêng + kill-switch và dữ liệu mã hoá — để một kênh bay màu <b>không</b> kéo cả chùm die theo.</p>
     <div class="cta">
       <a class="btn primary" href="https://rongvietmedia.github.io/rvm/" target="_blank" rel="noopener">Tải phần mềm →</a>
       <a class="btn ghost" href="#caidat">Xem cách cài đặt</a>
     </div>
+    <div class="vid" id="video">
+      <div class="vh">🎬 Xem video hướng dẫn <span>7 phút</span></div>
+      <div class="vbox"><video id="rvmVideo" controls preload="metadata" playsinline poster="assets/rvm-video-poster.jpg"><source src="assets/rvm-huong-dan.mp4" type="video/mp4">Trình duyệt của bạn không phát được video.</video></div>
+      <div class="vchap" id="vchap">
+        <button type="button" data-t="0"><b>0:00</b>Vì sao kênh die chùm</button>
+        <button type="button" data-t="51"><b>0:51</b>Cài đặt &amp; dùng thử</button>
+        <button type="button" data-t="85"><b>1:25</b>Tạo kênh — 3 bước</button>
+        <button type="button" data-t="179"><b>2:59</b>Quản lý cả trăm kênh</button>
+        <button type="button" data-t="247"><b>4:07</b>Làm việc nhóm</button>
+        <button type="button" data-t="319"><b>5:19</b>Mẹo tiết kiệm thời gian</button>
+        <button type="button" data-t="365"><b>6:05</b>Bảng giá</button>
+      </div>
+    </div>
+    <script>
+    (function(){var v=document.getElementById('rvmVideo'),c=document.getElementById('vchap');if(!v||!c)return;var bs=[].slice.call(c.querySelectorAll('button'));
+    c.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;v.currentTime=+b.dataset.t;v.play();});
+    v.addEventListener('timeupdate',function(){var t=v.currentTime,cur=null;bs.forEach(function(b){if(t>=+b.dataset.t-.5)cur=b;});bs.forEach(function(b){b.classList.toggle('on',b===cur);});});})();
+    </script>
   </section>
 
   <section class="block" id="tinhnang">
