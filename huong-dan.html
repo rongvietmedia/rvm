@@ -199,6 +199,7 @@ details .ans b{color:var(--ink)}
     <a href="#caidat">Cài đặt</a>
     <a href="#giaodien">Từng nút</a>
     <a href="#proxy">Thêm proxy</a>
+    <a href="#tien-ich">Cài tiện ích</a>
     <a href="#tukiem">Tự kiểm</a>
     <a href="#giahan">Gia hạn</a>
     <a href="#gia">Bảng giá</a>
@@ -321,6 +322,65 @@ details .ans b{color:var(--ink)}
       <li><span class="tick">✓</span><span><b>user:pass@host:port</b> &nbsp;·&nbsp; <b>socks5://user:pass@host:port</b></span></li>
     </ul>
     <div class="note" style="margin-top:16px">Vẫn có thể <b>nhập tay</b> bình thường. Sau khi nhập, bấm <b>Kiểm tra proxy</b> — báo “sống” là dùng được.</div>
+  </section>
+
+  <section class="block" id="tien-ich">
+    <style>
+      #tien-ich .ti-step{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin:16px 0;box-shadow:var(--shadow)}
+      #tien-ich .ti-step h3{margin:0 0 6px;font-size:18px;display:flex;gap:10px;align-items:center}
+      #tien-ich .ti-num{flex:none;width:30px;height:30px;border-radius:50%;background:#ef2323;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:15px;font-weight:800}
+      #tien-ich .ti-step p{margin:4px 0 10px;color:var(--muted);font-size:15px}
+      #tien-ich .ti-step img{display:block;width:100%;height:auto;border-radius:10px;border:1px solid var(--border)}
+      #tien-ich kbd{font:600 13px/1 ui-monospace,Consolas,monospace;background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:6px;padding:3px 7px}
+    </style>
+    <div class="eyebrow">Mới ở bản 1.3.3</div>
+    <h2>Cài tiện ích Chrome (vidIQ, TubeBuddy, Claude…) vào profile</h2>
+    <p class="lead">Trình duyệt chống nhận dạng của RVM <b>không bấm được nút “Thêm vào Chrome”</b> trên Cửa hàng Chrome — nút luôn mờ, đó là bình thường. Từ bản <b>1.3.3</b>, bạn cài tiện ích bằng nút <b>Tiện ích</b> trong RVM Login, mất khoảng 30 giây. <i>Bấm vào ảnh để xem to.</i></p>
+
+    <div class="ti-step">
+      <h3><span class="ti-num">1</span>Mở trang tiện ích &amp; sao chép link</h3>
+      <p>Bấm <b>Khởi động</b> kênh → vào <b>chromewebstore.google.com</b> → tìm tiện ích (vd vidIQ) → bấm vào để mở trang chi tiết. Bấm vào <b>thanh địa chỉ</b> rồi nhấn <kbd>Ctrl</kbd>+<kbd>C</kbd>. Nếu hiện bảng <i>“Bạn muốn chuyển sang Chrome không?”</i> → bấm <b>Không, cảm ơn</b>.</p>
+      <a href="assets/tien-ich/b1-cua-hang.jpg" target="_blank" rel="noopener" title="Bấm để xem ảnh to"><img src="assets/tien-ich/b1-cua-hang.jpg" alt="Trang vidIQ trên Cửa hàng Chrome: sao chép link trên thanh địa chỉ, nút Thêm vào Chrome bị mờ là bình thường" loading="lazy"></a>
+    </div>
+
+    <div class="ti-step">
+      <h3><span class="ti-num">2</span>Bấm nút “Tiện ích” trên RVM Login</h3>
+      <p>Quay lại cửa sổ RVM Login, ở <b>đúng dòng của kênh</b> muốn cài, bấm nút <b>Tiện ích</b>. Kênh đang mở hay đang tắt đều được.</p>
+      <a href="assets/tien-ich/b2-nut-tien-ich.jpg" target="_blank" rel="noopener" title="Bấm để xem ảnh to"><img src="assets/tien-ich/b2-nut-tien-ich.jpg" alt="Nút Tiện ích trên dòng của kênh trong RVM Login" loading="lazy"></a>
+    </div>
+
+    <div class="ti-step">
+      <h3><span class="ti-num">3</span>Dán link &amp; bấm nút đỏ</h3>
+      <p>Bấm vào ô trống → nhấn <kbd>Ctrl</kbd>+<kbd>V</kbd> để dán link → bấm nút đỏ <b>Cài vào trình duyệt của kênh</b>.</p>
+      <a href="assets/tien-ich/b3-dan-link.jpg" target="_blank" rel="noopener" title="Bấm để xem ảnh to"><img src="assets/tien-ich/b3-dan-link.jpg" alt="Hộp Cài tiện ích: dán link Cửa hàng Chrome rồi bấm nút đỏ" loading="lazy"></a>
+    </div>
+
+    <div class="ti-step">
+      <h3><span class="ti-num">4</span>Bấm “Thêm tiện ích”</h3>
+      <p>Trình duyệt của kênh tự hiện hộp <b>“Thêm …?”</b> (nếu kênh đang tắt, RVM tự mở kênh trước). Bấm <b>Thêm tiện ích</b> — <u>không</u> bấm nút xanh “Huỷ”.</p>
+      <a href="assets/tien-ich/b4-them-tien-ich.jpg" target="_blank" rel="noopener" title="Bấm để xem ảnh to"><img src="assets/tien-ich/b4-them-tien-ich.jpg" alt="Hộp thoại Thêm vidIQ Vision for YouTube với nút Thêm tiện ích" loading="lazy"></a>
+    </div>
+
+    <div class="ti-step">
+      <h3><span class="ti-num">5</span>Xong — đăng nhập tiện ích &amp; ghim lên thanh công cụ</h3>
+      <p>Trang chào của tiện ích tự mở (vidIQ báo <b>“Đã cài đặt”</b>). Bấm biểu tượng <b>mảnh ghép</b> góc trên bên phải → bấm <b>ghim</b> cạnh tên tiện ích để nó luôn hiện trên thanh công cụ.</p>
+      <a href="assets/tien-ich/b5-da-cai.jpg" target="_blank" rel="noopener" title="Bấm để xem ảnh to"><img src="assets/tien-ich/b5-da-cai.jpg" alt="vidIQ báo đã cài đặt; biểu tượng mảnh ghép để ghim tiện ích" loading="lazy"></a>
+    </div>
+
+    <h3 style="font-size:16px;margin:24px 0 10px;color:var(--muted)">CÂU HỎI THƯỜNG GẶP</h3>
+    <div class="ti-step">
+      <h3>Lỡ bấm “Có” ở bảng “Bạn muốn chuyển sang Chrome không?” thì sao?</h3>
+      <p><b>Không sao cả.</b> Bấm “Có” chỉ mở thêm một tab trang giới thiệu Google Chrome — không tải, không cài gì, profile và vân tay không bị ảnh hưởng. <b>Đóng tab đó là xong.</b> Đừng bấm “Download Chrome” ở trang đó, và luôn đăng nhập kênh trong cửa sổ do RVM mở.</p>
+      <a href="assets/tien-ich/hoi-bam-co.jpg" target="_blank" rel="noopener" title="Bấm để xem ảnh to"><img src="assets/tien-ich/hoi-bam-co.jpg" alt="Bấm Có chỉ mở thêm tab trang Google Chrome" loading="lazy"></a>
+    </div>
+    <ul class="check">
+      <li><span class="tick">✓</span><span><b>Báo “Không đọc được mã tiện ích”:</b> bạn dán chưa đúng link. Link phải có dạng <b>chromewebstore.google.com/detail/…</b> (mở trang chi tiết của tiện ích rồi mới sao chép).</span></li>
+      <li><span class="tick">✓</span><span><b>Không thấy hộp “Thêm …?”:</b> chờ vài giây cho trình duyệt của kênh mở xong; hộp có thể nằm sau cửa sổ khác — bấm vào cửa sổ trình duyệt của kênh trên thanh taskbar.</span></li>
+      <li><span class="tick">✓</span><span><b>Cập nhật tiện ích:</b> tiện ích cài kiểu này <b>không tự cập nhật</b>. Muốn lên bản mới, làm lại 5 bước trên.</span></li>
+      <li><span class="tick">✓</span><span><b>Gỡ tiện ích:</b> bấm biểu tượng mảnh ghép → dấu ⋮ cạnh tên tiện ích → <b>Xoá khỏi Chrome</b>.</span></li>
+      <li><span class="tick">✓</span><span><b>Mỗi kênh cài riêng:</b> tiện ích chỉ nằm trong profile bạn cài. Kênh khác muốn dùng thì cài lại cho kênh đó.</span></li>
+    </ul>
+    <div class="note" style="margin-top:16px">Chỉ cài tiện ích <b>thật sự cần</b>. Mỗi tiện ích là thêm một dấu vết của trình duyệt; kênh “nuôi” càng sạch càng tốt.</div>
   </section>
 
   <section class="block" id="tukiem">
