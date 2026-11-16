@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Hướng dẫn cài RVM Login trên máy Mac chip Apple từng bước, có ảnh chụp thật và video. Mac chip Intel: dùng qua Boot Camp.">
+<style>html{color-scheme:light dark}:root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Cài RVM Login trên Mac</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --bg:#f6f5f3; --surface:#ffffff; --surface-2:#faf8f5; --border:#e7e2db;
+  --ink:#17191e; --muted:#5d6470;
+  --accent:#e23b3b; --accent-ink:#ffffff; --accent-soft:#fcecec; --accent-line:#f3c9c9;
+  --good:#1a9b54; --good-soft:#e7f6ee;
+  --warn:#b9771a; --warn-soft:#fbf0db;
+  --mono-bg:#f3efe9;
+  --shadow:0 1px 2px rgba(20,20,30,.05), 0 8px 24px rgba(20,20,30,.06);
+  --radius:14px;
+  --font-display:'Archivo',system-ui,Segoe UI,sans-serif;
+  --font-body:'Inter',system-ui,Segoe UI,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,Consolas,monospace;
+}
+:root:not([data-theme="light"]){
+  @media (prefers-color-scheme:dark){
+    --bg:#0f1115; --surface:#171a21; --surface-2:#1b1f27; --border:#2a2f3a;
+    --ink:#e8eaef; --muted:#9aa2b0;
+    --accent:#f2544f; --accent-ink:#ffffff; --accent-soft:#2b1618; --accent-line:#48262a;
+    --good:#37c46d; --good-soft:#14281d;
+    --warn:#e3a53c; --warn-soft:#2b2210;
+    --mono-bg:#20242d;
+    --shadow:0 1px 2px rgba(0,0,0,.35), 0 12px 32px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1115; --surface:#171a21; --surface-2:#1b1f27; --border:#2a2f3a;
+  --ink:#e8eaef; --muted:#9aa2b0;
+  --accent:#f2544f; --accent-ink:#ffffff; --accent-soft:#2b1618; --accent-line:#48262a;
+  --good:#37c46d; --good-soft:#14281d;
+  --warn:#e3a53c; --warn-soft:#2b2210;
+  --mono-bg:#20242d;
+  --shadow:0 1px 2px rgba(0,0,0,.35), 0 12px 32px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);line-height:1.6;-webkit-font-smoothing:antialiased;font-size:16px}
+.wrap{max-width:820px;margin:0 auto;padding-inline:18px;padding-block:0}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;line-height:1.18;margin:0}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+
+/* Header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.top .bar{max-width:820px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.mark{width:40px;height:40px;border-radius:9px;background:var(--accent);display:grid;place-items:center;flex:0 0 auto;box-shadow:0 2px 8px color-mix(in srgb,var(--accent) 40%,transparent)}
+.mark b{font-family:var(--font-display);font-weight:800;color:#fff;font-size:17px;letter-spacing:.5px;line-height:1}
+.mark span{font-size:6.5px;letter-spacing:3px;color:#fff;opacity:.9;margin-top:2px}
+.bname{font-family:var(--font-display);font-weight:800;font-size:17px;letter-spacing:.2px}
+.ver{font-size:11px;font-weight:600;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line);padding:2px 8px;border-radius:999px;white-space:nowrap}
+.sp{flex:1}
+.tbtn{width:38px;height:38px;border-radius:9px;border:1px solid var(--border);background:var(--surface);color:var(--ink);cursor:pointer;display:grid;place-items:center;font-size:17px}
+.tbtn:hover{border-color:var(--accent)}
+
+/* TOC chips */
+.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 60px);z-index:15;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.toc .row{max-width:820px;margin:0 auto;padding:9px 18px;display:flex;gap:8px;overflow-x:auto;scrollbar-width:thin}
+.toc a{flex:0 0 auto;font-size:13px;font-weight:600;color:var(--muted);background:var(--surface);border:1px solid var(--border);padding:6px 12px;border-radius:999px;white-space:nowrap}
+.toc a:hover{color:var(--accent);border-color:var(--accent);text-decoration:none}
+
+section{scroll-margin-top:120px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent)}
+.lead{color:var(--muted);font-size:17px}
+
+/* Hero */
+.hero{padding:34px 0 26px}
+.hero h1{font-size:clamp(30px,7vw,46px);font-weight:800;margin:14px 0 10px;letter-spacing:-.5px}
+.hero .tag{color:var(--accent);font-weight:700}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.btn{font-family:var(--font-body);font-weight:600;font-size:15px;padding:12px 20px;border-radius:11px;border:1px solid transparent;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.btn.primary{background:var(--accent);color:var(--accent-ink);box-shadow:0 6px 18px color-mix(in srgb,var(--accent) 35%,transparent)}
+.btn.primary:hover{filter:brightness(1.05);text-decoration:none}
+.btn.ghost{background:var(--surface);border-color:var(--border);color:var(--ink)}
+.btn.ghost:hover{border-color:var(--accent);text-decoration:none}
+
+/* generic blocks */
+.block{padding:30px 0;border-top:1px solid var(--border)}
+.block h2{font-size:clamp(22px,4.6vw,28px);font-weight:700;margin-bottom:6px}
+.block > .lead{margin-bottom:18px}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+.card h3{font-size:17px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:9px}
+.card p{margin:0;color:var(--muted);font-size:14.5px}
+.ic{width:30px;height:30px;border-radius:8px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;flex:0 0 auto;font-size:16px}
+
+/* steps */
+ol.steps{list-style:none;counter-reset:s;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+ol.steps li{counter-increment:s;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:15px 16px 15px 56px;position:relative;box-shadow:var(--shadow)}
+ol.steps li::before{content:counter(s);position:absolute;left:14px;top:14px;width:28px;height:28px;border-radius:8px;background:var(--accent);color:#fff;font-family:var(--font-display);font-weight:800;font-size:14px;display:grid;place-items:center}
+ol.steps li b{font-weight:600}
+ol.steps li .d{display:block;color:var(--muted);font-size:14px;margin-top:3px}
+
+/* button reference */
+.ref{display:flex;flex-direction:column;gap:9px}
+.ref .r{display:flex;align-items:flex-start;gap:13px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:13px 15px;box-shadow:var(--shadow)}
+.chip{flex:0 0 auto;font-family:var(--font-body);font-weight:600;font-size:12.5px;padding:6px 12px;border-radius:8px;white-space:nowrap;min-width:92px;text-align:center}
+.c-go{background:var(--good);color:#fff}
+.c-stop{background:transparent;border:1px solid var(--border);color:var(--ink)}
+.c-neutral{background:var(--surface-2);border:1px solid var(--border);color:var(--ink)}
+.c-del{background:transparent;border:1px solid var(--accent-line);color:var(--accent)}
+.c-add{background:var(--accent);color:#fff}
+.c-nav{background:var(--accent-soft);color:var(--accent);min-width:110px}
+.ref .r .t{min-width:0}
+.ref .r .t b{font-weight:600}
+.ref .r .t span{display:block;color:var(--muted);font-size:14px;margin-top:2px}
+
+/* code / proxy */
+.code{font-family:var(--font-mono);background:var(--mono-bg);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:14px;overflow-x:auto;white-space:nowrap}
+.code .k{color:var(--accent);font-weight:600}
+.code .u{color:var(--good);font-weight:600}
+.split{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:12px}
+.split div{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 12px}
+.split small{display:block;font-size:11px;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);font-weight:600}
+.split b{font-family:var(--font-mono);font-size:14px;word-break:break-all}
+
+/* callout */
+.note{background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:12px;padding:14px 16px;font-size:14.5px}
+.note.good{background:var(--good-soft);border-color:color-mix(in srgb,var(--good) 35%,transparent)}
+.note.warn{background:var(--warn-soft);border-color:color-mix(in srgb,var(--warn) 40%,transparent)}
+.note b{font-weight:700}
+
+/* checklist */
+ul.check{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+ul.check li{display:flex;gap:11px;align-items:flex-start}
+ul.check li .tick{flex:0 0 auto;width:22px;height:22px;border-radius:6px;background:var(--good-soft);color:var(--good);display:grid;place-items:center;font-weight:800;font-size:13px;margin-top:1px}
+ul.check li span{color:var(--muted);font-size:14.5px}
+ul.check li b{color:var(--ink);font-weight:600}
+
+/* pricing */
+.prices{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.plan{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:16px;text-align:center;box-shadow:var(--shadow);position:relative}
+.plan.best{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 30%,transparent),var(--shadow)}
+.plan .p{font-family:var(--font-display);font-weight:800;font-size:24px;color:var(--accent);margin:4px 0 2px}
+.plan .n{font-size:13px;color:var(--muted);font-weight:600}
+.plan .tagbest{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;font-size:10.5px;font-weight:700;letter-spacing:.5px;padding:3px 10px;border-radius:999px;white-space:nowrap}
+
+/* FAQ */
+details{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:0 16px;box-shadow:var(--shadow)}
+details+details{margin-top:10px}
+summary{cursor:pointer;font-weight:600;padding:14px 0;list-style:none;display:flex;justify-content:space-between;gap:12px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-family:var(--font-display);font-weight:800;color:var(--accent);font-size:20px;flex:0 0 auto}
+details[open] summary::after{content:"–"}
+details .ans{padding:0 0 15px;color:var(--muted);font-size:14.5px;border-top:1px solid var(--border);padding-top:12px;margin-top:-2px}
+details .ans b{color:var(--ink)}
+
+/* footer */
+.foot{border-top:1px solid var(--border);margin-top:28px;padding:28px 0 40px;text-align:center}
+.foot .fmark{display:inline-flex;align-items:center;gap:10px;margin-bottom:12px}
+.foot .big{font-family:var(--font-display);font-weight:800;font-size:19px}
+.contacts{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:8px}
+.contacts a{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 16px;font-weight:600;font-size:14.5px;color:var(--ink)}
+.contacts a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+.foot small{display:block;color:var(--muted);margin-top:16px;font-size:12.5px}
+
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+/* Video hướng dẫn */
+.vid{margin:24px 0 6px;scroll-margin-top:110px}
+.vid .vh{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:800;font-size:19px;margin-bottom:10px}
+.vid .vh span{background:var(--accent);color:var(--accent-ink);font-size:12px;font-weight:800;border-radius:20px;padding:3px 10px}
+.vbox{border-radius:var(--radius);overflow:hidden;border:2px solid var(--accent-line);box-shadow:var(--shadow);background:#000;aspect-ratio:16/9}
+.vbox video{display:block;width:100%;height:100%;background:#000}
+.vchap{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.vchap button{font:inherit;font-size:13.5px;font-weight:600;color:var(--ink);background:var(--surface);border:1px solid var(--border);border-radius:30px;padding:7px 13px;cursor:pointer}
+.vchap button b{color:var(--accent);margin-right:6px;font-variant-numeric:tabular-nums}
+.vchap button:hover,.vchap button.on{border-color:var(--accent);background:var(--accent-soft)}
+/* Ảnh minh hoạ từng bước (ảnh chụp thật trên macOS) */
+figure.shot{margin:12px 0 4px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:8px;box-shadow:var(--shadow)}
+figure.shot img{display:block;width:100%;height:auto;border-radius:8px}
+figure.shot figcaption{font-size:13px;color:var(--muted);padding:8px 4px 2px}
+.stepcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 16px 12px;box-shadow:var(--shadow);margin-bottom:16px}
+.stepcard h3{font-size:18px;display:flex;gap:10px;align-items:center;margin-bottom:6px}
+.stepcard p{margin:6px 0;color:var(--muted);font-size:15px}
+.stepcard p b{color:var(--ink)}
+.num{width:30px;height:30px;border-radius:8px;background:var(--accent);color:#fff;display:grid;place-items:center;font-family:var(--font-display);font-weight:800;font-size:15px;flex:0 0 auto}
+.chipt{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:10px}
+.chipt td,.chipt th{border:1px solid var(--border);padding:9px 10px;text-align:left;vertical-align:top}
+.chipt th{background:var(--surface-2)}
+kbd{font-family:var(--font-mono);font-size:13px;background:var(--mono-bg);border:1px solid var(--border);border-bottom-width:2px;border-radius:6px;padding:1px 6px}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="bar">
+    <div class="brand">
+      <div class="mark"><b>RVM</b><span>LOGIN</span></div>
+      <div class="bname">RVM Login cho Mac</div>
+    </div>
+    <span class="ver">Mac v<span data-mac-version>1.4.1</span> · Beta</span>
+    <span class="sp"></span>
+    <button class="tbtn" id="theme" aria-label="Đổi giao diện sáng/tối" title="Sáng / Tối">◐</button>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Mục lục">
+  <div class="row">
+    <a href="#video">▶ Video</a>
+    <a href="#chip">1. Xem chip</a>
+    <a href="#tai">2. Tải về</a>
+    <a href="#cai">3. Cài</a>
+    <a href="#mo">4. Mở lần đầu</a>
+    <a href="#dangnhap">5. Đăng nhập</a>
+    <a href="#dung">6. Dùng</a>
+    <a href="#quyen">Quyền Trợ năng</a>
+    <a href="#rieng">Riêng trên Mac</a>
+    <a href="#intel">Mac chip Intel</a>
+    <a href="#suco">Sự cố</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <section class="hero" id="gioithieu">
+    <div class="eyebrow">Hướng dẫn cài đặt · macOS 12 trở lên · Mac chip Apple</div>
+    <h1>Cài <span class="tag">RVM Login</span> trên máy Mac</h1>
+    <p class="lead">Làm theo đúng thứ tự dưới đây, khoảng 5 phút là xong. Mọi ảnh trong trang đều <b>chụp thật trên macOS</b>. Bản Mac đủ tính năng như bản Windows: vân tay thiết bị riêng từng kênh, proxy riêng + kill-switch, đồng bộ nhóm, Local API, trợ lý đăng nhập lại, thêm <b>mở khoá bằng Touch ID</b>.</p>
+    <div class="note warn" style="margin-top:14px">⚠️ <b>Chỉ dành cho Mac chip Apple (M1, M2, M3, M4 trở lên).</b> Máy Mac chip Intel (thường là máy mua trước cuối năm 2020) chưa dùng được bản Mac — xem mục <a href="#intel">Mac chip Intel</a> để dùng RVM qua Windows Boot Camp.</div>
+    <div class="vid" id="video">
+      <div class="vh">🎬 Video hướng dẫn cài trên Mac <span data-vlen>2 phút 37 giây</span></div>
+      <div class="vbox"><video id="rvmVideo" controls preload="metadata" playsinline poster="assets/mac/video-poster.jpg"><source src="assets/mac/rvm-mac-huong-dan.mp4" type="video/mp4">Trình duyệt của bạn không phát được video.</video></div>
+      <div class="vchap" id="vchap"></div>
+    </div>
+  </section>
+
+  <section class="block" id="chip">
+    <div class="eyebrow">Bước 1</div>
+    <h2>Xem máy Mac của bạn dùng chip gì</h2>
+    <p class="lead">Bấm biểu tượng <b>quả táo </b> góc trên bên trái → <b>Giới thiệu về máy Mac này</b> (hoặc <b>Cài đặt hệ thống → Cài đặt chung → Giới thiệu</b>).</p>
+    <figure class="shot"><a href="assets/mac/01-chip.jpg" target="_blank" rel="noopener"><img src="assets/mac/01-chip.jpg" alt="Cài đặt hệ thống, mục Giới thiệu: dòng Chip ghi Apple M1" loading="lazy"></a><figcaption>Dòng <b>Chip</b> ghi <b>Apple M…</b> → dùng được bản Mac.</figcaption></figure>
+    <table class="chipt">
+      <tr><th>Máy ghi</th><th>Dùng RVM thế nào</th></tr>
+      <tr><td><b>Chip: Apple M1 / M2 / M3 / M4…</b></td><td>✅ Cài bản Mac theo các bước dưới.</td></tr>
+      <tr><td><b>Bộ xử lý: … Intel Core i5 / i7 / i9…</b></td><td>❌ Bản Mac chưa chạy được (báo lỗi <i>“-86”</i>). Dùng bản Windows qua Boot Camp — <a href="#intel">xem cách làm</a>.</td></tr>
+      <tr><td><b>macOS</b> thấp hơn 12 (Monterey)</td><td>Cập nhật macOS trước: <b>Cài đặt hệ thống → Cài đặt chung → Cập nhật phần mềm</b>.</td></tr>
+    </table>
+  </section>
+
+  <section class="block" id="tai">
+    <div class="eyebrow">Bước 2</div>
+    <h2>Tải bộ cài cho Mac</h2>
+    <p class="lead">Vào <a href="./#mac">rvmlogin.io.vn → mục Mac</a> và bấm <b>Tải cho Mac chip Apple</b>. Tệp tải về tên <b>RVM-Mac-<span data-mac-version>1.4.1</span>-arm64.dmg</b> (khoảng 112 MB), nằm trong thư mục <b>Tải về</b> (Downloads).</p>
+    <div class="cta"><a class="btn primary" data-mac-arm href="./#mac">⬇ Tải RVM cho Mac chip Apple</a></div>
+    <p style="color:var(--muted);font-size:14px;margin-top:10px">Muốn chắc tệp không bị sửa trên đường tải: mã SHA-256 của bộ cài ghi ở trang phát hành; kiểm bằng lệnh <kbd>shasum -a 256 ~/Downloads/RVM-Mac-*.dmg</kbd> trong ứng dụng Terminal.</p>
+  </section>
+
+  <section class="block" id="cai">
+    <div class="eyebrow">Bước 3</div>
+    <h2>Cài: kéo RVM vào thư mục Ứng dụng</h2>
+    <div class="stepcard">
+      <h3><span class="num">1</span>Mở tệp .dmg vừa tải</h3>
+      <p>Bấm đúp tệp <b>RVM-Mac-…-arm64.dmg</b>. Một cửa sổ hiện ra với biểu tượng <b>RVM</b> và thư mục <b>Applications</b>.</p>
+      <figure class="shot"><a href="assets/mac/02-mo-dmg.jpg" target="_blank" rel="noopener"><img src="assets/mac/02-mo-dmg.jpg" alt="Cửa sổ bộ cài: biểu tượng RVM và thư mục Applications" loading="lazy"></a></figure>
+    </div>
+    <div class="stepcard">
+      <h3><span class="num">2</span>Kéo biểu tượng RVM thả vào Applications</h3>
+      <p>Giữ chuột vào <b>RVM</b>, kéo sang thả lên <b>Applications</b>. Chờ vài giây cho chép xong. RVM giờ nằm trong thư mục <b>Ứng dụng</b> và trong <b>Launchpad</b>.</p>
+      <figure class="shot"><a href="assets/mac/03-ung-dung.jpg" target="_blank" rel="noopener"><img src="assets/mac/03-ung-dung.jpg" alt="Thư mục Ứng dụng có RVM" loading="lazy"></a></figure>
+      <p>Xong thì có thể <b>đẩy ổ đĩa</b> “RVM Login” ra (bấm nút ⏏ cạnh tên ổ trong Finder) và xoá tệp .dmg.</p>
+    </div>
+  </section>
+
+  <section class="block" id="mo">
+    <div class="eyebrow">Bước 4 · chỉ làm một lần</div>
+    <h2>Mở lần đầu: cho phép macOS chạy RVM</h2>
+    <p class="lead">RVM chưa mua chứng chỉ nhà phát triển Apple, nên lần đầu macOS chặn lại để hỏi bạn. Đây là cảnh báo mặc định với mọi phần mềm ngoài App Store chưa có chứng chỉ — làm 3 thao tác sau là xong, các lần sau mở bình thường.</p>
+    <div class="stepcard">
+      <h3><span class="num">1</span>Mở RVM → macOS báo chưa kiểm tra được → bấm “Xong”</h3>
+      <p>Mở <b>RVM</b> trong Launchpad (hoặc thư mục Ứng dụng). Hộp thoại báo <i>“Không mở được RVM — Apple không thể xác minh…”</i> → bấm nút xám <b>Xong</b> (<i>Done</i>).</p>
+      <div class="note warn">⚠️ <b>Đừng bấm nút xanh “Chuyển vào Thùng rác”</b> (<i>Move to Trash</i>) và đừng nhấn phím Enter — trên macOS mới, nút xanh mới là nút mặc định. Lỡ bấm: vào Thùng rác, kéo RVM trở lại thư mục Ứng dụng.</div>
+      <figure class="shot"><a href="assets/mac/04-canh-bao.jpg" target="_blank" rel="noopener"><img src="assets/mac/04-canh-bao.jpg" alt="Hộp thoại macOS: RVM Not Opened, nút Move to Trash và Done" loading="lazy"></a><figcaption>Ảnh chụp trên macOS 26 (chữ trong hộp này hiện tiếng Anh trên máy chụp). Máy cài tiếng Việt: nút <b>Chuyển vào Thùng rác</b> (xanh) và <b>Xong</b> (xám) — bấm <b>Xong</b>.</figcaption></figure>
+    </div>
+    <div class="stepcard">
+      <h3><span class="num">2</span>Cài đặt hệ thống → Quyền riêng tư &amp; Bảo mật → “Vẫn mở”</h3>
+      <p>Mở <b>Cài đặt hệ thống</b> (biểu tượng bánh răng) → <b>Quyền riêng tư &amp; Bảo mật</b> ở cột trái → kéo xuống dưới cùng phần <b>Bảo mật</b>, thấy dòng <i>“RVM đã bị chặn…”</i> → bấm <b>Vẫn mở</b>.</p>
+      <figure class="shot"><a href="assets/mac/05-van-mo.jpg" target="_blank" rel="noopener"><img src="assets/mac/05-van-mo.jpg" alt="Quyền riêng tư và Bảo mật: dòng RVM đã bị chặn và nút Vẫn mở" loading="lazy"></a></figure>
+      <p>Không thấy dòng này? Nó chỉ hiện khoảng 1 giờ sau lần mở bị chặn — mở lại RVM một lần (bước 1) rồi vào lại đây.</p>
+    </div>
+    <div class="stepcard">
+      <h3><span class="num">3</span>Xác nhận bằng mật khẩu máy hoặc Touch ID</h3>
+      <p>macOS hỏi lại lần cuối → bấm <b>Vẫn mở</b> → nhập <b>mật khẩu đăng nhập máy Mac</b> (hoặc quét Touch ID). RVM mở ra. Từ giờ mở RVM bình thường, không bị hỏi nữa.</p>
+    </div>
+    <div class="note">🔑 Nếu macOS hỏi mật khẩu <b>Chuỗi khoá</b> (Keychain): nhập mật khẩu máy → bấm <b>Luôn cho phép</b>. RVM cất khoá mã hoá dữ liệu kênh ở đây, không gửi đi đâu.</div>
+  </section>
+
+  <section class="block" id="dangnhap">
+    <div class="eyebrow">Bước 5</div>
+    <h2>Đăng nhập bản quyền (hoặc dùng thử 7 ngày)</h2>
+    <p class="lead">Nhập <b>tài khoản + mật khẩu bản quyền</b> rồi bấm <b>Đăng nhập</b>. Chưa có tài khoản: bấm <b>Dùng thử 7 ngày miễn phí</b>. Một tài khoản dùng chung được cho máy Windows và máy Mac (tính theo số máy đã mua).</p>
+    <figure class="shot"><a href="assets/mac/07-dang-nhap.jpg" target="_blank" rel="noopener"><img src="assets/mac/07-dang-nhap.jpg" alt="Màn hình đăng nhập bản quyền RVM trên Mac" loading="lazy"></a><figcaption>Tích <b>Lưu đăng nhập</b> để lần sau tự vào. Ô <b>Mã máy</b> dùng khi nhà cung cấp cần kích hoạt bản quyền cho máy này.</figcaption></figure>
+  </section>
+
+  <section class="block" id="dung">
+    <div class="eyebrow">Bước 6</div>
+    <h2>Dùng RVM trên Mac</h2>
+    <p class="lead">Giao diện và các nút giống hệt bản Windows — xem <a href="huong-dan.html#giaodien">hướng dẫn từng nút</a>. Trên Mac chỉ khác phím tắt dùng <kbd>⌘</kbd> thay cho <kbd>Ctrl</kbd>.</p>
+    <figure class="shot"><a href="assets/mac/08-man-hinh-chinh.jpg" target="_blank" rel="noopener"><img src="assets/mac/08-man-hinh-chinh.jpg" alt="Màn hình chính RVM trên Mac với danh sách kênh" loading="lazy"></a><figcaption>Mỗi dòng là một kênh = một “máy riêng”. Bấm <b>+ Tạo profile</b> để thêm kênh, gắn proxy ở tab Proxy.</figcaption></figure>
+    <div class="stepcard">
+      <h3><span class="num">✓</span>Lần đầu bấm “Khởi động”: RVM tự tải trình duyệt chống phát hiện</h3>
+      <p>Lần đầu tiên mở một kênh, RVM tải trình duyệt riêng khoảng <b>140 MB</b> (chỉ một lần). Chờ thanh tiến độ chạy xong, cửa sổ kênh mở ra.</p>
+      <figure class="shot"><a href="assets/mac/09-tai-engine.jpg" target="_blank" rel="noopener"><img src="assets/mac/09-tai-engine.jpg" alt="RVM đang tải trình duyệt chống phát hiện lần đầu" loading="lazy"></a></figure>
+      <figure class="shot"><a href="assets/mac/10-kenh-mo.jpg" target="_blank" rel="noopener"><img src="assets/mac/10-kenh-mo.jpg" alt="Cửa sổ trình duyệt của kênh mở trên Mac" loading="lazy"></a><figcaption>Cửa sổ kênh mở trang đăng nhập Google — đăng nhập kênh như bình thường, rồi bấm <b>Tự kiểm</b> để xem vân tay và IP đã đúng chưa.</figcaption></figure>
+    </div>
+    <div class="stepcard">
+      <h3><span class="num">✓</span>Cài tiện ích (vidIQ, TubeBuddy…)</h3>
+      <p>Bấm <b>Tiện ích</b> trên dòng kênh → dán link Cửa hàng Chrome bằng <kbd>⌘</kbd><kbd>V</kbd> → bấm nút đỏ. Chi tiết ở <a href="huong-dan.html#tien-ich">hướng dẫn cài tiện ích</a>.</p>
+      <figure class="shot"><a href="assets/mac/11-tien-ich.jpg" target="_blank" rel="noopener"><img src="assets/mac/11-tien-ich.jpg" alt="Hộp Cài tiện ích trên Mac, phím tắt Command V" loading="lazy"></a></figure>
+    </div>
+  </section>
+
+  <section class="block" id="quyen">
+    <div class="eyebrow">Tuỳ chọn</div>
+    <h2>Bật quyền cho “Trợ lý đăng nhập lại”</h2>
+    <p class="lead">Trợ lý tự dán email, mật khẩu, mã 2FA vào cửa sổ kênh giúp bạn. Trên Mac cần cho RVM 2 quyền (làm một lần):</p>
+    <ol class="steps">
+      <li><b>Trợ năng</b><span class="d">Lần đầu dùng trợ lý, macOS hỏi → bấm <b>Mở Cài đặt hệ thống</b> → bật công tắc cạnh <b>RVM</b> trong <b>Quyền riêng tư &amp; Bảo mật → Trợ năng</b>.</span></li>
+      <li><b>Tự động hoá</b><span class="d">macOS hỏi “RVM muốn điều khiển System Events” → bấm <b>Cho phép</b>. Lỡ bấm “Không cho phép”: vào <b>Quyền riêng tư &amp; Bảo mật → Tự động hoá → RVM</b> → bật <b>System Events</b>.</span></li>
+      <li><b>Mở lại RVM</b><span class="d">Bấm <kbd>⌘</kbd><kbd>Q</kbd> rồi mở lại để quyền mới có hiệu lực.</span></li>
+    </ol>
+  </section>
+
+  <section class="block" id="rieng">
+    <div class="eyebrow">Khác với bản Windows</div>
+    <h2>Những điểm riêng trên Mac</h2>
+    <figure class="shot"><a href="assets/mac/12-menu.jpg" target="_blank" rel="noopener"><img src="assets/mac/12-menu.jpg" alt="Menu RVM tiếng Việt trên thanh menu macOS" loading="lazy"></a><figcaption>Menu tiếng Việt trên thanh menu: RVM · Sửa · Cửa sổ · Trợ giúp.</figcaption></figure>
+    <ul class="check" style="margin-top:12px">
+      <li><span class="tick">✓</span><span><b>Nút đỏ chỉ ẩn cửa sổ</b> — các kênh đang mở vẫn chạy. Số kênh đang mở hiện trên biểu tượng RVM ở Dock. Bấm biểu tượng Dock để hiện lại.</span></li>
+      <li><span class="tick">✓</span><span><b>Thoát hẳn</b> bằng <kbd>⌘</kbd><kbd>Q</kbd> — nếu còn kênh đang mở, RVM hỏi lại trước khi đóng.</span></li>
+      <li><span class="tick">✓</span><span><b>Touch ID</b>: vào <b>Tài khoản &amp; bảo mật</b>, bật <i>“Mở RVM phải quét Touch ID”</i> — người khác mở máy cũng không vào được kênh.</span></li>
+      <li><span class="tick">✓</span><span><b>Cập nhật</b>: khi có bản mới, RVM mở trang tải → tải tệp .dmg mới → kéo vào Applications → chọn <b>Thay thế</b>. Kênh và dữ liệu giữ nguyên.</span></li>
+      <li><span class="tick">✓</span><span><b>Kênh tạo trên máy Windows</b> mang vân tay Windows: mở trên Mac vẫn chạy nhưng RVM sẽ nhắc. Kênh quan trọng nên mở trên đúng loại máy đã tạo; kênh mới làm trên Mac thì tạo ngay trên Mac.</span></li>
+    </ul>
+  </section>
+
+  <section class="block" id="intel">
+    <div class="eyebrow">Máy Mac chip Intel</div>
+    <h2>Mac chip Intel: dùng RVM bản Windows qua Boot Camp</h2>
+    <p class="lead">Trình duyệt chống phát hiện mà RVM dùng <b>chưa có bản cho Mac chip Intel</b>, nên bản Mac báo lỗi <i>“spawn Unknown system error -86”</i> khi mở kênh. Máy Mac Intel vẫn dùng RVM tốt bằng cách cài thêm Windows (Boot Camp — công cụ có sẵn của Apple), khởi động vào Windows rồi cài RVM bản Windows.</p>
+    <div class="note warn">Trước khi làm: <b>sao lưu máy</b> (Time Machine) · máy cần <b>còn trống ít nhất 64 GB</b> (nên 100 GB) · cắm sạc · cần một tệp ISO Windows 10 64-bit. Boot Camp chỉ có trên Mac chip Intel.</div>
+    <ol class="steps" style="margin-top:14px">
+      <li><b>Tải tệp ISO Windows 10 (64-bit)</b><span class="d">Tại trang chính thức <a href="https://www.microsoft.com/vi-vn/software-download/windows10ISO" target="_blank" rel="noopener">microsoft.com/software-download/windows10ISO</a> → chọn phiên bản → ngôn ngữ → <b>64-bit Download</b> (khoảng 6 GB). Máy Mac Intel đời 2018–2020 hợp với Windows 10.</span></li>
+      <li><b>Mở Trợ lý Boot Camp</b><span class="d"><b>Finder → Ứng dụng → Tiện ích → Trợ lý Boot Camp</b> → <b>Tiếp tục</b>.</span></li>
+      <li><b>Chọn tệp ISO và chia dung lượng</b><span class="d">Bấm <b>Chọn…</b> trỏ tới tệp ISO vừa tải. Kéo vạch chia để phần Windows <b>ít nhất 64 GB</b> → bấm <b>Cài đặt</b>, nhập mật khẩu máy. Mac tự chia ổ và khởi động lại.</span></li>
+      <li><b>Cài Windows</b><span class="d">Làm theo trình cài Windows: chọn ngôn ngữ → “Tôi không có khoá sản phẩm” (kích hoạt sau) → chọn bản Windows → chọn đúng phân vùng <b>BOOTCAMP</b> (đã được chọn sẵn) → chờ cài xong.</span></li>
+      <li><b>Cài trình điều khiển Boot Camp</b><span class="d">Vào Windows lần đầu, trình cài <b>Boot Camp</b> tự hiện → bấm <b>Next / Install</b> để có đủ Wi-Fi, bàn phím, trackpad, âm thanh → khởi động lại.</span></li>
+      <li><b>Cài RVM Login bản Windows</b><span class="d">Trong Windows, vào <a href="./">rvmlogin.io.vn</a> → tải <b>RVM-Setup-<span data-version>1.3.3</span>.exe</b> → cài và đăng nhập bản quyền như máy Windows bình thường (<a href="huong-dan.html#caidat">xem hướng dẫn</a>).</span></li>
+      <li><b>Chuyển qua lại macOS ↔ Windows</b><span class="d">Khởi động lại máy, <b>giữ phím Option (⌥)</b> ngay khi máy bật → chọn ổ <b>Macintosh HD</b> hoặc <b>Boot Camp</b>.</span></li>
+    </ol>
+    <p style="color:var(--muted);font-size:14px;margin-top:12px">Hướng dẫn gốc của Apple: <a href="https://support.apple.com/vi-vn/102622" target="_blank" rel="noopener">Cài đặt Windows trên máy Mac bằng Boot Camp</a>. Không muốn khởi động lại mỗi lần? Có thể chạy Windows trong máy ảo (Parallels Desktop, VMware Fusion) ngay trên macOS — tiện hơn nhưng nặng máy hơn.</p>
+  </section>
+
+  <section class="block" id="suco">
+    <div class="eyebrow">Hỏi nhanh</div>
+    <h2>Xử lý sự cố trên Mac</h2>
+    <details><summary>Bấm Khởi động / Tự kiểm báo “spawn Unknown system error -86”</summary><div class="ans">Máy là <b>Mac chip Intel</b> — trình duyệt chống phát hiện chưa có bản cho chip Intel. Từ bản 1.4.1, RVM báo rõ điều này ngay khi mở app. Cách dùng RVM trên máy này: <a href="#intel">cài Windows bằng Boot Camp</a>.</div></details>
+    <details><summary>macOS báo “Không thể mở RVM vì Apple không thể kiểm tra…”</summary><div class="ans">Bình thường với phần mềm chưa có chứng chỉ Apple. Làm theo <a href="#mo">Bước 4</a>: bấm <b>Xong</b> → <b>Cài đặt hệ thống → Quyền riêng tư &amp; Bảo mật → Vẫn mở</b>. Chỉ làm một lần.</div></details>
+    <details><summary>Không thấy nút “Vẫn mở” trong Quyền riêng tư &amp; Bảo mật</summary><div class="ans">Nút chỉ hiện khoảng 1 giờ sau lần RVM bị chặn. Mở RVM lại một lần (để macOS chặn), rồi vào ngay <b>Quyền riêng tư &amp; Bảo mật</b>, kéo xuống dưới cùng.</div></details>
+    <details><summary>macOS báo “RVM bị hỏng, nên chuyển vào Thùng rác”</summary><div class="ans">Thường do tệp tải về bị lỗi giữa chừng. Xoá RVM trong thư mục Ứng dụng và tệp .dmg, tải lại bộ cài từ <a href="./#mac">rvmlogin.io.vn</a> rồi cài lại. Vẫn bị: liên hệ hỗ trợ qua Zalo.</div></details>
+    <details><summary>Lần đầu Khởi động kênh chờ lâu</summary><div class="ans">RVM đang tải trình duyệt chống phát hiện (~140 MB, một lần). Mạng chậm có thể mất vài phút. Báo lỗi tải: kiểm tra mạng rồi bấm Khởi động lại — phần đã tải đúng không phải tải lại.</div></details>
+    <details><summary>Trợ lý đăng nhập lại không dán được</summary><div class="ans">Chưa cấp quyền <b>Trợ năng</b> và <b>Tự động hoá</b> cho RVM — làm theo mục <a href="#quyen">Bật quyền</a>, rồi <kbd>⌘</kbd><kbd>Q</kbd> mở lại RVM.</div></details>
+    <details><summary>Bấm nút đỏ rồi mà kênh vẫn chạy?</summary><div class="ans">Đúng thiết kế: trên Mac nút đỏ chỉ ẩn cửa sổ RVM để kênh chạy tiếp. Muốn tắt hẳn: <kbd>⌘</kbd><kbd>Q</kbd> (RVM hỏi lại nếu còn kênh đang mở), hoặc bấm <b>Dừng</b> từng kênh.</div></details>
+    <details><summary>Gỡ RVM khỏi máy Mac</summary><div class="ans">Thoát RVM (<kbd>⌘</kbd><kbd>Q</kbd>) → kéo <b>RVM</b> trong thư mục Ứng dụng vào Thùng rác. Dữ liệu kênh (đã mã hoá) nằm ở thư mục <kbd>~/.rvm</kbd> — giữ lại nếu sẽ cài lại, xoá nếu muốn bỏ hẳn.</div></details>
+  </section>
+
+</div>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="fmark"><div class="mark"><b>RVM</b><span>LOGIN</span></div><div class="big">RVM Login</div></div>
+    <p style="color:var(--muted);max-width:420px;margin:0 auto">Cần hỗ trợ cài trên Mac? Liên hệ ngay:</p>
+    <div class="contacts">
+      <a href="https://zalo.me/0918637699" target="_blank" rel="noopener">💬 Zalo 0918 637 699</a>
+      <a href="huong-dan.html">📘 Hướng dẫn đầy đủ</a>
+      <a href="https://rvmlogin.io.vn/" target="_blank" rel="noopener">🌐 rvmlogin.io.vn</a>
+    </div>
+    <small>RVM Login cho Mac v<span data-mac-version>1.4.1</span> (Beta) · Mac chip Apple · macOS 12 trở lên</small>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement, btn=document.getElementById('theme');
+  function sysDark(){try{return matchMedia('(prefers-color-scheme:dark)').matches;}catch(e){return false;}}
+  function cur(){var t=root.getAttribute('data-theme');return t?t:(sysDark()?'dark':'light');}
+  function apply(t){root.setAttribute('data-theme',t);try{localStorage.setItem('rvm-theme',t);}catch(e){}btn.textContent=(t==='dark')?'☀':'◐';}
+  try{var s=localStorage.getItem('rvm-theme');if(s)root.setAttribute('data-theme',s);}catch(e){}
+  btn.textContent=(cur()==='dark')?'☀':'◐';
+  btn.addEventListener('click',function(){apply(cur()==='dark'?'light':'dark');});
+})();
+</script>
+<script src="assets/config.js"></script>
+<script>
+try{
+  var C=window.RVM||{}, M=C.mac||{};
+  if(C.version)document.querySelectorAll('[data-version]').forEach(function(e){e.textContent=C.version;});
+  if(M.version)document.querySelectorAll('[data-mac-version]').forEach(function(e){e.textContent=M.version;});
+  if(M.arm64)document.querySelectorAll('[data-mac-arm]').forEach(function(a){a.href=M.arm64;});
+}catch(e){}
+window.RVM_MAC_CHAP=[{"t":0,"n":"Giới thiệu"},{"t":10,"n":"Bước 1 · Xem chip máy"},{"t":26,"n":"Bước 2 · Tải về"},{"t":39,"n":"Bước 3 · Cài đặt"},{"t":52,"n":"Bước 4 · Mở lần đầu"},{"t":87,"n":"Bước 5 · Đăng nhập"},{"t":98,"n":"Bước 6 · Sử dụng"},{"t":125,"n":"Riêng trên Mac"},{"t":138,"n":"Mac chip Intel"}];
+(function(){var v=document.getElementById('rvmVideo'),c=document.getElementById('vchap');if(!v||!c)return;
+  var CH=window.RVM_MAC_CHAP||[];c.innerHTML=CH.map(function(x){var m=Math.floor(x.t/60),s=String(Math.floor(x.t%60)).padStart(2,'0');return '<button type="button" data-t="'+x.t+'"><b>'+m+':'+s+'</b>'+x.n+'</button>';}).join('');
+  var bs=[].slice.call(c.querySelectorAll('button'));
+  c.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;v.currentTime=+b.dataset.t;v.play();});
+  v.addEventListener('timeupdate',function(){var t=v.currentTime,cur=null;bs.forEach(function(b){if(t>=+b.dataset.t-.5)cur=b;});bs.forEach(function(b){b.classList.toggle('on',b===cur);});});})();
+</script>
+</body>
+</html>

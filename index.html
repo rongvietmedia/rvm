@@ -73,6 +73,7 @@
         <span class="chip">🌐 Proxy <b>vmess / ss / trojan</b></span>
         <span class="chip">🔒 Dữ liệu mã hoá</span>
         <span class="chip">🪟 Windows 10/11</span>
+        <span class="chip" data-mac-only style="display:none">🍎 macOS 12+ (chip Apple M1 trở lên)</span>
       </div>
       <div class="refbar" id="refbar"></div>
     </div>
@@ -265,6 +266,38 @@ v.addEventListener('timeupdate',function(){var t=v.currentTime,cur=null;bs.forEa
   </div>
 </section>
 
+<!-- BẢN macOS (ẩn tới khi config.js có khoá mac) -->
+<section class="sec alt" id="mac" data-mac-only style="display:none">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow">🍎 RVM Login cho Mac · v<span data-mac-version></span> · bản Beta</span>
+      <h2 class="title">Làm kênh trên MacBook, iMac — đủ tính năng như bản Windows</h2>
+      <p class="lead">Vân tay thiết bị giả ngay trong lõi trình duyệt, proxy riêng từng kênh, đồng bộ nhóm, đồng bộ thao tác, Local API, trợ lý đăng nhập lại, tự kiểm sức khoẻ kênh — và thêm <b>mở khoá bằng Touch ID</b>. Bản quyền tính theo máy — máy Windows hay máy Mac đều đăng nhập chung một tài khoản.</p>
+      <div style="margin-top:24px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a class="btn btn-p" data-mac-arm href="#">⬇ Tải cho Mac chip Apple (M1 trở lên)</a>
+        <a class="btn btn-g" href="huong-dan-mac.html">▶ Xem hướng dẫn cài trên Mac (có video)</a>
+      </div>
+      <p class="small" style="margin-top:10px">Không biết máy chip gì? Bấm biểu tượng quả táo góc trái trên → <b>Giới thiệu về máy Mac này</b> → dòng <b>Chip</b> phải là <b>Apple M…</b>. Máy Mac chip Intel (dòng <b>Bộ xử lý</b> ghi Intel) <b>chưa dùng được bản Mac</b> vì trình duyệt chống phát hiện chưa có bản cho chip Intel — hãy <a href="huong-dan-mac.html#intel">cài Windows bằng Boot Camp</a> rồi dùng bản Windows. Cần macOS 12 Monterey trở lên.</p>
+    </div>
+    <div class="two">
+      <div class="box g reveal"><h3>📥 Cài trong 1 phút</h3><ol style="padding-left:18px;line-height:1.7">
+        <li>Mở tệp <b>.dmg</b> vừa tải → kéo biểu tượng <b>RVM</b> vào thư mục <b>Applications</b>.</li>
+        <li>Mở <b>RVM</b> trong Launchpad. Lần đầu macOS báo <i>"chưa xác minh được nhà phát triển"</i> → bấm <b>Xong</b>.</li>
+        <li>Mở <b>Cài đặt hệ thống → Quyền riêng tư &amp; Bảo mật</b> → kéo xuống dòng <i>"RVM bị chặn"</i> → bấm <b>Vẫn mở</b> → nhập mật khẩu máy.</li>
+        <li>Đăng nhập bản quyền hoặc bấm <b>Dùng thử 7 ngày</b>. Lần đầu bấm Khởi động kênh, RVM tự tải trình duyệt anti-detect (~140 MB).</li>
+      </ol><p class="small">Chỉ phải "Vẫn mở" một lần. Hỏi mật khẩu <b>Chuỗi khoá</b> → nhập mật khẩu máy → <b>Luôn cho phép</b> (RVM cất khoá mã hoá dữ liệu ở đây).</p></div>
+      <div class="box b reveal"><h3>✨ Riêng trên Mac</h3><ul>
+        <li><b>Touch ID</b>: bật "Mở RVM phải quét Touch ID" — máy cho mượn, người khác mở app cũng không vào được kênh</li>
+        <li><b>Đóng cửa sổ, kênh vẫn chạy</b>: nút đỏ chỉ ẩn RVM; số kênh đang mở hiện ngay trên biểu tượng Dock</li>
+        <li><b>Menu tiếng Việt</b> chuẩn Mac, dùng ⌘C / ⌘V / ⌘Q quen tay</li>
+        <li><b>Trợ lý đăng nhập lại</b> dán email, mật khẩu, mã 2FA hộ bạn (bật quyền Trợ năng cho RVM một lần)</li>
+        <li>Bản riêng cho <b>chip Apple</b> chạy thẳng, không qua Rosetta — nhẹ, mát máy</li>
+      </ul></div>
+    </div>
+    <div class="note w reveal"><b>Lưu ý:</b> kênh tạo trên máy Windows mang vân tay Windows. Mở trên Mac vẫn chạy, nhưng kênh quan trọng nên mở trên đúng loại máy đã tạo; kênh mới làm trên Mac thì tạo ngay trên Mac. Cập nhật bản Mac: tải tệp .dmg mới → kéo vào Applications → chọn <b>Thay thế</b> (kênh và dữ liệu giữ nguyên).</div>
+  </div>
+</section>
+
 <!-- BẢNG GIÁ -->
 <section class="sec" id="bang-gia">
   <div class="wrap">
@@ -319,7 +352,7 @@ v.addEventListener('timeupdate',function(){var t=v.currentTime,cur=null;bs.forEa
     <div class="faq">
       <details><summary>RVM có phải trình duyệt anti-detect không?</summary><p>Có. Từ bản v<span data-version></span>, RVM gán cho mỗi kênh một <b>bộ vân tay thiết bị riêng</b> (trình duyệt, card màn hình/WebGL, số nhân, RAM, màn hình, múi giờ…) — website nhìn mỗi kênh như một máy tính khác nhau. Vân tay được tiêm theo cách <b>giữ nguyên sandbox</b> của Chrome (an toàn, không hạ bảo mật). Ngoài vân tay, RVM còn tách riêng <b>cookie, phiên đăng nhập và IP</b> cho từng kênh. Dù vậy, không phần mềm nào — kể cả anti-detect — đảm bảo kênh an toàn 100%; giữ từng kênh sạch chính sách vẫn là điều quan trọng nhất.</p></details>
       <details><summary>“Tự kiểm” là gì?</summary><p>Là nút kiểm tra ngay trong RVM. Bấm vào, RVM mở một trang cho bạn thấy <b>web nhìn thấy gì</b> ở kênh này: vân tay thiết bị có “khớp” với bộ máy đã gán không, IP công khai có đúng là IP của proxy không, có bị rò WebRTC (lộ IP thật) không. Tất cả báo xanh là yên tâm mỗi kênh đang là một máy riêng.</p></details>
-      <details><summary>RVM chạy trên máy nào?</summary><p>Windows 10 và Windows 11 bản 64-bit. Cài thẳng lên máy bạn đang dùng, không cần máy ảo hay cấu hình phức tạp. <b>Không cần cài sẵn Google Chrome</b> — lần đầu bấm Khởi động một kênh, RVM tự tải trình duyệt anti-detect riêng (khoảng 185 MB, một lần duy nhất). Hiện chưa có bản macOS.</p></details>
+      <details><summary>RVM chạy trên máy nào?</summary><p>Windows 10 và Windows 11 bản 64-bit. Cài thẳng lên máy bạn đang dùng, không cần máy ảo hay cấu hình phức tạp. <b>Không cần cài sẵn Google Chrome</b> — lần đầu bấm Khởi động một kênh, RVM tự tải trình duyệt anti-detect riêng (khoảng 185 MB, một lần duy nhất).<span data-mac-hide> Hiện chưa có bản macOS.</span><span data-mac-only style="display:none"> <b>Có bản macOS</b> (macOS 12 trở lên, máy Mac chip Apple M1 trở lên — chưa hỗ trợ Mac chip Intel) — đủ tính năng như bản Windows, thêm mở khoá bằng Touch ID. Xem mục <a href="#mac" style="color:var(--acc2)"><b>RVM cho Mac</b></a>.</span></p></details>
       <details><summary>Một máy chạy được bao nhiêu kênh?</summary><p>Phần mềm không giới hạn số hồ sơ. Giới hạn thật nằm ở RAM của máy, vì mỗi kênh đang mở là một cửa sổ trình duyệt thật. Máy phổ thông chạy êm vài kênh cùng lúc; nhiều hơn thì mở luân phiên.</p></details>
       <details><summary>RVM hỗ trợ loại proxy nào?</summary><p>HTTP, SOCKS5 (có mật khẩu) và các giao thức <b>vmess / vless / shadowsocks (ss) / trojan</b> — hợp với proxy hay dùng ở Việt Nam. Mỗi kênh gắn một proxy riêng; RVM kiểm tra proxy một chạm và tự lấy múi giờ theo IP của proxy. Proxy mua riêng để bạn chọn nhà cung cấp và quốc gia phù hợp.</p></details>
       <details><summary>Làm kênh nhắm khán giả Mỹ thì dùng Gmail và proxy thế nào cho đúng?</summary><p>Gmail không có “quốc tịch” — điều quan trọng là <b>danh tính phải thật</b>. Tạo Gmail bằng số điện thoại thật của bạn, bật xác minh 2 bước. Trong YouTube Studio và AdSense, khai <b>đúng quốc gia cư trú, tên, địa chỉ</b>; người ở Việt Nam khai mẫu thuế <b>W-8BEN</b>. Khai giả là người Mỹ thường dẫn tới bị giữ tiền hoặc tắt kiếm tiền.<br><br>Khán giả Mỹ đến từ <b>nội dung</b>: làm video, tiêu đề, mô tả, phụ đề bằng tiếng Anh, đặt ngôn ngữ video là English, đăng vào giờ người Mỹ hay xem. Nếu dùng proxy Mỹ thì mỗi kênh một proxy Mỹ cố định ngay từ đầu, không nhảy qua lại giữa IP Việt và IP Mỹ — RVM sẽ tự khớp múi giờ theo proxy.</p></details>

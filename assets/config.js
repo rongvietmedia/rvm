@@ -15,6 +15,13 @@ window.RVM = {
   version: '1.3.3',
   download: 'https://raw.githubusercontent.com/rongvietmedia/rvm-release/main/RVM-Setup-1.3.3.exe',
 
+  // Bản Mac (chỉ chip Apple M1 trở lên). Tệp .dmg > 100MB nên nằm ở GitHub Releases (tag mac-x.y.z) của rvm-release.
+  // Phát hành bản Mac mới: chạy C:\Users\RVM\tools\phat-hanh-mac.ps1 rồi sửa 2 dòng dưới.
+  mac: {
+    version: '1.4.1',
+    arm64: 'https://github.com/rongvietmedia/rvm-release/releases/download/mac-1.4.1/RVM-Mac-1.4.1-arm64.dmg'
+  },
+
   // Giá theo MÁY (mỗi máy 1 bản quyền). Giá gốc dùng để hiện "tiết kiệm %".
   plans: [
     { id: 'm1', name: '1 tháng', months: 1,  price: 180000,  tag: 'Vào nhẹ, thử thực tế' },

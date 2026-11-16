@@ -67,6 +67,17 @@
     $$('[data-hotline]').forEach((el) => { el.textContent = C.hotline; });
     $$('[data-download]').forEach((a) => { a.href = C.download; });
     $$('[data-version]').forEach((el) => { el.textContent = C.version; });
+    // Bản macOS: chỉ hiện khi config.js có khoá mac (điền lúc phát hành bản Mac). Chưa có → giữ ẩn, không lộ link hỏng.
+    // Chỉ Mac chip Apple (engine Mac chưa có bản chip Intel — 16/11/2026).
+    if (C.mac && C.mac.arm64) {
+      $$('[data-mac-only]').forEach((el) => { el.style.display = ''; });
+      $$('[data-mac-hide]').forEach((el) => { el.style.display = 'none'; });
+      $$('[data-mac-arm]').forEach((a) => { a.href = C.mac.arm64; });
+      $$('[data-mac-version]').forEach((el) => { el.textContent = C.mac.version || C.version; });
+      // Khách vào bằng máy Mac: nút "Tải RVM" dẫn tới mục chọn bản Mac.
+      const isMac = /Mac/i.test(navigator.platform || '') || /Mac OS X/.test(navigator.userAgent || '');
+      if (isMac) $$('[data-download]').forEach((a) => { a.href = '#mac'; });
+    }
     if (C.plans && C.plans.length) { const mp = money(Math.min(...C.plans.map((p) => p.price))); $$('[data-minprice]').forEach((el) => { el.textContent = mp; }); }
     $$('[data-commission]').forEach((el) => { el.textContent = C.commission + '%'; });
     $$('[data-refdays]').forEach((el) => { el.textContent = C.refDays; });
