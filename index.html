@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>RVM — Mỗi kênh YouTube một máy tính riêng (anti-detect)</title>
-<meta name="description" content="RVM gán cho mỗi kênh YouTube một vân tay thiết bị riêng, một proxy cố định (HTTP/SOCKS5/vmess/ss/trojan) và dữ liệu mã hoá. Website nhìn mỗi kênh như một máy khác nhau. Quản lý hàng chục kênh trên một máy. Gói 1 tháng 180.000đ · gói năm chỉ 60.000đ/tháng · gói 3 năm ~39.000đ/tháng.">
+<meta name="description" content="RVM gán cho mỗi kênh YouTube một vân tay thiết bị riêng, một proxy cố định (HTTP/SOCKS5/vmess/ss/trojan) và dữ liệu mã hoá. Website nhìn mỗi kênh như một máy khác nhau. Quản lý hàng chục kênh trên một máy. Gói 1 tháng 180.000đ tặng thêm 1 tháng · gói năm 720.000đ tặng thêm 6 tháng (40.000đ/tháng) · gói 3 năm ~39.000đ/tháng.">
 <meta property="og:title" content="RVM — Mỗi kênh YouTube một máy tính riêng">
 <meta property="og:description" content="Anti-detect thật: vân tay thiết bị riêng + proxy riêng + kill-switch + tự kiểm 1 chạm. Quản lý nhiều kênh YouTube gọn và an toàn hơn.">
 <meta property="og:type" content="website">
@@ -509,7 +509,7 @@ v.addEventListener('timeupdate',function(){var t=v.currentTime,cur=null;bs.forEa
       <h3>${U.esc(p.name)}</h3><div class="tag">${U.esc(p.tag || '')}</div>
       ${pr ? `<div class="tag" style="color:var(--acc,#e23b3b);font-weight:700">🎁 ${U.esc(pr.label)} — dùng ${totalMonths(p)} tháng (đến ${untilTxt(pr)})</div>` : ''}
       <div class="price">${U.money(p.price)}</div>
-      <div class="per">${p.months > 1 ? '≈ ' + U.money(perMonth(p)) + ' / tháng · 1 máy' : '/ 1 máy / tháng'}</div>
+      <div class="per">${totalMonths(p) > 1 ?'≈ ' + U.money(perMonth(p)) + ' / tháng · 1 máy' : '/ 1 máy / tháng'}</div>
       <div>${save(p) > 0 ? `<span class="save">Tiết kiệm ${save(p)}%</span>` : '<span class="save" style="visibility:hidden">.</span>'}</div>
       <ul>${(feats[p.id] || []).map((f) => `<li>${U.esc(f)}</li>`).join('')}</ul>
       <button class="btn ${p.best ? 'btn-p' : 'btn-g'} btn-block" data-open="order" data-plan="${p.id}">Chọn gói này</button>

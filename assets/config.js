@@ -33,7 +33,8 @@ window.RVM = {
   // Khuyến mãi TẶNG THỜI HẠN — PHẢI khớp CFG.PROMOS trong website-backend/Code.gs.
   // Triển khai Code.gs TRƯỚC rồi mới đẩy web (kẻo khách thấy KM mà máy chủ chưa tặng).
   promos: {
-    y1: { bonus: 3, until: '2026-12-31', label: 'Tặng thêm 3 tháng' }
+    m1: { bonus: 1, until: '2026-12-31', label: 'Tặng thêm 1 tháng' },
+    y1: { bonus: 6, until: '2026-12-31', label: 'Tặng thêm 6 tháng' }
   },
   // Gói Đội: gợi ý mua sẵn số máy (giảm theo số lượng do máy chủ tính: 3–9 máy −10%, từ 10 máy −20%).
   team: { machines: 10, plan: 'y1' },
