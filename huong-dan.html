@@ -216,11 +216,13 @@ details .ans b{color:var(--ink)}
     <h1>Mỗi profile là <span class="tag">một máy tính riêng</span></h1>
     <p class="lead">RVM Login là phần mềm quản lý nhiều kênh YouTube an toàn trên một máy. Mỗi profile có vân tay thiết bị riêng (anti-detect), proxy riêng + kill-switch và dữ liệu mã hoá — để một kênh bay màu <b>không</b> kéo cả chùm die theo.</p>
     <div class="cta">
-      <a class="btn primary" href="./" target="_blank" rel="noopener">Tải phần mềm →</a>
+      <a class="btn primary" data-download href="./" target="_blank" rel="noopener">⬇ Tải cho Windows v<span data-version>1.3.3</span></a>
+      <a class="btn primary" data-mac-arm href="huong-dan-mac.html#tai">🍎 Tải cho Mac v<span data-mac-version>1.4.1</span> (chip Apple M1+)</a>
       <a class="btn ghost" href="#caidat">Xem cách cài đặt</a>
+      <a class="btn ghost" href="huong-dan-mac.html#video">▶ Video hướng dẫn cài trên Mac</a>
     </div>
     <div class="vid" id="video">
-      <div class="vh">🎬 Xem video hướng dẫn <span>8 phút</span></div>
+      <div class="vh">🎬 Xem video hướng dẫn (Windows) <span>8 phút</span> <a href="huong-dan-mac.html#video" style="margin-left:auto;font-size:.9em">🍎 Video cài trên Mac →</a></div>
       <div class="vbox"><video id="rvmVideo" controls preload="metadata" playsinline poster="assets/rvm-video-poster.jpg"><source src="assets/rvm-huong-dan.mp4" type="video/mp4">Trình duyệt của bạn không phát được video.</video></div>
       <div class="vchap" id="vchap">
         <button type="button" data-t="0"><b>0:00</b>Vì sao kênh die chùm</button>
@@ -480,6 +482,6 @@ details .ans b{color:var(--ink)}
 </script>
 <!-- Lấy version + link tải TỪ config.js (dùng chung với trang chủ) → không bao giờ lệch version nữa -->
 <script src="assets/config.js"></script>
-<script>try{var V=(window.RVM||{}).version||'';if(V)document.querySelectorAll('[data-version]').forEach(function(e){e.textContent=V;});var D=(window.RVM||{}).download;if(D)document.querySelectorAll('[data-download]').forEach(function(a){a.href=D;});}catch(e){}</script>
+<script>try{var V=(window.RVM||{}).version||'';if(V)document.querySelectorAll('[data-version]').forEach(function(e){e.textContent=V;});var D=(window.RVM||{}).download;if(D)document.querySelectorAll('[data-download]').forEach(function(a){a.href=D;a.removeAttribute('target');});var M=(window.RVM||{}).mac;if(M&&M.arm64){document.querySelectorAll('[data-mac-arm]').forEach(function(a){a.href=M.arm64;});document.querySelectorAll('[data-mac-version]').forEach(function(e){e.textContent=M.version||V;});}}catch(e){}</script>
 </body>
 </html>
