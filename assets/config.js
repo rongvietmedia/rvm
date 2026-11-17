@@ -39,6 +39,15 @@ window.RVM = {
   // Gói Đội: gợi ý mua sẵn số máy (giảm theo số lượng do máy chủ tính: 3–9 máy −10%, từ 10 máy −20%).
   team: { machines: 10, plan: 'y1' },
 
+  // Đo lường (assets/tracking.js). Để trống = tắt, không gửi gì.
+  // ga4: mã đo lường GA4 dạng 'G-XXXXXXXXXX' · pixel: ID Meta Pixel (dãy số)
+  ga4: '',
+  pixel: '',
+
+  // Khung chat AI 24/7 (assets/chat.js) — URL máy chủ bot (Cloudflare Worker, xem RVM/chatbot-ai).
+  // Để trống = không hiện khung chat. VD: 'https://rvm-bot.<tên>.workers.dev'
+  chatApi: 'https://rvm-bot.rvmlogin.workers.dev',
+
   // Chương trình đối tác
   commission: 40,       // % hoa hồng mặc định trên mỗi đơn ĐÃ THANH TOÁN
   refDays: 60,          // khách bấm link giới thiệu được ghi nhận trong bao nhiêu ngày
